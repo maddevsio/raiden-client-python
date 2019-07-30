@@ -21,8 +21,14 @@ class Request:
         verify_status_code(response.status_code)
         return response.json()
 
-    def put(self, uri:str) -> Dict[str, str]:
-        url = "".join([self.endpoint, uri])
-        response = requests.put(url)
+    def put(self, uri: str, payload: Dict = None) -> Dict[str, str]:
+        if not payload:
+            payload = {}
+
+        response = requests.put(
+            "".join([self.endpoint, uri]),
+            headers={'Content-Type': 'application/json'},
+            json=payload
+        )
         verify_status_code(response.status_code)
         return response.json()

@@ -28,7 +28,7 @@ setup(
     install_requires=install_requires,
     include_package_data=True,
     keywords="raiden",
-    name="raiden",
+    name="raiden-client",
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/s0b0lev/raiden-python",
     version="0.0.1",
