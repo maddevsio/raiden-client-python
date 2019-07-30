@@ -1,9 +1,8 @@
 import abc
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class BaseRequest(abc.ABC):
-
     @abc.abstractmethod
     def endpoint(self) -> str:
         raise NotImplementedError()
@@ -17,7 +16,6 @@ class BaseRequest(abc.ABC):
 
 
 class BaseResponse(abc.ABC):
-
     @abc.abstractmethod
     def validate_status_code(self, status_code: int) -> bool:
         raise NotImplementedError()

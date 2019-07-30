@@ -2,11 +2,7 @@ import argparse
 
 from raidenpy.api import Client
 
-
-RAIDEN_COMMANDS = (
-    "address",
-    "tokens"
-)
+RAIDEN_COMMANDS = ("address", "tokens")
 
 
 def create_parser(parser: argparse.ArgumentParser):
@@ -44,7 +40,6 @@ def raiden_cli(args):
         else:
             result = client.channels()
         print(result)
-
 
 
 def main():

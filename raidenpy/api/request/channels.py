@@ -1,10 +1,10 @@
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 from requests import Response
-from raidenpy.types import ChannelType
 
-from raidenpy.exceptions import InternalServerException, ResponseStatusCodeException
 from raidenpy.api.request import BaseRequest, BaseResponse
+from raidenpy.exceptions import InternalServerException, ResponseStatusCodeException
+from raidenpy.types import ChannelType
 
 
 class ChannelsRequest(BaseRequest):

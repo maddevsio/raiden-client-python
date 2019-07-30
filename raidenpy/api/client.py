@@ -1,46 +1,31 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
-from raidenpy.types import Address
-from raidenpy.api.depricated_base import RaidenAPIv1
-from raidenpy.api.request_handler import Request
-
-from raidenpy.api.request.tokens import TokensRequest, TokensResponse
 from raidenpy.api.request.address import AddressRequest, AddressResponse
-from raidenpy.api.request.deploy_tokens import (
-    DeployTokenRequst,
-    DeployTokenResponse,
-)
-from raidenpy.api.request.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.api.request.channels_by_token import (
-    ChannelByTokenRequest,
-    ChannelByTokenResponse
-)
 from raidenpy.api.request.channel import ChannelRequest, ChannelResponse
+from raidenpy.api.request.channels import ChannelsRequest, ChannelsResponse
+from raidenpy.api.request.channels_by_token import ChannelByTokenRequest, ChannelByTokenResponse
+from raidenpy.api.request.deploy_tokens import DeployTokenRequst, DeployTokenResponse
+from raidenpy.api.request.token_network import TokenNetworkRequest, TokenNetworkResponse
+from raidenpy.api.request.tokens import TokensRequest, TokensResponse
+from raidenpy.api.request_handler import Request
+from raidenpy.types import Address
 
 
-class Client(RaidenAPIv1):
-
+class Client:
     def __init__(self, endpoint: str, version: str = "v1") -> None:
         self.request = Request(endpoint, version)
 
     def address(self) -> Dict[str, Address]:
-        """Get node address.
-
-        Query your address. When raiden starts, you choose an ethereum address which will
-        also be your raiden address.
-        """
         req = AddressRequest()
         response = AddressResponse(response=self.request.do(req))
         return response.to_dict()
 
     def tokens(self) -> List[Address]:
-        """Checking if a token is already registered."""
         req = TokensRequest()
         response = TokensResponse(response=self.request.do(req))
         return response.to_dict()
 
-    def register_token(self, token_address: str) -> Dict[str, Address]:
-        """Registering a token by token address"""
+    def register_token(self, token_address: Address) -> Dict[str, Address]:
         req = DeployTokenRequst(token_address=token_address)
         response = DeployTokenResponse(response=self.request.do(req))
         return response.to_dict()
@@ -50,25 +35,20 @@ class Client(RaidenAPIv1):
         response = ChannelsResponse(response=self.request.do(req))
         return response.to_dict()
 
-    def channels_by_token(self, token_address: str):
+    def channels_by_token(self, token_address: Address):
         req = ChannelByTokenRequest(token_address=token_address)
         response = ChannelByTokenResponse(response=self.request.do(req))
         return response.to_dict()
 
-    def channel(self, token_address: str, partner_address: str):
-        req = ChannelRequest(token_address=token_address,
-                             partner_address=partner_address)
-        response = ChannelByTokenResponse(response=self.request.do(req))
+    def channel(self, token_address: Address, partner_address: Address):
+        req = ChannelRequest(token_address=token_address, partner_address=partner_address)
+        response = ChannelResponse(response=self.request.do(req))
         return response.to_dict()
 
-    def token_network(self, token_address: str):
-        """Returns the address of the corresponding token network for the given token
-
-        If the token is registered.
-
-        GET /api/(version)/tokens/(token_address)
-        """
-        pass
+    def token_network(self, token_address: Address) -> Address:
+        req = TokenNetworkRequest(token_address=token_address)
+        response = TokenNetworkResponse(response=self.request.do(req))
+        return response.to_dict()
 
     def non_settled_partners(self, token_address: str):
         """
@@ -101,11 +81,8 @@ class Client(RaidenAPIv1):
         pass
 
     def open_channel(
-            self,
-            partner_address: str,
-            settle_timeout: int,
-            token_address: str,
-            total_deposit: int) -> Dict[str, Any]:
+        self, partner_address: str, settle_timeout: int, token_address: str, total_deposit: int
+    ) -> Dict[str, Any]:
         """Create / Open a channel.
 
         Args
@@ -114,12 +91,15 @@ class Client(RaidenAPIv1):
             total_deposit   - the amount of tokens desired for deposit
             settle_timeout  - settlement timeout period
         """
-        data = self.request.put("/channels", {
-            "partner_address": partner_address,
-            "settle_timeout": settle_timeout,
-            "token_address": token_address,
-            "total_deposit": total_deposit,
-        })
+        data = self.request.put(
+            "/channels",
+            {
+                "partner_address": partner_address,
+                "settle_timeout": settle_timeout,
+                "token_address": token_address,
+                "total_deposit": total_deposit,
+            },
+        )
         return data
 
     def close_channel(self, token_address: str, partner_address: str):

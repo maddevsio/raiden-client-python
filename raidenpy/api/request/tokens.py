@@ -1,9 +1,9 @@
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 from requests import Response
-from raidenpy.types import Address
 
 from raidenpy.api.request import BaseRequest, BaseResponse
+from raidenpy.types import Address
 
 
 class TokensRequest(BaseRequest):

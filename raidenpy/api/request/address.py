@@ -1,5 +1,7 @@
+from typing import Any, Dict
+
 from requests import Request
-from typing import Dict, Any
+
 from raidenpy.api.request import BaseRequest, BaseResponse
 
 
@@ -21,7 +23,6 @@ class AddressRequest(BaseRequest):
 
 
 class AddressResponse(BaseResponse):
-
     def __init__(self, response: Request):
         self.response = response
 

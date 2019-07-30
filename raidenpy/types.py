@@ -1,9 +1,8 @@
-from typing import (
-    NewType,
-)
+from typing import NewType
+
 from mypy_extensions import TypedDict
 
-Address = NewType('Address', str)
+Address = NewType("Address", str)
 
 
 class ChannelType(TypedDict):

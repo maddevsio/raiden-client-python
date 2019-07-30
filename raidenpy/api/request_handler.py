@@ -9,8 +9,4 @@ class Request:
 
     def do(self, request: BaseRequest) -> BaseResponse:
         """Send HTTP request to URI within defined method."""
-        response = requests.request(
-            method=request.method,
-            url=f"{self.endpoint}{request.endpoint}",
-        )
-        return response
+        return requests.request(method=request.method, url=f"{self.endpoint}{request.endpoint}")

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from setuptools import find_packages, setup
 
-
 deps = {
     "raiden": [
         "requests>=2.22.0,<2.23.0",
@@ -32,7 +31,5 @@ setup(
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/s0b0lev/raiden-python",
     version="0.0.1",
-    entry_points={
-        "console_scripts": ["raiden-cli=raidenpy.interfaces.cli:main"]
-    },
+    entry_points={"console_scripts": ["raiden-cli=raidenpy.interfaces.cli:main"]},
 )

@@ -1,15 +1,16 @@
-from requests import Response
-from typing import Dict, Any
+from typing import Any, Dict
 
-from raidenpy.types import Address
-from raidenpy.exceptions import (
-    ResponseStatusCodeException,
-    PaymentRequiredException,
-    NotFoundException,
-    ConflictException,
-    NotImplementedException,
-)
+from requests import Response
+
 from raidenpy.api.request import BaseRequest, BaseResponse
+from raidenpy.exceptions import (
+    ConflictException,
+    NotFoundException,
+    NotImplementedException,
+    PaymentRequiredException,
+    ResponseStatusCodeException,
+)
+from raidenpy.types import Address
 
 
 class DeployTokenRequst(BaseRequest):
@@ -37,7 +38,6 @@ class DeployTokenRequst(BaseRequest):
 
 
 class DeployTokenResponse(BaseResponse):
-
     def __init__(self, response: Response):
         self.response = response
 
@@ -51,9 +51,7 @@ class DeployTokenResponse(BaseResponse):
             )
 
         if status_code == 404:
-            raise NotFoundException(
-                "HTTP 404: The given token address is invalid."
-            )
+            raise NotFoundException("HTTP 404: The given token address is invalid.")
 
         if status_code == 409:
             raise ConflictException(
@@ -62,8 +60,7 @@ class DeployTokenResponse(BaseResponse):
 
         if status_code == 501:
             raise NotImplementedException(
-                "HTTP 501: Registering a token only works on testnet temporarily. "
-                "On mainnet this error is returned."
+                "HTTP 501: Registering a token only works on testnet temporarily. " "On mainnet this error is returned."
             )
         raise ResponseStatusCodeException(f"{status_code}: Unhandled status code")
 

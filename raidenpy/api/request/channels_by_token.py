@@ -1,14 +1,10 @@
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 from requests import Response
-from raidenpy.types import ChannelType, Address
 
-from raidenpy.exceptions import (
-    InternalServerException,
-    ResponseStatusCodeException,
-    NotFoundException,
-)
 from raidenpy.api.request import BaseRequest, BaseResponse
+from raidenpy.exceptions import InternalServerException, NotFoundException, ResponseStatusCodeException
+from raidenpy.types import Address, ChannelType
 
 
 class ChannelByTokenRequest(BaseRequest):
@@ -43,9 +39,7 @@ class ChannelByTokenResponse(BaseResponse):
         if status_code == 200:
             return True
         elif status_code == 404:
-            raise NotFoundException(
-                "HTTP 404: The given token address is not a valid eip55-encoded Ethereum address"
-            )
+            raise NotFoundException("HTTP 404: The given token address is not a valid eip55-encoded Ethereum address")
         elif status_code == 500:
             raise InternalServerException("HTTP 500: Internal Raiden node error")
         raise ResponseStatusCodeException(f"HTTP {status_code}: Unhandled status code")
