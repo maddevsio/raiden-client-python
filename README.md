@@ -11,6 +11,8 @@ A Python client for a Raiden node.
 ```
 $ raiden-client address
 $ raiden-client tokens
+
+$ raiden-cli register-token --token-address <token address>
 ```
 
 ### Supported API

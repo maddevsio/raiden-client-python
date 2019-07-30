@@ -1,13 +1,15 @@
 from typing import List, Dict, Any
 
-from raidenpy import utils
 from raidenpy.types import Address
 from raidenpy.api.depricated_base import RaidenAPIv1
 from raidenpy.api.request_handler import Request
 
-from raidenpy.api.request.deploy_tokens import DeployTokenRequst
 from raidenpy.api.request.tokens import TokensRequest, TokensResponse
 from raidenpy.api.request.address import AddressRequest, AddressResponse
+from raidenpy.api.request.deploy_tokens import (
+    DeployTokenRequst,
+    DeployTokenResponse,
+)
 
 
 class Client(RaidenAPIv1):
@@ -15,7 +17,7 @@ class Client(RaidenAPIv1):
     def __init__(self, endpoint: str, version: str = "v1") -> None:
         self.request = Request(endpoint, version)
 
-    def address(self) -> Address:
+    def address(self) -> Dict[str, Address]:
         """Get node address.
 
         Query your address. When raiden starts, you choose an ethereum address which will
@@ -31,12 +33,11 @@ class Client(RaidenAPIv1):
         response = TokensResponse(response=self.request.do(req))
         return response.to_dict()
 
-    def register_token(self, token_address: str) -> Address:
+    def register_token(self, token_address: str) -> Dict[str, Address]:
         """Registering a token by token address"""
-        if not utils.validate_address(token_address):
-            raise Exception("Wrong ETH address")
-        data = self.request.do(method="put", uri=f"/tokens/{token_address}")
-        return Address(data)
+        req = DeployTokenRequst(token_address=token_address)
+        response = DeployTokenResponse(response=self.request.do(req))
+        return response.to_dict()
 
     def channels(self):
         """Get a list of all unsettled channels.

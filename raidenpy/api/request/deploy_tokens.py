@@ -1,5 +1,14 @@
-from requests import Request
+from requests import Response
 from typing import Dict, Any
+
+from raidenpy.types import Address
+from raidenpy.exceptions import (
+    ResponseStatusCodeException,
+    PaymentRequiredException,
+    NotFoundException,
+    ConflictException,
+    NotImplementedException,
+)
 from raidenpy.api.request import BaseRequest, BaseResponse
 
 
@@ -8,40 +17,28 @@ class DeployTokenRequst(BaseRequest):
     If a token is not registered yet (i.e.: A token network for that token does not exist in the registry),
     we need to register it by deploying a token network contract for that token.
 
+    PUT /api/(version)/tokens/(token_address)
     Doc: https://raiden-network.readthedocs.io/en/latest/rest_api.html#deploying
     """
 
+    def __init__(self, token_address: str) -> None:
+        self.token_address = token_address
+
     @property
     def endpoint(self) -> str:
-        return "/tokens"
+        return f"/tokens/{self.token_address}"
 
     @property
     def method(self) -> str:
-        return "get"
+        return "put"
 
     def payload(self) -> Dict[str, Any]:
         return {}
 
 
-class PaymentRequiredException(Exception):
-    pass
-
-
-class NotFoundException(Exception):
-    pass
-
-
-class ConflictException(Exception):
-    pass
-
-
-class NotImplementedException(Exception):
-    pass
-
-
 class DeployTokenResponse(BaseResponse):
 
-    def __init__(self, response: Request):
+    def __init__(self, response: Response):
         self.response = response
 
     def validate_status_code(self, status_code: int) -> bool:
@@ -50,28 +47,26 @@ class DeployTokenResponse(BaseResponse):
 
         if status_code == 402:
             raise PaymentRequiredException(
-                "Insufficient ETH to pay for the gas of the register on-chain transaction"
+                "HTTP 402: Insufficient ETH to pay for the gas of the register on-chain transaction"
             )
 
         if status_code == 404:
             raise NotFoundException(
-                "he given token address is invalid."
+                "HTTP 404: The given token address is invalid."
             )
 
         if status_code == 409:
             raise ConflictException(
-                "The token was already registered before, or the registering transaction failed."
+                "HTTP 409: The token was already registered before, or the registering transaction failed."
             )
 
         if status_code == 501:
             raise NotImplementedException(
-                "Registering a token only works on testnet temporarily. On mainnet this error is returned."
+                "HTTP 501: Registering a token only works on testnet temporarily. "
+                "On mainnet this error is returned."
             )
-        return False
+        raise ResponseStatusCodeException(f"{status_code}: Unhandled status code")
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> Dict[str, Address]:
         self.validate_status_code(self.response.status_code)
-        data = self.response.json()
-        return {
-            "token_network_address": data["token_network_address"]
-        }
+        return self.response.json()
