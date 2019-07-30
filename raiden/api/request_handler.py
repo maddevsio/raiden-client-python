@@ -20,3 +20,9 @@ class Request:
         response = requests.get(url)
         verify_status_code(response.status_code)
         return response.json()
+
+    def put(self, uri:str) -> Dict[str, str]:
+        url = "".join([self.endpoint, uri])
+        response = requests.put(url)
+        verify_status_code(response.status_code)
+        return response.json()

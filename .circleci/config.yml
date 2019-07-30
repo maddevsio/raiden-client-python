@@ -12,9 +12,7 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "setup.py" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
       - run:
           name: Install dependencies
           command: |
@@ -26,6 +24,20 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "setup.py" }}
+
+      - run:
+          background: true
+          name: Spin-up of Raiden node
+          command: raiden --accept-disclaimer \
+                          --keystore-path  ~/project/tests/fixtures/rinkeby/keystore \
+                          --eth-rpc-endpoint "https://rinkeby.infura.io/v3/${INFURA_TOKEN}" \
+                          --network-id rinkeby \
+                          --environment-type development \
+                          --address 0xe59a5927cbB5007ffF0384244354b158464C47d3 \
+                          --password-file ~/project/tests/fixtures/password.txt
+      - run:
+          name: Waiting Raiden node to spin-up
+          command: sleep 15s
 
       - run:
           name: run tests

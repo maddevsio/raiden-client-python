@@ -28,13 +28,9 @@ class Client:
         data = self.request.get("/tokens")
         return [Address(utils.decode_hex(item)) for item in data]
 
-    def deploy(self, token_address: str) -> str:
-        """Registers a token.
-
-        If a token is not registered yet (i.e.: A token network for that token does not exist in the registry),
-        we need to register it by deploying a token network contract for that token.
-        """
+    def register_token(self, token_address: str) -> Address:
+        """Registering a token by token address"""
         if not utils.validate_address(token_address):
             raise Exception("Wrong ETH address")
-
-        return token_address
+        data = self.request.put(f"/tokens/{token_address}")
+        return Address(data["token_network_address"])
