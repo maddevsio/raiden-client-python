@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Update PIP
-          command: pip install -U pip 
+          command: pip install -U --user pip 
 
       # - restore_cache:
       #     keys:
