@@ -7,7 +7,7 @@ from raidenpy.exceptions import InternalServerException, ResponseStatusCodeExcep
 from raidenpy.api.request import BaseRequest, BaseResponse
 
 
-class ChannelRequest(BaseRequest):
+class ChannelsRequest(BaseRequest):
     """Request a list of all unsettled channels.
     GET /api/(version)/channels
     """
@@ -24,7 +24,7 @@ class ChannelRequest(BaseRequest):
         return {}
 
 
-class ChannelResponse(BaseResponse):
+class ChannelsResponse(BaseResponse):
     """Returns a list of all unsettled channels."""
 
     def __init__(self, response: Response):

@@ -10,7 +10,12 @@ from raidenpy.api.request.deploy_tokens import (
     DeployTokenRequst,
     DeployTokenResponse,
 )
-from raidenpy.api.request.channels import ChannelRequest, ChannelResponse
+from raidenpy.api.request.channels import ChannelsRequest, ChannelsResponse
+from raidenpy.api.request.channels_by_token import (
+    ChannelByTokenRequest,
+    ChannelByTokenResponse
+)
+from raidenpy.api.request.channel import ChannelRequest, ChannelResponse
 
 
 class Client(RaidenAPIv1):
@@ -41,24 +46,20 @@ class Client(RaidenAPIv1):
         return response.to_dict()
 
     def channels(self):
-        req = ChannelRequest()
-        response = ChannelResponse(response=self.request.do(req))
+        req = ChannelsRequest()
+        response = ChannelsResponse(response=self.request.do(req))
         return response.to_dict()
 
     def channels_by_token(self, token_address: str):
-        """Get a list of all unsettled channels for the given token address.
-
-        GET /api/(version)/channels/(token_address)
-        """
-        pass
+        req = ChannelByTokenRequest(token_address=token_address)
+        response = ChannelByTokenResponse(response=self.request.do(req))
+        return response.to_dict()
 
     def channel(self, token_address: str, partner_address: str):
-        """Query information about one of your channels.
-
-        The channel is specified by the address of the token and the partner’s address.
-        GET /api/(version)/channels/(token_address)/(partner_address)
-        """
-        pass
+        req = ChannelRequest(token_address=token_address,
+                             partner_address=partner_address)
+        response = ChannelByTokenResponse(response=self.request.do(req))
+        return response.to_dict()
 
     def token_network(self, token_address: str):
         """Returns the address of the corresponding token network for the given token
