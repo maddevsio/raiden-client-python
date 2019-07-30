@@ -57,119 +57,80 @@ class Client:
         """
         pass
 
-    def pending_transfers(self):
+    def pending_transfers(self, token_address: str = None, partner_address: str = None):
         """Returns a list of all transfers that have not been completed yet.
 
         GET /api/(version)/pending_transfers
-        """
-        pass
-
-    def pending_transfers_by_token(self, token_address: str):
-        """ Returns a list of all partners with whom you have non-settled channels for a certain token,
-        but limited to pending transfers of the specified token
-
         GET /api/(version)/pending_transfers/(token_address)
-        """
-        pass
-
-    def pending_transfers_by_token(self, token_address: str, partner_address: str):
-        """ Returns a list of all partners with whom you have non-settled channels for a certain token,
-        but limited to pending transfers of the specified channel
-
         GET /api/(version)/pending_transfers/(token_address)/(partner_address)
         """
         pass
 
     def open_channel(
-        self, partner_address: str, settle_timeout: int, token_address: str, total_deposit: int
+        self,
+        partner_address: str,
+        settle_timeout: int,
+        token_address: str,
+        total_deposit: int
     ) -> Dict[str, Any]:
-        """Create / Open a channel.
-
-        Args
-            token_address   - the address of the token
-            partner_address - the address of the partner node
-            total_deposit   - the amount of tokens desired for deposit
-            settle_timeout  - settlement timeout period
-        """
-        data = self.request.put(
-            "/channels",
-            {
-                "partner_address": partner_address,
-                "settle_timeout": settle_timeout,
-                "token_address": token_address,
-                "total_deposit": total_deposit,
-            },
-        )
         return data
 
     def close_channel(self, token_address: str, partner_address: str):
-        """Close a channel or to increase the deposit in it.
-
+        """Close a channel .
         PATCH /api/(version)/channels/(token_address)/(partner_address)
-        {
-            "state": "closed"
-        }
+        {"state": "closed"}
         """
         pass
 
     def chanel_increase_deposit(self, token_address: str, partner_address: str):
-        """Close a channel or to increase the deposit in it.
-
+        """Increase the deposit in it.
         PATCH /api/(version)/channels/(token_address)/(partner_address)
-        {
-            "total_deposit": 100
-        }
+        {"total_deposit": 100}
         """
         pass
 
-    def chanel_withdraw_tokens(self, token_address: str, partner_address: str):
-        """Close a channel or to increase the deposit in it.
-
+    def chanel_withdraw_tokens(self,
+                               token_address: Address,
+                               partner_address: Address,
+                               total_withdraw: int):
+        """Withdraw tokens.
         PATCH /api/(version)/channels/(token_address)/(partner_address)
-        {
-            "total_withdraw": 100
-        }
+        {"total_withdraw": 100}
         """
         pass
 
     def connections(self):
         """Query details of all joined token networks.
-
         GET /api/(version)/connections
         """
         pass
 
     def connect_network(self, token_address: str):
         """Join a token network.
-
         PUT /api/(version)/connections/(token_address)
         """
         pass
 
     def disconnect_network(self, token_address: str):
         """Join a token network.
-
         DELETE /api/(version)/connections/(token_address)
         """
         pass
 
     def payment(self, token_address: str, target_address: str):
         """Initiate a payment.
-
         POST /api/(version)/payments/(token_address)/(target_address)
         """
         pass
 
     def payment_history(self, token_address: str, target_address: str):
-        """Query the payment history. 
-
+        """Query the payment history.
         GET /api/v1/payments/(token_address)/(target_address)
         """
         pass
 
     def mint_tokens(self):
         """Mint tokens.
-
-        POST /api/(version)/_testing/tokens/(token_address)/mint
+        POST /api/v1/_testing/tokens/(token_address)/mint
         """
         pass
