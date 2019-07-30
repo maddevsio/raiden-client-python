@@ -29,13 +29,13 @@ $ raiden-cli channels
 - [ ] Get a list of all unsettled channels for the given token address.
 
 #### Querying Information About Channels and Tokens
-- [ ] Query information about one of your channels
-- [ ] Returns a list of addresses of all registered tokens.
-- [ ] Returns the address of the corresponding token network for the given token, if the token is registered.
-- [ ] Returns a list of all partners with whom you have non-settled channels for a certain token.
+- [x] Query information about one of your channels
+- [x] Returns a list of addresses of all registered tokens.
+- [x] Returns the address of the corresponding token network for the given token, if the token is registered.
+- [x] Returns a list of all partners with whom you have non-settled channels for a certain token.
 - [ ] Returns a list of all transfers that have not been completed yet.
-- [ ] Like above, but limited to pending transfers of the specified token.
-- [ ] Like above, but limited to the specified channel.
+- [x] Like above, but limited to pending transfers of the specified token.
+- [x] Like above, but limited to the specified channel.
 
 #### Channel Management
 - [ ] Opens (i. e. creates) a channel.
