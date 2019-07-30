@@ -4,7 +4,11 @@ from setuptools import find_packages, setup
 
 deps = {
     "raiden": ["requests>=2.22.0,<2.23.0", "jsonschema>=3.0.1,<3.1.0"],
-    "dev": ["pytest-mypy>=0.3.3,<0.4.0", "pytest>=4.6.3,<4.7.0"],
+    "dev": [
+        "pytest-mypy>=0.3.3,<0.4.0",
+        "pytest>=4.6.3,<4.7.0",
+        "black>=19.3b0,<19.4",
+    ],
 }
 
 install_requires = deps["raiden"]
