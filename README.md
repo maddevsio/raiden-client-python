@@ -1,6 +1,6 @@
 # Raiden Network client API
 
-[![CircleCI](https://circleci.com/gh/s0b0lev/raiden-python.svg?style=svg&circle-token=e688d9f340fa59202c712ef5e2b8affa614b650c)]
+[![CircleCI](https://circleci.com/gh/s0b0lev/raiden-python.svg?style=svg&circle-token=e688d9f340fa59202c712ef5e2b8affa614b650c)](https://circleci.com/gh/s0b0lev/raiden-python)
 
 ## Client Interface
 
