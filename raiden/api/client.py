@@ -25,7 +25,7 @@ class Client:
 
         Query your address. When raiden starts, you choose an ethereum address which will also be your raiden address.
         """
-        return self.request.get('http://localhost:5001/api/v1/address')
+        return self.request.get("http://localhost:5001/api/v1/address")
 
     def deploy(self, token_address: str) -> str:
         """Registers a token.

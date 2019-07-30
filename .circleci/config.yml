@@ -30,7 +30,3 @@ jobs:
       - run:
           name: run tests
           command: . venv/bin/activate && pytest tests/
-
-      - run:
-          name: Black linter
-          command: . venv/bin/activate && black . -l 120
