@@ -28,7 +28,10 @@ jobs:
       - run:
           background: true
           name: Spin-up of Raiden node
-          command: . venv/bin/activate && 
+          command: |
+            python3 -m venv raiden-venv
+            . raiden-venv/bin/activate
+            pip install raiden==0.100.3
             raiden --accept-disclaimer \
                    --keystore-path  ~/project/tests/fixtures/rinkeby/keystore \
                    --eth-rpc-endpoint "https://rinkeby.infura.io/v3/${INFURA_TOKEN}" \
