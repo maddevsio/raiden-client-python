@@ -1,12 +1,16 @@
+import requests
+
 from raiden import utils
 
 
 class Request:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, endpoint: str, version: str = "v1") -> None:
+        self.endpoint = f"{endpoint}/api/{version}"
 
-    def get(self, url: str) -> str:
-        return url
+    def get(self, uri: str) -> str:
+        url = "".join([self.endpoint, uri])
+        response = requests.get(url)
+        return response.json()
 
 
 class Client:
@@ -16,16 +20,16 @@ class Client:
     """
 
     def __init__(self, endpoint: str, version: str = "v1") -> None:
-        self.endpoint = endpoint
-        self.version = version
-        self.request = Request()
+        self.request = Request(endpoint, version)
 
+    @property
     def address(self) -> str:
         """Get node address.
 
         Query your address. When raiden starts, you choose an ethereum address which will also be your raiden address.
         """
-        return self.request.get("http://localhost:5001/api/v1/address")
+        data = self.request.get("/address")
+        return data["our_address"]
 
     def deploy(self, token_address: str) -> str:
         """Registers a token.
