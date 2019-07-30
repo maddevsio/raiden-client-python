@@ -28,8 +28,8 @@ class Client(RestAPIv1):
         """Registering a token by token address"""
         if not utils.validate_address(token_address):
             raise Exception("Wrong ETH address")
-        data = self.request.do(method="get", uri=f"/tokens/{token_address}")
-        return Address(data["token_network_address"])
+        data = self.request.do(method="put", uri=f"/tokens/{token_address}")
+        return Address(data)
 
     def channels(self):
         """Get a list of all unsettled channels.

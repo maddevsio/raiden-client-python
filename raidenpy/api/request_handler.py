@@ -15,7 +15,7 @@ class Request:
     def __init__(self, endpoint: str, version: str = "v1") -> None:
         self.endpoint = f"{endpoint}/api/{version}"
 
-    def url(self, uri):
+    def url(self, uri: str) -> str:
         return "".join([self.endpoint, uri])
 
     def do(self, method: str, uri: str) -> Dict[str, str]:

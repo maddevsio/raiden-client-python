@@ -2,7 +2,8 @@ import argparse
 
 from raidenpy.api import Client
 
-RAIDEN_COMMANDS  = (
+
+RAIDEN_COMMANDS = (
     "address",
     "tokens"
 )
@@ -13,12 +14,11 @@ def create_parser(parser: argparse.ArgumentParser):
     parser.add_argument("--version", default="v1", help="API version")
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
-    subparsers.add_parser(
-        RAIDEN_COMMANDS[0],
-        help="Raiden API",
-        # parents=[rpc_parser, utilities_parser, input_parser, output_parser],
-        aliases=RAIDEN_COMMANDS[1:],
-    )
+
+    subparsers.add_parser("address", help="Query node address")
+    subparsers.add_parser("tokens", help="Query list of registered tokens")
+    register_token = subparsers.add_parser("register-token", help="Registering a token by token address")
+    register_token.add_argument("--token-address", required=True, help="Token address")
 
 
 def raiden_cli(args):
@@ -28,6 +28,9 @@ def raiden_cli(args):
     elif args.command == "tokens":
         tokens = "\n - ".join(client.tokens())
         print(f"Tokens:\n - {tokens}")
+    elif args.command == "register-token":
+        result = client.register_token(args.token_address)
+        print(f"Token network address: {result}")
 
 
 def main():

@@ -4,10 +4,19 @@
 
 A Python client for a Raiden node.
 
-### Features
+## Features
+
+## CLI interface
+
+```
+$ raiden-client address
+$ raiden-client tokens
+```
+
+### Supported API
 
 #### Querying Information About Your Raiden Node
-- [ ] Query your address
+- [x] Query your address
 
 #### Deploying
 - [ ] Deploy token
