@@ -33,4 +33,4 @@ jobs:
 
       - run:
           name: Black linter
-          command: .venv/bin/activate && black . -l 120
+          command: . venv/bin/activate && black . -l 120
