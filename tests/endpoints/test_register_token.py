@@ -1,5 +1,5 @@
 # import pytest
-# from raiden.api import Client
+# from raidenpy.api import Client
 
 # client = Client("http://localhost")
 
