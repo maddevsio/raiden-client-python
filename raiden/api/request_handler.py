@@ -1,3 +1,5 @@
+from typing import Dict
+
 import requests
 
 from raiden.exceptions import ResponseStatusCodeException
@@ -13,7 +15,7 @@ class Request:
     def __init__(self, endpoint: str, version: str = "v1") -> None:
         self.endpoint = f"{endpoint}/api/{version}"
 
-    def get(self, uri: str) -> str:
+    def get(self, uri: str) -> Dict[str, str]:
         url = "".join([self.endpoint, uri])
         response = requests.get(url)
         verify_status_code(response.status_code)

@@ -1,5 +1,8 @@
+from typing import List
+
 from raiden import utils
 from raiden.api.request_handler import Request
+from raiden.types import Address
 
 
 class Client:
@@ -11,19 +14,19 @@ class Client:
         self.request = Request(endpoint, version)
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         """Get node address.
 
         Query your address. When raiden starts, you choose an ethereum address which will also be your raiden address.
         """
         data = self.request.get("/address")
-        return data["our_address"]
+        return Address(utils.decode_hex(data["our_address"]))
 
     @property
-    def token(self):
+    def tokens(self) -> List[Address]:
         """Checking if a token is already registered."""
         data = self.request.get("/tokens")
-        return data
+        return [Address(utils.decode_hex(item)) for item in data]
 
     def deploy(self, token_address: str) -> str:
         """Registers a token.
