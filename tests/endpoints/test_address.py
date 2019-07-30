@@ -5,5 +5,5 @@ client = Client(endpoint="http://localhost:5001")
 
 
 def test_address():
-    assert isinstance(client.address(), bytes)
-    assert len(client.address().hex()) == 40
+    assert "our_address" in client.address()
+    assert len(client.address()["our_address"]) == 42

@@ -10,10 +10,10 @@ jobs:
           name: Update PIP
           command: pip install -U --user pip 
 
-      # - restore_cache:
-      #     keys:
-      #       - v1-dependencies-{{ checksum "setup.py" }}
-      #       - v1-dependencies-
+      - restore_cache:
+          keys:
+            - raiden-client-{{ checksum "setup.py" }}
+            - raiden-client-
       - run:
           name: Install dependencies
           command: |
@@ -22,10 +22,10 @@ jobs:
             pip install -e .[dev]
             pip install raiden==0.100.3
 
-      # - save_cache:
-      #     paths:
-      #       - ./venv
-      #     key: v1-dependencies-{{ checksum "setup.py" }}
+      - save_cache:
+          paths:
+            - ./venv
+          key: raiden-client-{{ checksum "setup.py" }}
 
       - run:
           background: true
