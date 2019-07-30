@@ -7,6 +7,8 @@ setup(
     description="Python client library Raiden API",
     install_requires=[
         "requests>=2.22.0,<2.23.0",
+        "pytest-mypy>=0.3.3,<0.3.4",
+        "pytest>=4.6.3,<4.7.0"
     ],
     include_package_data=True,
     keywords="raiden",
