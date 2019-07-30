@@ -31,6 +31,6 @@ jobs:
           name: run tests
           command: . venv/bin/activate && pytest tests/
 
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+      - run:
+          name: Black linter
+          command: .venv/bin/activate && black . -l 120

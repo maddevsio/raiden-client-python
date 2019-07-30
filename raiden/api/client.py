@@ -1,5 +1,3 @@
-
-
 class Client:
     """Main Client APP.
 
