@@ -21,6 +21,8 @@ def create_parser(parser: argparse.ArgumentParser):
     register_token = subparsers.add_parser("register-token", help="Registering a token by token address")
     register_token.add_argument("--token-address", required=True, help="Token address")
 
+    subparsers.add_parser("channels", help="Query list of registered tokens")
+
 
 def raiden_cli(args):
     client = Client(args.endpoint, args.version)
@@ -32,6 +34,10 @@ def raiden_cli(args):
     elif args.command == "register-token":
         result = client.register_token(args.token_address)
         print(f"Token network address: {result}")
+    elif args.command == "channels":
+        result = client.channels()
+        print(result)
+
 
 
 def main():

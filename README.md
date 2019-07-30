@@ -9,10 +9,13 @@ A Python client for a Raiden node.
 ## CLI interface
 
 ```
-$ raiden-client address
-$ raiden-client tokens
+$ raiden-cli address
+
+$ raiden-cli tokens
 
 $ raiden-cli register-token --token-address <token address>
+
+$ raiden-cli channels
 ```
 
 ### Supported API
@@ -21,7 +24,7 @@ $ raiden-cli register-token --token-address <token address>
 - [x] Query your address
 
 #### Deploying
-- [ ] Deploy token
+- [x] Deploy token
 - [ ] Get a list of all unsettled channels.
 - [ ] Get a list of all unsettled channels for the given token address.
 

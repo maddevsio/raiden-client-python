@@ -18,3 +18,7 @@ class ConflictException(Exception):
 
 class NotImplementedException(Exception):
     pass
+
+
+class InternalServerException(Exception):
+    pass

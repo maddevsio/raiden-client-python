@@ -10,6 +10,7 @@ from raidenpy.api.request.deploy_tokens import (
     DeployTokenRequst,
     DeployTokenResponse,
 )
+from raidenpy.api.request.channels import ChannelRequest, ChannelResponse
 
 
 class Client(RaidenAPIv1):
@@ -40,11 +41,9 @@ class Client(RaidenAPIv1):
         return response.to_dict()
 
     def channels(self):
-        """Get a list of all unsettled channels.
-
-        GET /api/(version)/channels
-        """
-        pass
+        req = ChannelRequest()
+        response = ChannelResponse(response=self.request.do(req))
+        return response.to_dict()
 
     def channels_by_token(self, token_address: str):
         """Get a list of all unsettled channels for the given token address.
