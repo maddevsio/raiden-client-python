@@ -41,7 +41,7 @@ jobs:
                    --password-file ~/project/tests/fixtures/rinkeby/password.txt
       - run:
           name: Waiting Raiden node to spin-up
-          command: sleep 15s
+          command: sleep 30s
 
       - run:
           name: run tests
