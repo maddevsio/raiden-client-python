@@ -1,16 +1,11 @@
 from typing import List, Any, Dict
 
 from raidenpy import utils
-from raidenpy.api.request_handler import Request
 from raidenpy.types import Address
-from raidenpy.api.base import RaidenAPIv1
+from raidenpy.api.depricated_base import RaidenAPIv1
 
 
 class RestAPIv1(RaidenAPIv1):
-    version = "v1"
-
-    def __init__(self, endpoint: str) -> None:
-        self.request = Request(endpoint, self.version)
 
     def address(self) -> Address:
         """Get node address.
@@ -81,7 +76,7 @@ class RestAPIv1(RaidenAPIv1):
         """
         raise NotImplementedError()
 
-    def pending_transfers_by_token(self, token_address: str, partner_address: str):
+    def pending_transfers_by_channel(self, token_address: str, partner_address: str):
         """ Returns a list of all partners with whom you have non-settled channels for a certain token,
         but limited to pending transfers of the specified channel
 
@@ -90,11 +85,8 @@ class RestAPIv1(RaidenAPIv1):
         raise NotImplementedError()
 
     def open_channel(
-            self,
-            partner_address: str,
-            settle_timeout: int,
-            token_address: str,
-            total_deposit: int) -> Dict[str, Any]:
+        self, partner_address: str, settle_timeout: int, token_address: str, total_deposit: int
+    ) -> Dict[str, Any]:
         """Create / Open a channel.
 
         Args

@@ -2,11 +2,15 @@ from typing import List, Dict, Any
 
 from raidenpy import utils
 from raidenpy.types import Address
-from raidenpy.api.v1 import RestAPIv1
+from raidenpy.api.depricated_base import RaidenAPIv1
 from raidenpy.api.request_handler import Request
 
+from raidenpy.api.request.deploy_tokens import DeployTokenRequst
+from raidenpy.api.request.tokens import TokensRequest, TokensResponse
+from raidenpy.api.request.address import AddressRequest, AddressResponse
 
-class Client(RestAPIv1):
+
+class Client(RaidenAPIv1):
 
     def __init__(self, endpoint: str, version: str = "v1") -> None:
         self.request = Request(endpoint, version)
@@ -14,15 +18,18 @@ class Client(RestAPIv1):
     def address(self) -> Address:
         """Get node address.
 
-        Query your address. When raiden starts, you choose an ethereum address which will also be your raiden address.
+        Query your address. When raiden starts, you choose an ethereum address which will
+        also be your raiden address.
         """
-        data = self.request.do(method="get", uri="/address")
-        return Address(data["our_address"])
+        req = AddressRequest()
+        response = AddressResponse(response=self.request.do(req))
+        return response.to_dict()
 
     def tokens(self) -> List[Address]:
         """Checking if a token is already registered."""
-        data = self.request.do(method="get", uri="/tokens")
-        return [Address(item) for item in data]
+        req = TokensRequest()
+        response = TokensResponse(response=self.request.do(req))
+        return response.to_dict()
 
     def register_token(self, token_address: str) -> Address:
         """Registering a token by token address"""
@@ -36,14 +43,14 @@ class Client(RestAPIv1):
 
         GET /api/(version)/channels
         """
-        raise NotImplementedError()
+        pass
 
     def channels_by_token(self, token_address: str):
         """Get a list of all unsettled channels for the given token address.
 
         GET /api/(version)/channels/(token_address)
         """
-        raise NotImplementedError()
+        pass
 
     def channel(self, token_address: str, partner_address: str):
         """Query information about one of your channels.
@@ -51,7 +58,7 @@ class Client(RestAPIv1):
         The channel is specified by the address of the token and the partner’s address.
         GET /api/(version)/channels/(token_address)/(partner_address)
         """
-        raise NotImplementedError()
+        pass
 
     def token_network(self, token_address: str):
         """Returns the address of the corresponding token network for the given token
@@ -60,21 +67,21 @@ class Client(RestAPIv1):
 
         GET /api/(version)/tokens/(token_address)
         """
-        raise NotImplementedError()
+        pass
 
     def non_settled_partners(self, token_address: str):
         """
         Returns a list of all partners with whom you have non-settled channels for a certain token.
         GET /api/(version)/tokens/(token_address)/partners
         """
-        raise NotImplementedError()
+        pass
 
     def pending_transfers(self):
         """Returns a list of all transfers that have not been completed yet.
 
         GET /api/(version)/pending_transfers
         """
-        raise NotImplementedError()
+        pass
 
     def pending_transfers_by_token(self, token_address: str):
         """ Returns a list of all partners with whom you have non-settled channels for a certain token,
@@ -82,7 +89,7 @@ class Client(RestAPIv1):
 
         GET /api/(version)/pending_transfers/(token_address)
         """
-        raise NotImplementedError()
+        pass
 
     def pending_transfers_by_token(self, token_address: str, partner_address: str):
         """ Returns a list of all partners with whom you have non-settled channels for a certain token,
@@ -90,7 +97,7 @@ class Client(RestAPIv1):
 
         GET /api/(version)/pending_transfers/(token_address)/(partner_address)
         """
-        raise NotImplementedError()
+        pass
 
     def open_channel(
             self,
@@ -122,7 +129,7 @@ class Client(RestAPIv1):
             "state": "closed"
         }
         """
-        raise NotImplementedError()
+        pass
 
     def chanel_increase_deposit(self, token_address: str, partner_address: str):
         """Close a channel or to increase the deposit in it.
@@ -132,7 +139,7 @@ class Client(RestAPIv1):
             "total_deposit": 100
         }
         """
-        raise NotImplementedError()
+        pass
 
     def chanel_withdraw_tokens(self, token_address: str, partner_address: str):
         """Close a channel or to increase the deposit in it.
@@ -142,46 +149,46 @@ class Client(RestAPIv1):
             "total_withdraw": 100
         }
         """
-        raise NotImplementedError()
+        pass
 
     def connections(self):
         """Query details of all joined token networks.
 
         GET /api/(version)/connections
         """
-        raise NotImplementedError()
+        pass
 
     def connect_network(self, token_address: str):
         """Join a token network.
 
         PUT /api/(version)/connections/(token_address)
         """
-        raise NotImplementedError()
+        pass
 
     def disconnect_network(self, token_address: str):
         """Join a token network.
 
         DELETE /api/(version)/connections/(token_address)
         """
-        raise NotImplementedError()
+        pass
 
     def payment(self, token_address: str, target_address: str):
         """Initiate a payment.
 
         POST /api/(version)/payments/(token_address)/(target_address)
         """
-        raise NotImplementedError()
+        pass
 
     def payment_history(self, token_address: str, target_address: str):
         """Query the payment history. 
 
         GET /api/v1/payments/(token_address)/(target_address)
         """
-        raise NotImplementedError()
+        pass
 
     def mint_tokens(self):
         """Mint tokens.
 
         POST /api/(version)/_testing/tokens/(token_address)/mint
         """
-        raise NotImplementedError()
+        pass

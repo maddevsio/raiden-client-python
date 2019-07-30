@@ -17,6 +17,7 @@ def create_parser(parser: argparse.ArgumentParser):
 
     subparsers.add_parser("address", help="Query node address")
     subparsers.add_parser("tokens", help="Query list of registered tokens")
+
     register_token = subparsers.add_parser("register-token", help="Registering a token by token address")
     register_token.add_argument("--token-address", required=True, help="Token address")
 
