@@ -2,17 +2,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.1
-
-    working_directory: ~/repo
+      - image: circleci/python:3.7.3
 
     steps:
       - checkout
+      - run:
+          name: Update PIP
+          command: pip install -U pip 
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "setup.py" }}
-            - v1-dependencies-
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "setup.py" }}
+      #       - v1-dependencies-
       - run:
           name: Install dependencies
           command: |
@@ -20,10 +21,10 @@ jobs:
             . venv/bin/activate
             pip install -e .[dev]
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "setup.py" }}
+      # - save_cache:
+      #     paths:
+      #       - ./venv
+      #     key: v1-dependencies-{{ checksum "setup.py" }}
 
       - run:
           background: true
