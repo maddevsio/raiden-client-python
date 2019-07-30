@@ -38,7 +38,7 @@ jobs:
                    --network-id rinkeby \
                    --environment-type development \
                    --address 0xe59a5927cbB5007ffF0384244354b158464C47d3 \
-                   --password-file ~/project/tests/fixtures/password.txt
+                   --password-file ~/project/tests/fixtures/rinkeby/password.txt
       - run:
           name: Waiting Raiden node to spin-up
           command: sleep 15s
