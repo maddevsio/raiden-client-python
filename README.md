@@ -2,17 +2,17 @@
 
 [![CircleCI](https://circleci.com/gh/s0b0lev/raiden-python.svg?style=svg&circle-token=e688d9f340fa59202c712ef5e2b8affa614b650c)](https://circleci.com/gh/s0b0lev/raiden-python)
 
-## Client Interface
+### Features
 
-### Querying Information About Your Raiden Node
+#### Querying Information About Your Raiden Node
 - [ ] Query your address
 
-### Deploying
+#### Deploying
 - [ ] Deploy token
 - [ ] Get a list of all unsettled channels.
 - [ ] Get a list of all unsettled channels for the given token address.
 
-### Querying Information About Channels and Tokens
+#### Querying Information About Channels and Tokens
 - [ ] Query information about one of your channels
 - [ ] Returns a list of addresses of all registered tokens.
 - [ ] Returns the address of the corresponding token network for the given token, if the token is registered.
@@ -21,18 +21,18 @@
 - [ ] Like above, but limited to pending transfers of the specified token.
 - [ ] Like above, but limited to the specified channel.
 
-### Channel Management
+#### Channel Management
 - [ ] Opens (i. e. creates) a channel.
 - [ ] This request is used to close a channel or to increase the deposit in it.
 
-### Connection Management
+#### Connection Management
 - [ ] Query details of all joined token networks
 - [ ] Automatically join a token network
 - [ ] Leave a token network
 
-### Payments
+#### Payments
 - [ ] Initiate a payment.
 
-### Querying Events
+#### Querying Events
 - [ ] Query the payment history
 - [ ] Mint tokens
