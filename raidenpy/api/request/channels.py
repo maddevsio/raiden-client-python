@@ -8,7 +8,7 @@ from raidenpy.api.request import BaseRequest, BaseResponse
 
 
 class ChannelRequest(BaseRequest):
-    """Get a list of all unsettled channels.
+    """Request a list of all unsettled channels.
     GET /api/(version)/channels
     """
 
@@ -25,7 +25,7 @@ class ChannelRequest(BaseRequest):
 
 
 class ChannelResponse(BaseResponse):
-    """Returns a list of addresses of all registered tokens."""
+    """Returns a list of all unsettled channels."""
 
     def __init__(self, response: Response):
         self.response = response

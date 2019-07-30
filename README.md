@@ -25,7 +25,7 @@ $ raiden-cli channels
 
 #### Deploying
 - [x] Deploy token
-- [ ] Get a list of all unsettled channels.
+- [x] Get a list of all unsettled channels.
 - [ ] Get a list of all unsettled channels for the given token address.
 
 #### Querying Information About Channels and Tokens
