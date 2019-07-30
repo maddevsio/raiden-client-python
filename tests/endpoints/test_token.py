@@ -4,4 +4,4 @@ client = Client(endpoint="http://localhost:5001")
 
 
 def test_address():
-    assert client.address.startswith("0x")
+    assert client.token

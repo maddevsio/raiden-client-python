@@ -1,21 +1,9 @@
-import requests
-
 from raiden import utils
-
-
-class Request:
-    def __init__(self, endpoint: str, version: str = "v1") -> None:
-        self.endpoint = f"{endpoint}/api/{version}"
-
-    def get(self, uri: str) -> str:
-        url = "".join([self.endpoint, uri])
-        response = requests.get(url)
-        return response.json()
+from raiden.api.request_handler import Request
 
 
 class Client:
     """API client.
-
     Communicate with API via client class.
     """
 
@@ -30,6 +18,12 @@ class Client:
         """
         data = self.request.get("/address")
         return data["our_address"]
+
+    @property
+    def token(self):
+        """Checking if a token is already registered."""
+        data = self.request.get("/tokens")
+        return data
 
     def deploy(self, token_address: str) -> str:
         """Registers a token.
