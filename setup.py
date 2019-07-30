@@ -1,19 +1,30 @@
 #!/usr/bin/env python3
 from setuptools import find_packages, setup
 
+
+deps = {
+    "raiden": [
+        "requests>=2.22.0,<2.23.0",
+        "jsonschema>=3.0.1,<3.1.0",
+    ],
+    "dev": [
+        "pytest-mypy>=0.3.3,<0.4.0",
+        "pytest>=4.6.3,<4.7.0",
+    ]
+}
+
+install_requires = deps["raiden"]
+
 setup(
     author="Aleksandr Sobolev",
     author_email="thesobolev@gmail.com",
     description="Python client library Raiden API",
-    install_requires=[
-        "requests>=2.22.0,<2.23.0",
-        "pytest-mypy>=0.3.3,<0.3.4",
-        "pytest>=4.6.3,<4.7.0"
-    ],
+    extras_require=deps,
+    install_requires=install_requires,
     include_package_data=True,
     keywords="raiden",
     name="raiden",
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/s0b0lev/raiden-python",
     version="0.0.1",
 )
