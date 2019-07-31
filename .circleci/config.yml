@@ -36,7 +36,7 @@ jobs:
 
       - run:
           name: run tests
-          command: . venv/bin/activate && pytest tests/
+          command: . venv/bin/activate && pytest --cov=./ && codecov --token=$CODECOV_TOKEN
 
   release-pypi:
     docker:

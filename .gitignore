@@ -4,3 +4,5 @@ __pycache__/*
 .mypy_cache/*
 raiden-debug*.log*
 dist/*
+.coverage
+coverage.xml
