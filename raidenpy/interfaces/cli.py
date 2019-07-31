@@ -12,6 +12,7 @@ def create_parser(parser: argparse.ArgumentParser):
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
     subparsers.add_parser("address", help="Query node address")
+
     subparsers.add_parser("tokens", help="Query list of registered tokens")
 
     register_token = subparsers.add_parser("register-token", help="Registering a token by token address")
@@ -25,7 +26,7 @@ def create_parser(parser: argparse.ArgumentParser):
 def raiden_cli(args):
     client = Client(args.endpoint, args.version)
     if args.command == "address":
-        print(f"Node Address: {client.address()}")
+        client.address()
     elif args.command == "tokens":
         tokens = "\n - ".join(client.tokens())
         print(f"Tokens:\n - {tokens}")

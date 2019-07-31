@@ -16,12 +16,10 @@ class BaseRequest(abc.ABC):
 
 
 class BaseResponse(abc.ABC):
-    @abc.abstractmethod
-    def shema_validation(self, status_code: int) -> bool:
-        raise NotImplementedError()
 
+    @classmethod
     @abc.abstractmethod
-    def from_dict(self) -> Dict[str, Any]:
+    def from_dict(cls, d: Dict[str, Any]) -> 'BaseResponse':
         raise NotImplementedError()
 
     @abc.abstractmethod
