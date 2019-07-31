@@ -40,7 +40,7 @@ class PaymentResponse(BaseResponse):
     def __init__(self, payment: PaymentType):
         self.payment = payment
 
-    def to_dict(self) -> Dict[str, Dict[Address, PaymentType]]:
+    def to_dict(self) -> Dict[str, PaymentType]:
         return {"payment": self.payment}
 
     @classmethod

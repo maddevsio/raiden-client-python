@@ -46,6 +46,7 @@ from raidenpy.endpoints.token_register import (
     TokenRegistryResponse,
 )
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
+from raidenpy.endpoints.payment_events import PaymentEventsRequest, PaymentEventsResponse
 from raidenpy.types import (
     Address,
     ChannelType,
@@ -174,11 +175,15 @@ class Client:
         response = PaymentResponse.from_dict({"payment": api_response})
         return response.to_dict()
 
-    def payment_history(self, token_address: Address, target_address: str):
-        """Query the payment history.
-        GET /api/v1/payments/(token_address)/(target_address)
-        """
-        pass
+    def payment_events(self, token_address: Address, target_address: str):
+        request = PaymentEventsRequest(
+            token_address=token_address, target_address=target_address
+        )
+        api_response = self.handler.do(request)
+        response = PaymentEventsResponse.from_dict({
+            "payment_events": api_response
+        })
+        return response.to_dict()
 
     def mint_tokens(self):
         """Mint tokens.

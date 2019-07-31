@@ -68,9 +68,13 @@ def create_subparsers(subparsers):
 
     payment = subparsers.add_parser("payment", help="Initiate a payment")
     payment.add_argument("--token-address", required=True, help="Token address")
-    payment.add_argument("--target-address", required=True, help="Token address")
+    payment.add_argument("--target-address", required=True, help="Target address")
     payment.add_argument("--amount", required=True, help="Token address")
     payment.add_argument("--identifier", required=False, help="Token address")
+
+    payment_events = subparsers.add_parser("payment-events", help="Querying payment events")
+    payment_events.add_argument("--token-address", required=True, help="Target address")
+    payment_events.add_argument("--target-address", required=True, help="Token address")
 
 
 def raiden_cli(args: argparse.Namespace):
@@ -112,6 +116,12 @@ def raiden_cli(args: argparse.Namespace):
             amount=args.amount,
             identifier=args.identifier,
         )
+    elif args.command == "payment-events":
+        client.payment_events(
+            token_address=args.token_address,
+            target_address=args.target_address,
+        )
+
 
 
 def main() -> None:

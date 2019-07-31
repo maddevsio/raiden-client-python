@@ -26,13 +26,13 @@ $ pip install raidenpy
 ```shell
 $ raiden-cli -h
 usage: raiden-cli [-h] [--endpoint ENDPOINT] [--version VERSION]
-                  {address,tokens,channels,channel,non-settled-partners,pending-transfers,channel-open,channel-close,channel-deposit-increase,channel-withdraw-increase,token-register}
+                  {address,tokens,channels,channel,non-settled-partners,pending-transfers,channel-open,channel-close,channel-deposit-increase,channel-withdraw-increase,token-register,connections,connect,disconnect,payment,payment-events}
                   ...
 
 Raiden python client CLI
 
 positional arguments:
-  {address,tokens,channels,channel,non-settled-partners,pending-transfers,channel-open,channel-close,channel-deposit-increase,channel-withdraw-increase,token-register}
+  {address,tokens,channels,channel,non-settled-partners,pending-transfers,channel-open,channel-close,channel-deposit-increase,channel-withdraw-increase,token-register,connections,connect,disconnect,payment,payment-events}
                         Commands
     address             Query node address
     tokens              Query list of registered tokens
@@ -50,6 +50,11 @@ positional arguments:
     channel-withdraw-increase
                         Increase channel deposit
     token-register      Registering a token by token address
+    connections         Query details of all joined token networks
+    connect             Automatically join a token network
+    disconnect          Leave a token network
+    payment             Initiate a payment
+    payment-events      Querying payment events
 
 optional arguments:
   -h, --help            show this help message and exit
