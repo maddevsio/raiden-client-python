@@ -12,9 +12,14 @@ $ pip install raidenpy
 
 ## Usage
 
-Raidenpy client provide few interfaces:
-1. CLI
-2. API
+### API interface
+```python
+>>> from raidenpy import Client
+
+>>> c = Client(endpoint="http://127.0.0.1:5001")
+>>> c.address()
+>>> c.tokens()
+```
 
 ### CLI usage
 
@@ -50,15 +55,6 @@ optional arguments:
   -h, --help            show this help message and exit
   --endpoint ENDPOINT   REST API endpoint
   --version VERSION     API version
-```
-
-### API interface
-```python
->>> from raidenpy import Client
-
->>> c = Client(endpoint="http://127.0.0.1:5001")
->>> c.address()
->>> c.tokens()
 ```
 
 <div align="center">
