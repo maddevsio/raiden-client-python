@@ -1,13 +1,17 @@
 from typing import Any, Dict
 
-from requests import Request
-
+from raidenpy.types import Address
 from raidenpy.endpoints import BaseRequest, BaseResponse
 
 
 class AddressRequest(BaseRequest):
-    """Raiden address is the same address as the Ethereum
+    """Querying Information About Your Raiden Node
+
+    Raiden address is the same address as the Ethereum
     address chosen, when starting the Raiden node
+
+    GET /api/(version)/address
+    https://raiden-network.readthedocs.io/en/latest/rest_api.html#querying-information-about-your-raiden-node
     """
 
     @property
@@ -23,14 +27,24 @@ class AddressRequest(BaseRequest):
 
 
 class AddressResponse(BaseResponse):
-    def __init__(self, response: Request):
-        self.response = response
+    """Address Response.
+    {
+        "our_address": "0x2a65Aca4D5fC5B5C859090a6c34d164135398226"
+    }
+    """
+    def __init__(self, our_address: Address):
+        self.our_address = our_address
 
-    def validate_status_code(self, status_code: int) -> bool:
-        if status_code != 200:
-            raise Exception()
+    def shema_validation(self):
+        # Validate input json schema
         return True
 
+    @classmethod
+    def from_dict(cls, d):
+        cls.shema_validation(d)
+        return cls(**d)
+
     def to_dict(self) -> Dict[str, str]:
-        self.validate_status_code(self.response.status_code)
-        return self.response.json()
+        return {
+            "our_address": self.our_address
+        }

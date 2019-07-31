@@ -24,15 +24,16 @@ class TokensRequest(BaseRequest):
 class TokensResponse(BaseResponse):
     """Returns a list of addresses of all registered tokens."""
 
-    def __init__(self, response: Response):
-        self.response = response
+    def __init__(self, tokens: List[Address]):
+        self.tokens = tokens
 
-    def validate_status_code(self, status_code: int) -> bool:
-        if status_code != 200:
-            raise Exception()
+    def shema_validation(self) -> bool:
         return True
 
     def to_dict(self) -> List[Address]:
-        self.validate_status_code(self.response.status_code)
-        data = self.response.json()
-        return [Address(item) for item in data]
+        return [Address(token) for token in self.tokens]
+
+    @classmethod
+    def from_dict(cls, d):
+        cls.shema_validation(d)
+        return cls(**d)

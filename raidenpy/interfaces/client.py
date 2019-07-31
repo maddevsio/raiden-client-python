@@ -7,6 +7,7 @@ from raidenpy.endpoints.channels_by_token import ChannelByTokenRequest, ChannelB
 from raidenpy.endpoints.deploy_tokens import DeployTokenRequst, DeployTokenResponse
 from raidenpy.endpoints.token_network import TokenNetworkRequest, TokenNetworkResponse
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
+from raidenpy.endpoints.pending_transfers import PendingTransfersRequest, PendingTransfersResponse
 from raidenpy.api_handler import APIHandler
 from raidenpy.types import Address
 
@@ -16,73 +17,72 @@ class Client:
         self.handler = APIHandler(endpoint, version)
 
     def address(self) -> Dict[str, Address]:
-        req = AddressRequest()
-        response = AddressResponse(response=self.handler.do(req))
+        request = AddressRequest()
+        api_request = self.handler.do(request)
+        response = AddressResponse.from_dict(api_request)
         return response.to_dict()
 
     def tokens(self) -> List[Address]:
-        req = TokensRequest()
-        response = TokensResponse(response=self.handler.do(req))
+        request = TokensRequest()
+        api_response = self.handler.do(request)
+        response = TokensResponse.from_dict({"tokens": api_response})
         return response.to_dict()
 
     def register_token(self, token_address: Address) -> Dict[str, Address]:
-        req = DeployTokenRequst(token_address=token_address)
-        response = DeployTokenResponse(response=self.handler.do(req))
-        return response.to_dict()
-
-    def channels(self):
-        req = ChannelsRequest()
-        response = ChannelsResponse(response=self.handler.do(req))
-        return response.to_dict()
-
-    def channels_by_token(self, token_address: Address):
-        req = ChannelByTokenRequest(token_address=token_address)
-        response = ChannelByTokenResponse(response=self.handler.do(req))
-        return response.to_dict()
-
-    def channel(self, token_address: Address, partner_address: Address):
-        req = ChannelRequest(token_address=token_address, partner_address=partner_address)
-        response = ChannelResponse(response=self.handler.do(req))
+        request = DeployTokenRequst(token_address=token_address)
+        response = DeployTokenResponse(response=self.handler.do(request))
         return response.to_dict()
 
     def token_network(self, token_address: Address) -> Address:
-        req = TokenNetworkRequest(token_address=token_address)
-        response = TokenNetworkResponse(response=self.handler.do(req))
+        request = TokenNetworkRequest(token_address=token_address)
+        response = TokenNetworkResponse(response=self.handler.do(request))
         return response.to_dict()
 
-    def non_settled_partners(self, token_address: str):
+    def non_settled_partners(self, token_address: Address):
         """
         Returns a list of all partners with whom you have non-settled channels for a certain token.
         GET /api/(version)/tokens/(token_address)/partners
         """
         pass
 
-    def pending_transfers(self, token_address: str = None, partner_address: str = None):
-        """Returns a list of all transfers that have not been completed yet.
+    def pending_transfers(self,
+                          token_address: Address = None,
+                          partner_address: Address = None):
+        request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
+        api_response = self.handler.do(request)
+        response = PendingTransfersResponse.from_dict({"channels": api_response})
+        return response.to_dict()
 
-        GET /api/(version)/pending_transfers
-        GET /api/(version)/pending_transfers/(token_address)
-        GET /api/(version)/pending_transfers/(token_address)/(partner_address)
-        """
-        pass
+    def channels(self):
+        request = ChannelsRequest()
+        response = ChannelsResponse(response=self.handler.do(request))
+        return response.to_dict()
 
-    def open_channel(
-        self,
-        partner_address: str,
-        settle_timeout: int,
-        token_address: str,
-        total_deposit: int
-    ) -> Dict[str, Any]:
+    def channels_by_token(self, token_address: Address):
+        request = ChannelByTokenRequest(token_address=token_address)
+        response = ChannelByTokenResponse(response=self.handler.do(request))
+        return response.to_dict()
+
+    def channel(self, token_address: Address, partner_address: Address):
+        request = ChannelRequest(token_address=token_address, partner_address=partner_address)
+        response = ChannelResponse(response=self.handler.do(request))
+        return response.to_dict()
+
+    def open_channel(self,
+                     partner_address: Address,
+                     settle_timeout: int,
+                     token_address: Address,
+                     total_deposit: int) -> Dict[str, Any]:
         return data
 
-    def close_channel(self, token_address: str, partner_address: str):
+    def close_channel(self, token_address: Address, partner_address: Address):
         """Close a channel .
         PATCH /api/(version)/channels/(token_address)/(partner_address)
         {"state": "closed"}
         """
         pass
 
-    def chanel_increase_deposit(self, token_address: str, partner_address: str):
+    def chanel_increase_deposit(self, token_address: Address, partner_address: Address):
         """Increase the deposit in it.
         PATCH /api/(version)/channels/(token_address)/(partner_address)
         {"total_deposit": 100}
@@ -105,25 +105,25 @@ class Client:
         """
         pass
 
-    def connect_network(self, token_address: str):
+    def connect_network(self, token_address: Address):
         """Join a token network.
         PUT /api/(version)/connections/(token_address)
         """
         pass
 
-    def disconnect_network(self, token_address: str):
+    def disconnect_network(self, token_address: Address):
         """Join a token network.
         DELETE /api/(version)/connections/(token_address)
         """
         pass
 
-    def payment(self, token_address: str, target_address: str):
+    def payment(self, token_address: Address, target_address: str):
         """Initiate a payment.
         POST /api/(version)/payments/(token_address)/(target_address)
         """
         pass
 
-    def payment_history(self, token_address: str, target_address: str):
+    def payment_history(self, token_address: Address, target_address: str):
         """Query the payment history.
         GET /api/v1/payments/(token_address)/(target_address)
         """
