@@ -21,8 +21,8 @@ class Client:
         response = AddressResponse.from_dict(api_request)
         return response.to_dict()
 
-    def tokens(self) -> List[Address]:
-        request = TokensRequest()
+    def tokens(self, token_address: Address = None) -> List[Address]:
+        request = TokensRequest(token_address=token_address)
         api_response = self.handler.do(request)
         response = TokensResponse.from_dict({"tokens": api_response})
         return response.to_dict()

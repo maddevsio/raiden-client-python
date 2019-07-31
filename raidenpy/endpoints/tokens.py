@@ -1,16 +1,26 @@
 from typing import Any, Dict, List
 
-from requests import Response
-
 from raidenpy.endpoints import BaseRequest, BaseResponse
 from raidenpy.types import Address
 
 
 class TokensRequest(BaseRequest):
-    """Query a list of addresses of all registered tokens"""
+    """Query a list of addresses of all registered tokens
+
+    - Query list all tokens addresses
+    GET /api/(version)/tokens
+
+    - Query address of the token network for the given token
+    GET /api/(version)/tokens/(token_address)
+    """
+
+    def __init__(self, token_address: Address = None):
+        self.token_address = token_address
 
     @property
     def endpoint(self) -> str:
+        if self.token_address:
+            return f"/tokens/{self.token_address}"
         return "/tokens"
 
     @property
@@ -27,13 +37,9 @@ class TokensResponse(BaseResponse):
     def __init__(self, tokens: List[Address]):
         self.tokens = tokens
 
-    def shema_validation(self) -> bool:
-        return True
-
     def to_dict(self) -> List[Address]:
-        return [Address(token) for token in self.tokens]
+        return {"tokens": self.tokens}
 
     @classmethod
     def from_dict(cls, d):
-        cls.shema_validation(d)
-        return cls(**d)
+        return cls(tokens=d["tokens"])
