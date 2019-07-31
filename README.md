@@ -4,6 +4,51 @@
 
 A Python client for a Raiden node.
 
+## Installation
+
+```
+$ pip install raidenpy
+```
+
+## Usage
+
+Raidenpy client provide few interfaces:
+1. CLI
+2. API
+
+### CLI usage
+
+```shell
+$ raiden-cli -h
+
+usage: raiden-cli [-h] [--endpoint ENDPOINT] [--version VERSION]
+                  {address,tokens,register-token,channels} ...
+
+Raiden python client CLI
+
+positional arguments:
+  {address,tokens,register-token,channels}
+                        Commands
+    address             Query node address
+    tokens              Query list of registered tokens
+    register-token      Registering a token by token address
+    channels            Query list of registered tokens
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --endpoint ENDPOINT   REST API endpoint
+  --version VERSION     API version
+```
+
+### API interface
+```python
+>>> from raidenpy import Client
+
+>>> c = Client(endpoint="http://127.0.0.1:5001")
+>>> c.address()
+>>> c.tokens()
+```
+
 ## Features
 
 ## CLI interface
