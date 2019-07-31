@@ -1,7 +1,11 @@
-from typing import Any, Dict, List
+from typing import Any
+from typing import Dict
+from typing import List
 
-from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.types import Address, NonSettledPartners
+from raidenpy.endpoints import BaseRequest
+from raidenpy.endpoints import BaseResponse
+from raidenpy.types import Address
+from raidenpy.types import NonSettledPartners
 
 
 class NonSettledPartnersRequest(BaseRequest):

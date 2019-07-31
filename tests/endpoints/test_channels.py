@@ -1,4 +1,5 @@
-from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
+from raidenpy.endpoints.channels import ChannelsRequest
+from raidenpy.endpoints.channels import ChannelsResponse
 from raidenpy.types import Address
 
 

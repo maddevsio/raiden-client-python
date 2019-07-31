@@ -1,6 +1,8 @@
-from typing import Any, Dict
+from typing import Any
+from typing import Dict
 
-from raidenpy.endpoints import BaseRequest, BaseResponse
+from raidenpy.endpoints import BaseRequest
+from raidenpy.endpoints import BaseResponse
 from raidenpy.types import Address
 
 
