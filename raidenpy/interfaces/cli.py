@@ -101,10 +101,7 @@ def raiden_cli(args: argparse.Namespace):
         client.connections()
     elif args.command == "connect":
         client.connections_connect(
-            args.token_address,
-            args.funds,
-            args.initial_channel_target,
-            args.joinable_funds_target
+            args.token_address, args.funds, args.initial_channel_target, args.joinable_funds_target
         )
     elif args.command == "disconnect":
         client.connection_disconnect(args.token_address)

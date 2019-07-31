@@ -13,11 +13,8 @@ class PaymentRequest(BaseRequest):
     POST /api/(version)/payments/(token_address)/(target_address)
     https://raiden-network.readthedocs.io/en/latest/rest_api.html#payments
     """
-    def __init__(self,
-                 token_address: Address,
-                 target_address: Address,
-                 amount: int,
-                 identifier: int = None) -> None:
+
+    def __init__(self, token_address: Address, target_address: Address, amount: int, identifier: int = None) -> None:
         # TODO: adop regarding API doc
         self.token_address = token_address
         self.target_address = target_address
