@@ -20,9 +20,9 @@ from raidenpy.endpoints.channel_withdraw import (
     ChannelWithdrawResponse,
 )
 from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.endpoints.deploy_tokens import (
-    DeployTokenRequst,
-    DeployTokenResponse,
+from raidenpy.endpoints.token_register import (
+    TokenRegistryRequest,
+    TokenRegistryResponse,
 )
 from raidenpy.endpoints.non_settled_partners import (
     NonSettledPartnersRequest,
@@ -85,10 +85,12 @@ class Client:
         response = PendingTransfersResponse.from_dict({"channels": api_response})
         return response.to_dict()
 
-    def register_token(self, token_address: Address) -> Dict[str, Address]:
-        # TODO: Check this one!
-        request = DeployTokenRequst(token_address=token_address)
-        response = DeployTokenResponse.from_dict(self.handler.do(request))
+    def token_register(self, token_address: Address) -> Dict[str, Address]:
+        request = TokenRegistryRequest(token_address=token_address)
+        api_response = self.handler.do(request)
+        response = TokenRegistryResponse.from_dict({
+            "token_network_address": api_response
+        })
         return response.to_dict()
 
     def channel_open(

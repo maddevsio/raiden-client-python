@@ -9,9 +9,6 @@ def create_subparsers(subparsers):
     tokens = subparsers.add_parser("tokens", help="Query list of registered tokens")
     tokens.add_argument("--token-address", required=False, help="For the given token address")
 
-    register_token = subparsers.add_parser("register-token", help="Registering a token by token address")
-    register_token.add_argument("--token-address", required=True, help="Token address")
-
     channels = subparsers.add_parser("channels", help="Request a list of all unsettled channels")
     channels.add_argument("--token-address", required=False, help="For the given token address")
 
@@ -54,6 +51,9 @@ def create_subparsers(subparsers):
     channel_withdraw.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
     channel_withdraw.add_argument("--total-withdraw", required=True, help="The increased total withdraw")
 
+    register_token = subparsers.add_parser("token-register", help="Registering a token by token address")
+    register_token.add_argument("--token-address", required=True, help="Token address")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -62,7 +62,7 @@ def raiden_cli(args: argparse.Namespace):
     elif args.command == "tokens":
         client.tokens(args.token_address)
     elif args.command == "register-token":
-        client.register_token(args.token_address)
+        client.token_register(args.token_address)
     elif args.command == "channels":
         client.channels(args.token_address)
     elif args.command == "channel":
