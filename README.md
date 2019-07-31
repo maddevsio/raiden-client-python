@@ -1,6 +1,6 @@
 # Raiden Network client API
 [![Mad Devs](https://mdbadge.glitch.me/mdrw.svg)](https://maddevs.io)
-[![CircleCI](https://circleci.com/gh/s0b0lev/raiden-client-python.svg?style=svg&circle-token=e688d9f340fa59202c712ef5e2b8affa614b650c)](https://circleci.com/gh/s0b0lev/raiden-client-python)
+[![CircleCI](https://circleci.com/gh/maddevsio/raiden-client-python.svg?style=svg)](https://circleci.com/gh/maddevsio/raiden-client-python)
 
 A Python client for a Raiden node.
 
