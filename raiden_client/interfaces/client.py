@@ -32,11 +32,19 @@ from raiden_client.endpoints.connections_connect import (
     ConnectionConnectRequest,
     ConnectionConnectResponse,
 )
+from raiden_client.endpoints.mint_tokens import (
+    MintTokensRequest,
+    MintTokensResponse,
+)
 from raiden_client.endpoints.non_settled_partners import (
     NonSettledPartnersRequest,
     NonSettledPartnersResponse,
 )
 from raiden_client.endpoints.payment import PaymentRequest, PaymentResponse
+from raiden_client.endpoints.payment_events import (
+    PaymentEventsRequest,
+    PaymentEventsResponse,
+)
 from raiden_client.endpoints.pending_transfers import (
     PendingTransfersRequest,
     PendingTransfersResponse,
@@ -46,8 +54,6 @@ from raiden_client.endpoints.token_register import (
     TokenRegistryResponse,
 )
 from raiden_client.endpoints.tokens import TokensRequest, TokensResponse
-from raiden_client.endpoints.payment_events import PaymentEventsRequest, PaymentEventsResponse
-from raiden_client.endpoints.mint_tokens import MintTokensRequest, MintTokensResponse
 from raiden_client.types import (
     Address,
     ChannelType,
@@ -177,27 +183,15 @@ class Client:
         return response.to_dict()
 
     def payment_events(self, token_address: Address, target_address: str):
-        request = PaymentEventsRequest(
-            token_address=token_address, target_address=target_address
-        )
+        request = PaymentEventsRequest(token_address=token_address, target_address=target_address)
         api_response = self.handler.do(request)
-        response = PaymentEventsResponse.from_dict({
-            "payment_events": api_response
-        })
+        response = PaymentEventsResponse.from_dict({"payment_events": api_response})
         return response.to_dict()
 
-    def mint_tokens(self,
-                    token_address: Address,
-                    to: str, value: str,
-                    contract_method: str = "mintFor") -> Dict[str, str]:
-        request = MintTokensRequest(
-            token_address=token_address,
-            to=to,
-            value=value,
-            contract_method=contract_method,
-        )
+    def mint_tokens(
+        self, token_address: Address, to: str, value: str, contract_method: str = "mintFor"
+    ) -> Dict[str, str]:
+        request = MintTokensRequest(token_address=token_address, to=to, value=value, contract_method=contract_method)
         api_response = self.handler.do(request)
-        response = MintTokensResponse.from_dict({
-            "transaction_hash": api_response["transaction_hash"]
-        })
+        response = MintTokensResponse.from_dict({"transaction_hash": api_response["transaction_hash"]})
         return response.to_dict()

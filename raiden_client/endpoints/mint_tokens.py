@@ -16,11 +16,7 @@ class MintTokensRequest(BaseRequest):
     POST /api/(version)/_testing/tokens/(token_address)/mint
     """
 
-    def __init__(self,
-                 token_address: Address,
-                 to: Address,
-                 value: int,
-                 contract_method: str = "mintFor"):
+    def __init__(self, token_address: Address, to: Address, value: int, contract_method: str = "mintFor"):
         self.token_address = token_address
         self.to = to
         self.value = value
@@ -36,11 +32,7 @@ class MintTokensRequest(BaseRequest):
         return "post"
 
     def payload(self) -> Dict[str, Any]:
-        return {
-            "to": self.to,
-            "value": self.value,
-            "contract_method": self.contract_method
-        }
+        return {"to": self.to, "value": self.value, "contract_method": self.contract_method}
 
 
 class MintTokensResponse(BaseResponse):

@@ -57,9 +57,7 @@ def connections_func(client: Client, args: argparse.Namespace) -> None:
 
 
 def connect_func(client: Client, args: argparse.Namespace) -> None:
-    client.connections_connect(
-        args.token_address, args.funds, args.initial_channel_target, args.joinable_funds_target
-    )
+    client.connections_connect(args.token_address, args.funds, args.initial_channel_target, args.joinable_funds_target)
 
 
 def connection_disconnect_func(client: Client, args: argparse.Namespace) -> None:
@@ -76,18 +74,12 @@ def payment_func(client: Client, args: argparse.Namespace) -> None:
 
 
 def payment_events_func(client: Client, args: argparse.Namespace) -> None:
-    client.payment_events(
-        token_address=args.token_address,
-        target_address=args.target_address,
-    )
+    client.payment_events(token_address=args.token_address, target_address=args.target_address)
 
 
 def mint_tokens_func(client: Client, args: argparse.Namespace) -> None:
     client.mint_tokens(
-        token_address=args.token_address,
-        to=args.to,
-        value=args.value,
-        contract_method=args.contract_method,
+        token_address=args.token_address, to=args.to, value=args.value, contract_method=args.contract_method
     )
 
 
@@ -197,5 +189,5 @@ def main() -> None:
 
     args = parser.parse_args()
     client = Client(args.endpoint, args.version)
-    if hasattr(args, 'func'):
+    if hasattr(args, "func"):
         args.func(client, args)
