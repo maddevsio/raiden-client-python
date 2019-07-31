@@ -1,27 +1,27 @@
-from typing import Any
-from typing import Dict
-from typing import List
+from typing import Any, Dict, List
 
 from raidenpy.api_handler import APIHandler
-from raidenpy.endpoints.address import AddressRequest
-from raidenpy.endpoints.address import AddressResponse
-from raidenpy.endpoints.channel import ChannelRequest
-from raidenpy.endpoints.channel import ChannelResponse
-from raidenpy.endpoints.channels import ChannelsRequest
-from raidenpy.endpoints.channels import ChannelsResponse
-from raidenpy.endpoints.deploy_tokens import DeployTokenRequst
-from raidenpy.endpoints.deploy_tokens import DeployTokenResponse
-from raidenpy.endpoints.non_settled_partners import NonSettledPartnersRequest
-from raidenpy.endpoints.non_settled_partners import NonSettledPartnersResponse
-from raidenpy.endpoints.pending_transfers import PendingTransfersRequest
-from raidenpy.endpoints.pending_transfers import PendingTransfersResponse
-from raidenpy.endpoints.token_network import TokenNetworkRequest
-from raidenpy.endpoints.token_network import TokenNetworkResponse
-from raidenpy.endpoints.tokens import TokensRequest
-from raidenpy.endpoints.tokens import TokensResponse
-from raidenpy.types import Address
-from raidenpy.types import ChannelType
-from raidenpy.types import NonSettledPartners
+from raidenpy.endpoints.address import AddressRequest, AddressResponse
+from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
+from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
+from raidenpy.endpoints.deploy_tokens import (
+    DeployTokenRequst,
+    DeployTokenResponse,
+)
+from raidenpy.endpoints.non_settled_partners import (
+    NonSettledPartnersRequest,
+    NonSettledPartnersResponse,
+)
+from raidenpy.endpoints.pending_transfers import (
+    PendingTransfersRequest,
+    PendingTransfersResponse,
+)
+from raidenpy.endpoints.token_network import (
+    TokenNetworkRequest,
+    TokenNetworkResponse,
+)
+from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
+from raidenpy.types import Address, ChannelType, NonSettledPartners
 
 
 class Client:

@@ -1,16 +1,14 @@
-from typing import Any
-from typing import Dict
-from typing import List
+from typing import Any, Dict, List
 
 from requests import Response
 
-from raidenpy.endpoints import BaseRequest
-from raidenpy.endpoints import BaseResponse
-from raidenpy.exceptions import InternalServerException
-from raidenpy.exceptions import NotFoundException
-from raidenpy.exceptions import ResponseStatusCodeException
-from raidenpy.types import Address
-from raidenpy.types import ChannelType
+from raidenpy.endpoints import BaseRequest, BaseResponse
+from raidenpy.exceptions import (
+    InternalServerException,
+    NotFoundException,
+    ResponseStatusCodeException,
+)
+from raidenpy.types import Address, ChannelType
 
 
 class ChannelByTokenRequest(BaseRequest):

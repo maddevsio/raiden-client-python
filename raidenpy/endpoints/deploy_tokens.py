@@ -1,12 +1,12 @@
-from typing import Any
-from typing import Dict
+from typing import Any, Dict
 
-from raidenpy.endpoints import BaseRequest
-from raidenpy.endpoints import BaseResponse
-from raidenpy.exceptions import ConflictException
-from raidenpy.exceptions import NotFoundException
-from raidenpy.exceptions import NotImplementedException
-from raidenpy.exceptions import PaymentRequiredException
+from raidenpy.endpoints import BaseRequest, BaseResponse
+from raidenpy.exceptions import (
+    ConflictException,
+    NotFoundException,
+    NotImplementedException,
+    PaymentRequiredException,
+)
 from raidenpy.types import Address
 
 

@@ -1,5 +1,4 @@
-from raidenpy.endpoints.address import AddressRequest
-from raidenpy.endpoints.address import AddressResponse
+from raidenpy.endpoints.address import AddressRequest, AddressResponse
 from raidenpy.types import Address
 
 

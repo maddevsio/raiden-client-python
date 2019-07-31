@@ -1,5 +1,7 @@
-from raidenpy.endpoints.non_settled_partners import NonSettledPartnersRequest
-from raidenpy.endpoints.non_settled_partners import NonSettledPartnersResponse
+from raidenpy.endpoints.non_settled_partners import (
+    NonSettledPartnersRequest,
+    NonSettledPartnersResponse,
+)
 from raidenpy.types import Address
 
 

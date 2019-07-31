@@ -1,1 +1,1 @@
-isort . --recursive -tc -sl -w 120
+isort . --recursive -tc --multi-line 3 -w 80
