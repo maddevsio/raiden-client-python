@@ -47,3 +47,11 @@ class PaymentType(TypedDict):
     token_address: Address
     amount: int
     identifier: int
+
+
+class PaymentEvent(TypedDict):
+    event: str
+    amount: int
+    initiator: Address
+    identifier: int
+    log_time: str
