@@ -36,6 +36,7 @@ from raidenpy.endpoints.connections_connect import (
     ConnectionConnectRequest,
     ConnectionConnectResponse,
 )
+from raidenpy.endpoints.payment import PaymentRequest, PaymentResponse
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
 from raidenpy.endpoints.connections import ConnectionsRequest, ConnectionsResponse
 from raidenpy.endpoints.connection_disconnect import ConnectionDisconnectRequest, ConnectionDisconnectResponse
@@ -44,6 +45,7 @@ from raidenpy.types import (
     ChannelType,
     NonSettledPartners,
     PendingTransfer,
+    PaymentType,
 )
 
 
@@ -162,11 +164,22 @@ class Client:
         })
         return response.to_dict()
 
-    def payment(self, token_address: Address, target_address: str):
-        """Initiate a payment.
-        POST /api/(version)/payments/(token_address)/(target_address)
-        """
-        pass
+    def payment(self,
+                token_address: Address,
+                target_address: str,
+                amount: int,
+                identifier: int = None) -> Dict[str, PaymentType]:
+        request = PaymentRequest(
+            token_address=token_address,
+            target_address=target_address,
+            amount=amount,
+            identifier=identifier
+        )
+        api_response = self.handler.do(request)
+        response = PaymentResponse.from_dict({
+            "payment": api_response
+        })
+        return response.to_dict()
 
     def payment_history(self, token_address: Address, target_address: str):
         """Query the payment history.

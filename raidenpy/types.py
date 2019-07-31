@@ -39,3 +39,11 @@ class ConnectionType(TypedDict):
     funds: int
     sum_deposits: int
     channels: int
+
+
+class PaymentType(TypedDict):
+    initiator_address: Address
+    target_address: Address
+    token_address: Address
+    amount: int
+    identifier: int
