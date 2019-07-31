@@ -7,47 +7,47 @@ from raidenpy.endpoints.channels_by_token import ChannelByTokenRequest, ChannelB
 from raidenpy.endpoints.deploy_tokens import DeployTokenRequst, DeployTokenResponse
 from raidenpy.endpoints.token_network import TokenNetworkRequest, TokenNetworkResponse
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
-from raidenpy.request_handler import Request
+from raidenpy.api_handler import APIHandler
 from raidenpy.types import Address
 
 
 class Client:
     def __init__(self, endpoint: str, version: str = "v1") -> None:
-        self.request = Request(endpoint, version)
+        self.handler = APIHandler(endpoint, version)
 
     def address(self) -> Dict[str, Address]:
         req = AddressRequest()
-        response = AddressResponse(response=self.request.do(req))
+        response = AddressResponse(response=self.handler.do(req))
         return response.to_dict()
 
     def tokens(self) -> List[Address]:
         req = TokensRequest()
-        response = TokensResponse(response=self.request.do(req))
+        response = TokensResponse(response=self.handler.do(req))
         return response.to_dict()
 
     def register_token(self, token_address: Address) -> Dict[str, Address]:
         req = DeployTokenRequst(token_address=token_address)
-        response = DeployTokenResponse(response=self.request.do(req))
+        response = DeployTokenResponse(response=self.handler.do(req))
         return response.to_dict()
 
     def channels(self):
         req = ChannelsRequest()
-        response = ChannelsResponse(response=self.request.do(req))
+        response = ChannelsResponse(response=self.handler.do(req))
         return response.to_dict()
 
     def channels_by_token(self, token_address: Address):
         req = ChannelByTokenRequest(token_address=token_address)
-        response = ChannelByTokenResponse(response=self.request.do(req))
+        response = ChannelByTokenResponse(response=self.handler.do(req))
         return response.to_dict()
 
     def channel(self, token_address: Address, partner_address: Address):
         req = ChannelRequest(token_address=token_address, partner_address=partner_address)
-        response = ChannelResponse(response=self.request.do(req))
+        response = ChannelResponse(response=self.handler.do(req))
         return response.to_dict()
 
     def token_network(self, token_address: Address) -> Address:
         req = TokenNetworkRequest(token_address=token_address)
-        response = TokenNetworkResponse(response=self.request.do(req))
+        response = TokenNetworkResponse(response=self.handler.do(req))
         return response.to_dict()
 
     def non_settled_partners(self, token_address: str):

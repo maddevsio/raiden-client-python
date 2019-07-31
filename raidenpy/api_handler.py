@@ -3,7 +3,7 @@ import requests
 from raidenpy.endpoints import BaseRequest, BaseResponse
 
 
-class Request:
+class APIHandler:
     def __init__(self, endpoint: str, version: str = "v1") -> None:
         self.endpoint = f"{endpoint}/api/{version}"
 
