@@ -2,15 +2,8 @@ import argparse
 
 from raidenpy import Client
 
-RAIDEN_COMMANDS = ("address", "tokens")
 
-
-def create_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("--endpoint", default="http://127.0.0.1:5001/", help="REST API endpoint")
-    parser.add_argument("--version", default="v1", help="API version")
-
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
-
+def create_subparsers(subparsers):
     subparsers.add_parser("address", help="Query node address")
 
     tokens = subparsers.add_parser("tokens", help="Query list of registered tokens")
@@ -37,6 +30,30 @@ def create_parser(parser: argparse.ArgumentParser):
     pending_transfers.add_argument("--token-address", required=True, help="For the given token address")
     pending_transfers.add_argument("--partner-address", required=True, help="For the given partner address")
 
+    channel_open = subparsers.add_parser("channel-open", help="Opens / creates a channel")
+    channel_open.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_open.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_open.add_argument(
+        "--total-deposit", required=True, help="Total amount of tokens to be deposited to the channel"
+    )
+    channel_open.add_argument(
+        "--settle-timeout", required=True, help="The amount of blocks that the settle timeout should have"
+    )
+
+    channel_close = subparsers.add_parser("channel-close", help="Close a channell")
+    channel_close.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_close.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
+
+    channel_deposit = subparsers.add_parser("channel-deposit-increase", help="Increase channel deposit")
+    channel_deposit.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_deposit.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_deposit.add_argument("--total-deposit", required=True, help="The increased total deposit")
+
+    channel_withdraw = subparsers.add_parser("channel-withdraw-increase", help="Increase channel deposit")
+    channel_withdraw.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_withdraw.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_withdraw.add_argument("--total-withdraw", required=True, help="The increased total withdraw")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -54,10 +71,18 @@ def raiden_cli(args: argparse.Namespace):
         client.non_settled_partners(args.token_address)
     elif args.command == "pending-transfers":
         client.pending_transfers(args.token_address, args.partner_address)
+    elif args.command == "channel-open":
+        client.channel_open(args.token_address, args.partner_address, args.total_deposit, args.settle_timeout)
+    elif args.command == "channel-close":
+        client.close_channel(args.token_address, args.partner_address)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Raiden python client CLI")
-    create_parser(parser)
+    parser.add_argument("--endpoint", default="http://127.0.0.1:5001/", help="REST API endpoint")
+    parser.add_argument("--version", default="v1", help="API version")
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    create_subparsers(subparsers)
+
     args = parser.parse_args()
     raiden_cli(args)
