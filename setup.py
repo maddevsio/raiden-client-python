@@ -6,6 +6,7 @@ deps = {
         "requests>=2.22.0,<2.23.0",
         "jsonschema>=3.0.1,<3.1.0",
         "eth-utils>=1.6.1,<1.7.0",
+        "mypy-extensions>=0.4.1,<0.5.0",
         "eth-hash[pycryptodome]>=0.2.0,<0.3.0",
     ],
     "dev": [
