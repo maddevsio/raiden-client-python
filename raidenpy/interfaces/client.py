@@ -3,13 +3,12 @@ from typing import Any, Dict, List
 from raidenpy.endpoints.address import AddressRequest, AddressResponse
 from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
 from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.endpoints.channels_by_token import ChannelByTokenRequest, ChannelByTokenResponse
 from raidenpy.endpoints.deploy_tokens import DeployTokenRequst, DeployTokenResponse
 from raidenpy.endpoints.token_network import TokenNetworkRequest, TokenNetworkResponse
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
 from raidenpy.endpoints.pending_transfers import PendingTransfersRequest, PendingTransfersResponse
 from raidenpy.api_handler import APIHandler
-from raidenpy.types import Address
+from raidenpy.types import Address, ChannelType
 
 
 class Client:
@@ -26,6 +25,20 @@ class Client:
         request = TokensRequest()
         api_response = self.handler.do(request)
         response = TokensResponse.from_dict({"tokens": api_response})
+        return response.to_dict()
+
+    def channels(self, token_address: Address = None) -> List[ChannelType]:
+        request = ChannelsRequest()
+        response = ChannelsResponse.from_dict({
+            "channels": self.handler.do(request)
+        })
+        return response.to_dict()
+
+    def channel(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:
+        request = ChannelRequest(token_address=token_address, partner_address=partner_address)
+        response = ChannelResponse.from_dict({
+            "channel": self.handler.do(request)
+        })
         return response.to_dict()
 
     def register_token(self, token_address: Address) -> Dict[str, Address]:
@@ -51,21 +64,6 @@ class Client:
         request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
         api_response = self.handler.do(request)
         response = PendingTransfersResponse.from_dict({"channels": api_response})
-        return response.to_dict()
-
-    def channels(self):
-        request = ChannelsRequest()
-        response = ChannelsResponse(response=self.handler.do(request))
-        return response.to_dict()
-
-    def channels_by_token(self, token_address: Address):
-        request = ChannelByTokenRequest(token_address=token_address)
-        response = ChannelByTokenResponse(response=self.handler.do(request))
-        return response.to_dict()
-
-    def channel(self, token_address: Address, partner_address: Address):
-        request = ChannelRequest(token_address=token_address, partner_address=partner_address)
-        response = ChannelResponse(response=self.handler.do(request))
         return response.to_dict()
 
     def open_channel(self,

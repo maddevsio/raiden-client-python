@@ -1,9 +1,6 @@
 from typing import Any, Dict
 
-from requests import Response
-
 from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.exceptions import InternalServerException, NotFoundException, ResponseStatusCodeException
 from raidenpy.types import Address, ChannelType
 
 
@@ -35,22 +32,12 @@ class ChannelRequest(BaseRequest):
 class ChannelResponse(BaseResponse):
     """Returns a list of all unsettled channels."""
 
-    def __init__(self, response: Response):
-        self.response = response
+    def __init__(self, channel: ChannelType):
+        self.channel = channel
 
-    def validate_status_code(self, status_code: int) -> bool:
-        if status_code == 200:
-            return True
-        elif status_code == 404:
-            raise NotFoundException(
-                "HTTP 404: The given token address is not a valid eip55-encoded Ethereum address, "
-                "or The channel does not exist"
-            )
-        elif status_code == 500:
-            raise InternalServerException("HTTP 500: Internal Raiden node error")
-        raise ResponseStatusCodeException(f"HTTP {status_code}: Unhandled status code")
+    def to_dict(self) -> Dict[str, ChannelType]:
+        return {"channel": self.channel}
 
-    def to_dict(self) -> ChannelType:
-        self.validate_status_code(self.response.status_code)
-        data = self.response.json()
-        return ChannelType(data)
+    @classmethod
+    def from_dict(cls, d: Dict[str, ChannelType]) -> 'ChannelResponse':
+        return cls(channel=d["channel"])
