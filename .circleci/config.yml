@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.7.3
 
@@ -37,3 +37,35 @@ jobs:
       - run:
           name: run tests
           command: . venv/bin/activate && pytest tests/
+
+  release-pypi:
+    docker:
+      - image: circleci/python:3.7.3
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pip install --upgrade pip wheel setuptools twine
+      - run:
+          name: Build package
+          command: python setup.py sdist bdist_wheel
+      - run:
+          name: Deploy pypi
+          command: twine upload dist/* 
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - pypi_release:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - test

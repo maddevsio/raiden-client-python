@@ -40,10 +40,6 @@ def channel_close_func(client: Client, args: argparse.Namespace) -> None:
     client.channel_close(args.token_address, args.partner_address)
 
 
-def channel_deposit_func(client: Client, args: argparse.Namespace) -> None:
-    pass
-
-
 def channel_deposit_increase_func(client: Client, args: argparse.Namespace) -> None:
     client.channel_increase_deposit(args.token_address, args.partner_address, args.total_deposit)
 
@@ -83,7 +79,7 @@ def mint_tokens_func(client: Client, args: argparse.Namespace) -> None:
     )
 
 
-def create_subparsers(subparsers) -> None:
+def create_subparsers(subparsers: argparse._SubParsersAction) -> None:
     address = subparsers.add_parser("address", help="Query node address")
     address.set_defaults(func=address_func)
 
@@ -133,7 +129,7 @@ def create_subparsers(subparsers) -> None:
     channel_deposit.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
     channel_deposit.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
     channel_deposit.add_argument("--total-deposit", required=True, help="The increased total deposit")
-    channel_deposit.set_defaults(func=channel_deposit_func)
+    channel_deposit.set_defaults(func=channel_deposit_increase_func)
 
     channel_withdraw = subparsers.add_parser("channel-withdraw-increase", help="Increase channel deposit")
     channel_withdraw.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
