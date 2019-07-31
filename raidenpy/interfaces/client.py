@@ -20,29 +20,37 @@ from raidenpy.endpoints.channel_withdraw import (
     ChannelWithdrawResponse,
 )
 from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.endpoints.token_register import (
-    TokenRegistryRequest,
-    TokenRegistryResponse,
+from raidenpy.endpoints.connection_disconnect import (
+    ConnectionDisconnectRequest,
+    ConnectionDisconnectResponse,
 )
-from raidenpy.endpoints.non_settled_partners import (
-    NonSettledPartnersRequest,
-    NonSettledPartnersResponse,
-)
-from raidenpy.endpoints.pending_transfers import (
-    PendingTransfersRequest,
-    PendingTransfersResponse,
+from raidenpy.endpoints.connections import (
+    ConnectionsRequest,
+    ConnectionsResponse,
 )
 from raidenpy.endpoints.connections_connect import (
     ConnectionConnectRequest,
     ConnectionConnectResponse,
 )
+from raidenpy.endpoints.non_settled_partners import (
+    NonSettledPartnersRequest,
+    NonSettledPartnersResponse,
+)
+from raidenpy.endpoints.payment import PaymentRequest, PaymentResponse
+from raidenpy.endpoints.pending_transfers import (
+    PendingTransfersRequest,
+    PendingTransfersResponse,
+)
+from raidenpy.endpoints.token_register import (
+    TokenRegistryRequest,
+    TokenRegistryResponse,
+)
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
-from raidenpy.endpoints.connections import ConnectionsRequest, ConnectionsResponse
-from raidenpy.endpoints.connection_disconnect import ConnectionDisconnectRequest, ConnectionDisconnectResponse
 from raidenpy.types import (
     Address,
     ChannelType,
     NonSettledPartners,
+    PaymentType,
     PendingTransfer,
 )
 
@@ -90,9 +98,7 @@ class Client:
     def token_register(self, token_address: Address) -> Dict[str, Address]:
         request = TokenRegistryRequest(token_address=token_address)
         api_response = self.handler.do(request)
-        response = TokenRegistryResponse.from_dict({
-            "token_network_address": api_response
-        })
+        response = TokenRegistryResponse.from_dict({"token_network_address": api_response})
         return response.to_dict()
 
     def channel_open(
@@ -132,41 +138,41 @@ class Client:
     def connections(self):
         request = ConnectionsRequest()
         api_response = self.handler.do(request)
-        response = ConnectionsResponse.from_dict({
-            "connections": api_response
-        })
+        response = ConnectionsResponse.from_dict({"connections": api_response})
         return response.to_dict()
 
-    def connections_connect(self,
-                            token_address: Address,
-                            funds: int,
-                            initial_channel_target: int = None,
-                            joinable_funds_target: float = None):
+    def connections_connect(
+        self,
+        token_address: Address,
+        funds: int,
+        initial_channel_target: int = None,
+        joinable_funds_target: float = None,
+    ):
         request = ConnectionConnectRequest(
             token_address=token_address,
             funds=funds,
             initial_channel_target=initial_channel_target,
-            joinable_funds_target=joinable_funds_target
+            joinable_funds_target=joinable_funds_target,
         )
         api_response = self.handler.do(request)
-        response = ConnectionConnectResponse.from_dict({
-            "connection": api_response
-        })
+        response = ConnectionConnectResponse.from_dict({"connection": api_response})
         return response.to_dict()
 
     def connection_disconnect(self, token_address: Address):
         request = ConnectionDisconnectRequest(token_address=token_address)
         api_response = self.handler.do(request)
-        response = ConnectionDisconnectResponse.from_dict({
-            "connection": api_response
-        })
+        response = ConnectionDisconnectResponse.from_dict({"connection": api_response})
         return response.to_dict()
 
-    def payment(self, token_address: Address, target_address: str):
-        """Initiate a payment.
-        POST /api/(version)/payments/(token_address)/(target_address)
-        """
-        pass
+    def payment(
+        self, token_address: Address, target_address: str, amount: int, identifier: int = None
+    ) -> Dict[str, PaymentType]:
+        request = PaymentRequest(
+            token_address=token_address, target_address=target_address, amount=amount, identifier=identifier
+        )
+        api_response = self.handler.do(request)
+        response = PaymentResponse.from_dict({"payment": api_response})
+        return response.to_dict()
 
     def payment_history(self, token_address: Address, target_address: str):
         """Query the payment history.

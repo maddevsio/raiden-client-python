@@ -10,6 +10,7 @@ class ConnectionsRequest(BaseRequest):
     GET /api/(version)/connections
     https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-connections
     """
+
     @property
     def endpoint(self) -> str:
         return "/connections"

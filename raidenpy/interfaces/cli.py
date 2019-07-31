@@ -66,6 +66,12 @@ def create_subparsers(subparsers):
     connection_disconnect = subparsers.add_parser("disconnect", help="Leave a token network")
     connection_disconnect.add_argument("--token-address", required=True, help="Token address")
 
+    payment = subparsers.add_parser("payment", help="Initiate a payment")
+    payment.add_argument("--token-address", required=True, help="Token address")
+    payment.add_argument("--target-address", required=True, help="Token address")
+    payment.add_argument("--amount", required=True, help="Token address")
+    payment.add_argument("--identifier", required=False, help="Token address")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -95,13 +101,17 @@ def raiden_cli(args: argparse.Namespace):
         client.connections()
     elif args.command == "connect":
         client.connections_connect(
-            args.token_address,
-            args.funds,
-            args.initial_channel_target,
-            args.joinable_funds_target
+            args.token_address, args.funds, args.initial_channel_target, args.joinable_funds_target
         )
     elif args.command == "disconnect":
         client.connection_disconnect(args.token_address)
+    elif args.command == "payment":
+        client.payment(
+            token_address=args.token_address,
+            target_address=args.target_address,
+            amount=args.amount,
+            identifier=args.identifier,
+        )
 
 
 def main() -> None:

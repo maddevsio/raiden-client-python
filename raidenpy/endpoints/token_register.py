@@ -34,6 +34,7 @@ class TokenRegistryResponse(BaseResponse):
     Response:
     "0x61bB630D3B2e8eda0FC1d50F9f958eC02e3969F6"
     """
+
     def __init__(self, token_network_address: Address):
         self.token_network_address = token_network_address
 

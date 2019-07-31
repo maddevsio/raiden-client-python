@@ -9,6 +9,7 @@ class ConnectionDisconnectRequest(BaseRequest):
 
     PUT /api/(version)/connections/(token_address)
     """
+
     def __init__(self, token_address: Address) -> None:
         # TODO: adop regarding API doc
         self.token_address = token_address

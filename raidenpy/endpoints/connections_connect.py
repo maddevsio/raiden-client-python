@@ -9,11 +9,14 @@ class ConnectionConnectRequest(BaseRequest):
 
     PUT /api/(version)/connections/(token_address)
     """
-    def __init__(self,
-                 token_address: Address,
-                 funds: int,
-                 initial_channel_target: int = None,
-                 joinable_funds_target: float = None) -> None:
+
+    def __init__(
+        self,
+        token_address: Address,
+        funds: int,
+        initial_channel_target: int = None,
+        joinable_funds_target: float = None,
+    ) -> None:
         # TODO: adop regarding API doc
         self.token_address = token_address
         self.funds = funds
