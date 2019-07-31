@@ -1,13 +1,14 @@
 # Raiden Network client API
 [![Mad Devs](https://mdbadge.glitch.me/mdrw.svg)](https://maddevs.io)
 [![CircleCI](https://circleci.com/gh/maddevsio/raiden-client-python.svg?style=svg)](https://circleci.com/gh/maddevsio/raiden-client-python)
+[![PyPI version](https://badge.fury.io/py/raiden-client.svg)](https://badge.fury.io/py/raiden-client)
 
 A Python client for a Raiden node.
 
 ## Installation
 
 ```
-$ pip install raiden-client
+$ pip install -U raiden-client
 ```
 
 ## Usage
