@@ -54,6 +54,8 @@ def create_subparsers(subparsers):
     register_token = subparsers.add_parser("token-register", help="Registering a token by token address")
     register_token.add_argument("--token-address", required=True, help="Token address")
 
+    subparsers.add_parser("connections", help="Query details of all joined token networks")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -79,6 +81,8 @@ def raiden_cli(args: argparse.Namespace):
         client.channel_increase_deposit(args.token_address, args.partner_address, args.total_deposit)
     elif args.command == "channel-withdraw-increase":
         client.channel_increase_withdraw(args.token_address, args.partner_address, args.total_withdraw)
+    elif args.command == "connections":
+        client.connections()
 
 
 def main() -> None:

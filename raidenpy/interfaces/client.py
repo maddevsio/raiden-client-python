@@ -37,6 +37,7 @@ from raidenpy.endpoints.token_network import (
     TokenNetworkResponse,
 )
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
+from raidenpy.endpoints.connections import ConnectionsRequest, ConnectionsResponse
 from raidenpy.types import (
     Address,
     ChannelType,
@@ -96,6 +97,7 @@ class Client:
     def channel_open(
         self, token_address: Address, partner_address: Address, settle_timeout: int, total_deposit: int
     ) -> Dict[str, ChannelType]:
+        # Update all channel methods to use api_response var
         request = ChannelOpenRequest(
             token_address=token_address,
             partner_address=partner_address,
@@ -127,10 +129,12 @@ class Client:
         return response.to_dict()
 
     def connections(self):
-        """Query details of all joined token networks.
-        GET /api/(version)/connections
-        """
-        pass
+        request = ConnectionsRequest()
+        api_response = self.handler.do(request)
+        response = ConnectionsResponse.from_dict({
+            "connections": api_response
+        })
+        return response.to_dict()
 
     def connect_network(self, token_address: Address):
         """Join a token network.
