@@ -103,12 +103,12 @@ class Client:
         response = ChannelOpenResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
-    def close_channel(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:
+    def channel_close(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:
         request = ChannelCloseRequest(token_address=token_address, partner_address=partner_address)
         response = ChannelCloseResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
-    def chanel_increase_deposit(
+    def channel_increase_deposit(
         self, token_address: Address, partner_address: Address, total_deposit: int
     ) -> Dict[str, ChannelType]:
         request = ChannelDepositRequest(
@@ -117,7 +117,7 @@ class Client:
         response = ChannelDepositResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
-    def chanel_withdraw_tokens(self, token_address: Address, partner_address: Address, total_withdraw: int):
+    def channel_increase_withdraw(self, token_address: Address, partner_address: Address, total_withdraw: int):
         request = ChannelWithdrawRequest(
             token_address=token_address, partner_address=partner_address, total_withdraw=total_withdraw
         )

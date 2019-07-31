@@ -74,7 +74,11 @@ def raiden_cli(args: argparse.Namespace):
     elif args.command == "channel-open":
         client.channel_open(args.token_address, args.partner_address, args.total_deposit, args.settle_timeout)
     elif args.command == "channel-close":
-        client.close_channel(args.token_address, args.partner_address)
+        client.channel_close(args.token_address, args.partner_address)
+    elif args.command == "channel-deposit-increase":
+        client.channel_increase_deposit(args.token_address, args.partner_address, args.total_deposit)
+    elif args.command == "channel-withdraw-increase":
+        client.channel_increase_withdraw(args.token_address, args.partner_address, args.total_withdraw)
 
 
 def main() -> None:
