@@ -4,6 +4,8 @@ from raidenpy.api_handler import APIHandler
 from raidenpy.endpoints.address import AddressRequest, AddressResponse
 from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
 from raidenpy.endpoints.channel_open import ChannelOpenRequest, ChannelOpenResponse
+from raidenpy.endpoints.channel_close import ChannelCloseRequest, ChannelCloseResponse
+from raidenpy.endpoints.channel_deposit import ChannelDepositRequest, ChannelDepositResponse
 from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
 from raidenpy.endpoints.deploy_tokens import (
     DeployTokenRequst,
@@ -66,11 +68,12 @@ class Client:
         return response.to_dict()
 
     def register_token(self, token_address: Address) -> Dict[str, Address]:
+        # TODO: Check this one!
         request = DeployTokenRequst(token_address=token_address)
         response = DeployTokenResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
-    def open_channel(
+    def channel_open(
         self, token_address: Address, partner_address: Address, settle_timeout: int, total_deposit: int
     ) -> Dict[str, ChannelType]:
         request = ChannelOpenRequest(
@@ -82,19 +85,25 @@ class Client:
         response = ChannelOpenResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
-    def close_channel(self, token_address: Address, partner_address: Address):
-        """Close a channel .
-        PATCH /api/(version)/channels/(token_address)/(partner_address)
-        {"state": "closed"}
-        """
-        pass
+    def close_channel(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:
+        request = ChannelCloseRequest(
+            token_address=token_address,
+            partner_address=partner_address,
+        )
+        response = ChannelCloseResponse.from_dict(self.handler.do(request))
+        return response.to_dict()
 
-    def chanel_increase_deposit(self, token_address: Address, partner_address: Address):
-        """Increase the deposit in it.
-        PATCH /api/(version)/channels/(token_address)/(partner_address)
-        {"total_deposit": 100}
-        """
-        pass
+    def chanel_increase_deposit(self,
+                                token_address: Address,
+                                partner_address: Address,
+                                total_deposit: int) -> Dict[str, ChannelType]:
+        request = ChannelDepositRequest(
+            token_address=token_address,
+            partner_address=partner_address,
+            total_deposit=total_deposit,
+        )
+        response = ChannelDepositResponse.from_dict(self.handler.do(request))
+        return response.to_dict()
 
     def chanel_withdraw_tokens(self, token_address: Address, partner_address: Address, total_withdraw: int):
         """Withdraw tokens.

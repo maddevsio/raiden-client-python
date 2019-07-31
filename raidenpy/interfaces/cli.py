@@ -38,6 +38,15 @@ def create_subparsers(subparsers):
     channel_open.add_argument("--settle-timeout", required=True,
                               help="The amount of blocks that the settle timeout should have")
 
+    channel_close = subparsers.add_parser("channel-close", help="Close a channell")
+    channel_close.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_close.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")                  
+
+    channel_deposit = subparsers.add_parser("channel-deposit-increase", help="Increase channel deposit")
+    channel_deposit.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_deposit.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")                  
+    channel_deposit.add_argument("--total-deposit", required=True, help="The partner we want to open a channel with")                  
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -56,12 +65,11 @@ def raiden_cli(args: argparse.Namespace):
     elif args.command == "pending-transfers":
         client.pending_transfers(args.token_address, args.partner_address)
     elif args.command == "channel-open":
-        client.open_channel(
-            args.token_address,
-            args.partner_address,
-            args.total_deposit,
-            args.settle_timeout,
+        client.channel_open(
+            args.token_address, args.partner_address, args.total_deposit, args.settle_timeout
         )
+    elif args.command == "channel-close":
+        client.close_channel(args.token_address, args.partner_address)
 
 
 def main() -> None:
