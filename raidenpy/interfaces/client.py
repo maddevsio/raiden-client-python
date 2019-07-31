@@ -32,10 +32,6 @@ from raidenpy.endpoints.pending_transfers import (
     PendingTransfersRequest,
     PendingTransfersResponse,
 )
-from raidenpy.endpoints.token_network import (
-    TokenNetworkRequest,
-    TokenNetworkResponse,
-)
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
 from raidenpy.endpoints.connections import ConnectionsRequest, ConnectionsResponse
 from raidenpy.types import (
@@ -165,8 +161,3 @@ class Client:
         POST /api/v1/_testing/tokens/(token_address)/mint
         """
         pass
-
-    def token_network(self, token_address: Address) -> Address:
-        request = TokenNetworkRequest(token_address=token_address)
-        response = TokenNetworkResponse(response=self.handler.do(request))
-        return response.to_dict()
