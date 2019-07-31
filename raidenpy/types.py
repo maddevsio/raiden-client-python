@@ -33,3 +33,9 @@ class PendingTransfer(TypedDict):
     token_address: Address
     token_network_address: Address
     transferred_amount: str
+
+
+class ConnectionType(TypedDict):
+    funds: int
+    sum_deposits: int
+    channels: int

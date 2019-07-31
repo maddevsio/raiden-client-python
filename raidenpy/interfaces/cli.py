@@ -54,6 +54,18 @@ def create_subparsers(subparsers):
     register_token = subparsers.add_parser("token-register", help="Registering a token by token address")
     register_token.add_argument("--token-address", required=True, help="Token address")
 
+    subparsers.add_parser("connections", help="Query details of all joined token networks")
+
+    connect = subparsers.add_parser("connect", help="Automatically join a token network")
+    connect.add_argument("--token-address", required=True, help="Token address")
+    connect.add_argument("--funds", required=True, help="Token address")
+    connect.add_argument("--initial-channel-target", required=False, help="Token address")
+    # TODO: Update default type to float
+    connect.add_argument("--joinable-funds-target", required=False, help="Token address")
+
+    connection_disconnect = subparsers.add_parser("disconnect", help="Leave a token network")
+    connection_disconnect.add_argument("--token-address", required=True, help="Token address")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -79,6 +91,17 @@ def raiden_cli(args: argparse.Namespace):
         client.channel_increase_deposit(args.token_address, args.partner_address, args.total_deposit)
     elif args.command == "channel-withdraw-increase":
         client.channel_increase_withdraw(args.token_address, args.partner_address, args.total_withdraw)
+    elif args.command == "connections":
+        client.connections()
+    elif args.command == "connect":
+        client.connections_connect(
+            args.token_address,
+            args.funds,
+            args.initial_channel_target,
+            args.joinable_funds_target
+        )
+    elif args.command == "disconnect":
+        client.connection_disconnect(args.token_address)
 
 
 def main() -> None:
