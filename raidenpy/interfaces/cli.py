@@ -56,6 +56,13 @@ def create_subparsers(subparsers):
 
     subparsers.add_parser("connections", help="Query details of all joined token networks")
 
+    connect = subparsers.add_parser("connect", help="Automatically join a token network")
+    connect.add_argument("--token-address", required=True, help="Token address")
+    connect.add_argument("--funds", required=True, help="Token address")
+    connect.add_argument("--initial-channel-target", required=False, help="Token address")
+    # TODO: Update default type to float
+    connect.add_argument("--joinable-funds-target", required=False, help="Token address")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -83,6 +90,13 @@ def raiden_cli(args: argparse.Namespace):
         client.channel_increase_withdraw(args.token_address, args.partner_address, args.total_withdraw)
     elif args.command == "connections":
         client.connections()
+    elif args.command == "connect":
+        client.connections_connect(
+            args.token_address,
+            args.funds,
+            args.initial_channel_target,
+            args.joinable_funds_target
+        )
 
 
 def main() -> None:

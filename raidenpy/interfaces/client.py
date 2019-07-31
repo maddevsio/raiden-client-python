@@ -32,6 +32,10 @@ from raidenpy.endpoints.pending_transfers import (
     PendingTransfersRequest,
     PendingTransfersResponse,
 )
+from raidenpy.endpoints.connections_connect import (
+    ConnectionConnectRequest,
+    ConnectionConnectResponse,
+)
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
 from raidenpy.endpoints.connections import ConnectionsRequest, ConnectionsResponse
 from raidenpy.types import (
@@ -132,13 +136,24 @@ class Client:
         })
         return response.to_dict()
 
-    def connect_network(self, token_address: Address):
-        """Join a token network.
-        PUT /api/(version)/connections/(token_address)
-        """
-        pass
+    def connections_connect(self,
+                            token_address: Address,
+                            funds: int,
+                            initial_channel_target: int = None,
+                            joinable_funds_target: float = None):
+        request = ConnectionConnectRequest(
+            token_address=token_address,
+            funds=funds,
+            initial_channel_target=initial_channel_target,
+            joinable_funds_target=joinable_funds_target
+        )
+        api_response = self.handler.do(request)
+        response = ConnectionConnectResponse.from_dict({
+            "connection": api_response
+        })
+        return response.to_dict()
 
-    def disconnect_network(self, token_address: Address):
+    def connection_disconnect(self, token_address: Address):
         """Join a token network.
         DELETE /api/(version)/connections/(token_address)
         """
