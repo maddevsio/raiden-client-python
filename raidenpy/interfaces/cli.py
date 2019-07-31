@@ -63,6 +63,9 @@ def create_subparsers(subparsers):
     # TODO: Update default type to float
     connect.add_argument("--joinable-funds-target", required=False, help="Token address")
 
+    connection_disconnect = subparsers.add_parser("disconnect", help="Leave a token network")
+    connection_disconnect.add_argument("--token-address", required=True, help="Token address")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -97,6 +100,8 @@ def raiden_cli(args: argparse.Namespace):
             args.initial_channel_target,
             args.joinable_funds_target
         )
+    elif args.command == "disconnect":
+        client.connection_disconnect(args.token_address)
 
 
 def main() -> None:

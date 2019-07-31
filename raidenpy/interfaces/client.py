@@ -38,6 +38,7 @@ from raidenpy.endpoints.connections_connect import (
 )
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
 from raidenpy.endpoints.connections import ConnectionsRequest, ConnectionsResponse
+from raidenpy.endpoints.connection_disconnect import ConnectionDisconnectRequest, ConnectionDisconnectResponse
 from raidenpy.types import (
     Address,
     ChannelType,
@@ -154,10 +155,12 @@ class Client:
         return response.to_dict()
 
     def connection_disconnect(self, token_address: Address):
-        """Join a token network.
-        DELETE /api/(version)/connections/(token_address)
-        """
-        pass
+        request = ConnectionDisconnectRequest(token_address=token_address)
+        api_response = self.handler.do(request)
+        response = ConnectionDisconnectResponse.from_dict({
+            "connection": api_response
+        })
+        return response.to_dict()
 
     def payment(self, token_address: Address, target_address: str):
         """Initiate a payment.
