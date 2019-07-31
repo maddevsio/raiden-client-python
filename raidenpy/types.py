@@ -16,3 +16,8 @@ class ChannelType(TypedDict):
     state: str  # "opened"
     settle_timeout: int
     reveal_timeout: int
+
+
+class NonSettledPartners(TypedDict):
+    partner_address: Address
+    channel: str
