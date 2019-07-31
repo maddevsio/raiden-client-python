@@ -35,13 +35,8 @@ class AddressResponse(BaseResponse):
     def __init__(self, our_address: Address):
         self.our_address = our_address
 
-    def shema_validation(self):
-        # Validate input json schema
-        return True
-
     @classmethod
-    def from_dict(cls, d):
-        cls.shema_validation(d)
+    def from_dict(cls, d: Dict[str, Any]) -> BaseResponse:
         return cls(**d)
 
     def to_dict(self) -> Dict[str, str]:
