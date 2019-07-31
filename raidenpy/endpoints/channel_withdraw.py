@@ -25,9 +25,7 @@ class ChannelWithdrawRequest(BaseRequest):
         return "patch"
 
     def payload(self) -> Dict[str, Any]:
-        return {
-            "total_withdraw": self.total_withdraw
-        }
+        return {"total_withdraw": self.total_withdraw}
 
 
 class ChannelWithdrawResponse(BaseResponse):

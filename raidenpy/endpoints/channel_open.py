@@ -15,11 +15,9 @@ class ChannelOpenRequest(BaseRequest):
     PUT /api/(version)/channels
     """
 
-    def __init__(self,
-                 token_address: Address,
-                 partner_address: Address,
-                 total_deposit: int,
-                 settle_timeout: int) -> None:
+    def __init__(
+        self, token_address: Address, partner_address: Address, total_deposit: int, settle_timeout: int
+    ) -> None:
         # TODO: EIP-55 token encode
         self.token_address = token_address
         self.partner_address = partner_address

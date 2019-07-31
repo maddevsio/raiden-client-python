@@ -33,19 +33,26 @@ def create_subparsers(subparsers):
     channel_open = subparsers.add_parser("channel-open", help="Opens / creates a channel")
     channel_open.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
     channel_open.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
-    channel_open.add_argument("--total-deposit", required=True,
-                              help="Total amount of tokens to be deposited to the channel")
-    channel_open.add_argument("--settle-timeout", required=True,
-                              help="The amount of blocks that the settle timeout should have")
+    channel_open.add_argument(
+        "--total-deposit", required=True, help="Total amount of tokens to be deposited to the channel"
+    )
+    channel_open.add_argument(
+        "--settle-timeout", required=True, help="The amount of blocks that the settle timeout should have"
+    )
 
     channel_close = subparsers.add_parser("channel-close", help="Close a channell")
     channel_close.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
-    channel_close.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")                  
+    channel_close.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
 
     channel_deposit = subparsers.add_parser("channel-deposit-increase", help="Increase channel deposit")
     channel_deposit.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
-    channel_deposit.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")                  
-    channel_deposit.add_argument("--total-deposit", required=True, help="The partner we want to open a channel with")                  
+    channel_deposit.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_deposit.add_argument("--total-deposit", required=True, help="The increased total deposit")
+
+    channel_withdraw = subparsers.add_parser("channel-withdraw-increase", help="Increase channel deposit")
+    channel_withdraw.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_withdraw.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_withdraw.add_argument("--total-withdraw", required=True, help="The increased total withdraw")
 
 
 def raiden_cli(args: argparse.Namespace):
@@ -65,9 +72,7 @@ def raiden_cli(args: argparse.Namespace):
     elif args.command == "pending-transfers":
         client.pending_transfers(args.token_address, args.partner_address)
     elif args.command == "channel-open":
-        client.channel_open(
-            args.token_address, args.partner_address, args.total_deposit, args.settle_timeout
-        )
+        client.channel_open(args.token_address, args.partner_address, args.total_deposit, args.settle_timeout)
     elif args.command == "channel-close":
         client.close_channel(args.token_address, args.partner_address)
 

@@ -4,9 +4,7 @@ from raidenpy.types import Address
 
 def test_channel_deposit_request():
     request = ChannelDepositRequest(
-        token_address=Address("0x123"),
-        partner_address=Address("0x321"),
-        total_deposit=2000
+        token_address=Address("0x123"), partner_address=Address("0x321"), total_deposit=2000
     )
     assert request.endpoint == f"/channels/{request.token_address}/{request.partner_address}"
     assert request.method == "patch"

@@ -4,9 +4,7 @@ from raidenpy.types import Address
 
 def test_channel_withdraw_request():
     request = ChannelWithdrawRequest(
-        token_address=Address("0x123"),
-        partner_address=Address("0x321"),
-        total_withdraw=200
+        token_address=Address("0x123"), partner_address=Address("0x321"), total_withdraw=200
     )
     assert request.endpoint == f"/channels/{request.token_address}/{request.partner_address}"
     assert request.method == "patch"

@@ -7,10 +7,7 @@ from raidenpy.types import Address
 
 def test_channel_open_request():
     request = ChannelOpenRequest(
-        token_address=Address("0x123"),
-        partner_address=Address("0x321"),
-        total_deposit=35000000,
-        settle_timeout=500
+        token_address=Address("0x123"), partner_address=Address("0x321"), total_deposit=35000000, settle_timeout=500
     )
     assert request.endpoint == "/channels"
     assert request.method == "put"
@@ -31,7 +28,7 @@ def test_channel_open_response():
         "total_withdraw": 0,
         "state": "opened",
         "settle_timeout": 500,
-        "reveal_timeout": 30
+        "reveal_timeout": 30,
     }
     response = ChannelOpenResponse(channel=channel)
     assert "channel" in response.to_dict()

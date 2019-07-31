@@ -25,9 +25,7 @@ class ChannelCloseRequest(BaseRequest):
 
     def payload(self) -> Dict[str, Any]:
         """The only valid choice is "closed."""
-        return {
-            "state": "closed"
-        }
+        return {"state": "closed"}
 
 
 class ChannelCloseResponse(BaseResponse):

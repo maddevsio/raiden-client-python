@@ -25,9 +25,7 @@ class ChannelDepositRequest(BaseRequest):
         return "patch"
 
     def payload(self) -> Dict[str, Any]:
-        return {
-            "total_deposit": self.total_deposit
-        }
+        return {"total_deposit": self.total_deposit}
 
 
 class ChannelDepositResponse(BaseResponse):

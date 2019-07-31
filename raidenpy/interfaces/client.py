@@ -3,9 +3,22 @@ from typing import Any, Dict, List
 from raidenpy.api_handler import APIHandler
 from raidenpy.endpoints.address import AddressRequest, AddressResponse
 from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
-from raidenpy.endpoints.channel_open import ChannelOpenRequest, ChannelOpenResponse
-from raidenpy.endpoints.channel_close import ChannelCloseRequest, ChannelCloseResponse
-from raidenpy.endpoints.channel_deposit import ChannelDepositRequest, ChannelDepositResponse
+from raidenpy.endpoints.channel_close import (
+    ChannelCloseRequest,
+    ChannelCloseResponse,
+)
+from raidenpy.endpoints.channel_deposit import (
+    ChannelDepositRequest,
+    ChannelDepositResponse,
+)
+from raidenpy.endpoints.channel_open import (
+    ChannelOpenRequest,
+    ChannelOpenResponse,
+)
+from raidenpy.endpoints.channel_withdraw import (
+    ChannelWithdrawRequest,
+    ChannelWithdrawResponse,
+)
 from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
 from raidenpy.endpoints.deploy_tokens import (
     DeployTokenRequst,
@@ -24,7 +37,12 @@ from raidenpy.endpoints.token_network import (
     TokenNetworkResponse,
 )
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
-from raidenpy.types import Address, ChannelType, NonSettledPartners, PendingTransfer
+from raidenpy.types import (
+    Address,
+    ChannelType,
+    NonSettledPartners,
+    PendingTransfer,
+)
 
 
 class Client:
@@ -59,9 +77,9 @@ class Client:
         response = ChannelResponse.from_dict({"channel": self.handler.do(request)})
         return response.to_dict()
 
-    def pending_transfers(self,
-                          token_address: Address = None,
-                          partner_address: Address = None) -> Dict[str, List[PendingTransfer]]:
+    def pending_transfers(
+        self, token_address: Address = None, partner_address: Address = None
+    ) -> Dict[str, List[PendingTransfer]]:
         request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
         api_response = self.handler.do(request)
         response = PendingTransfersResponse.from_dict({"channels": api_response})
@@ -86,31 +104,25 @@ class Client:
         return response.to_dict()
 
     def close_channel(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:
-        request = ChannelCloseRequest(
-            token_address=token_address,
-            partner_address=partner_address,
-        )
+        request = ChannelCloseRequest(token_address=token_address, partner_address=partner_address)
         response = ChannelCloseResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
-    def chanel_increase_deposit(self,
-                                token_address: Address,
-                                partner_address: Address,
-                                total_deposit: int) -> Dict[str, ChannelType]:
+    def chanel_increase_deposit(
+        self, token_address: Address, partner_address: Address, total_deposit: int
+    ) -> Dict[str, ChannelType]:
         request = ChannelDepositRequest(
-            token_address=token_address,
-            partner_address=partner_address,
-            total_deposit=total_deposit,
+            token_address=token_address, partner_address=partner_address, total_deposit=total_deposit
         )
         response = ChannelDepositResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
     def chanel_withdraw_tokens(self, token_address: Address, partner_address: Address, total_withdraw: int):
-        """Withdraw tokens.
-        PATCH /api/(version)/channels/(token_address)/(partner_address)
-        {"total_withdraw": 100}
-        """
-        pass
+        request = ChannelWithdrawRequest(
+            token_address=token_address, partner_address=partner_address, total_withdraw=total_withdraw
+        )
+        response = ChannelWithdrawResponse.from_dict(self.handler.do(request))
+        return response.to_dict()
 
     def connections(self):
         """Query details of all joined token networks.
