@@ -26,6 +26,10 @@ def create_parser(parser: argparse.ArgumentParser):
     channel.add_argument("--token-address", required=True, help="For the given token address")
     channel.add_argument("--partner-address", required=True, help="For the given partner address")
 
+    non_settled_partners = subparsers.add_parser(
+        "non-settled-partners", help="List of partners with non-settled channels for a certain token.")
+    non_settled_partners.add_argument("--token-address", required=True, help="For the given token address")
+
 
 def raiden_cli(args):
     client = Client(args.endpoint, args.version)
@@ -42,6 +46,8 @@ def raiden_cli(args):
             client.channels()
     elif args.command == "channel":
         client.channel(args.token_address, args.partner_address)
+    elif args.command == "non-settled-partners":
+        client.non_settled_partners(args.token_address)
 
 
 def main():

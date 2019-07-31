@@ -7,8 +7,9 @@ from raidenpy.endpoints.deploy_tokens import DeployTokenRequst, DeployTokenRespo
 from raidenpy.endpoints.token_network import TokenNetworkRequest, TokenNetworkResponse
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
 from raidenpy.endpoints.pending_transfers import PendingTransfersRequest, PendingTransfersResponse
+from raidenpy.endpoints.non_settled_partners import NonSettledPartnersRequest, NonSettledPartnersResponse
 from raidenpy.api_handler import APIHandler
-from raidenpy.types import Address, ChannelType
+from raidenpy.types import Address, ChannelType, NonSettledPartners
 
 
 class Client:
@@ -25,6 +26,14 @@ class Client:
         request = TokensRequest(token_address=token_address)
         api_response = self.handler.do(request)
         response = TokensResponse.from_dict({"tokens": api_response})
+        return response.to_dict()
+
+    def non_settled_partners(self, token_address: Address) -> Dict[str, List[NonSettledPartners]]:
+        request = NonSettledPartnersRequest(token_address=token_address)
+        api_response = self.handler.do(request)
+        response = NonSettledPartnersResponse.from_dict({
+            "non_settled_partners": api_response
+        })
         return response.to_dict()
 
     def channels(self, token_address: Address = None) -> List[ChannelType]:
@@ -51,12 +60,6 @@ class Client:
         response = TokenNetworkResponse(response=self.handler.do(request))
         return response.to_dict()
 
-    def non_settled_partners(self, token_address: Address):
-        """
-        Returns a list of all partners with whom you have non-settled channels for a certain token.
-        GET /api/(version)/tokens/(token_address)/partners
-        """
-        pass
 
     def pending_transfers(self,
                           token_address: Address = None,
