@@ -1,19 +1,25 @@
 from typing import Any, Dict, List
 
-from requests import Response
 
 from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.exceptions import InternalServerException, ResponseStatusCodeException
-from raidenpy.types import ChannelType
+from raidenpy.types import ChannelType, Address
 
 
 class ChannelsRequest(BaseRequest):
     """Request a list of all unsettled channels.
     GET /api/(version)/channels
+
+    All channels for the given token address
+    GET /api/(version)/channels/(token_address)
     """
+
+    def __init__(self, token_address: Address = None):
+        self.token_address = token_address
 
     @property
     def endpoint(self) -> str:
+        if self.token_address:
+            return f"/channels/{self.token_address}"
         return "/channels"
 
     @property
@@ -27,17 +33,12 @@ class ChannelsRequest(BaseRequest):
 class ChannelsResponse(BaseResponse):
     """Returns a list of all unsettled channels."""
 
-    def __init__(self, response: Response):
-        self.response = response
+    def __init__(self, channels: List[ChannelType]):
+        self.channels = channels
 
-    def validate_status_code(self, status_code: int) -> bool:
-        if status_code == 200:
-            return True
-        elif status_code == 500:
-            raise InternalServerException("Internal Raiden node error")
-        raise ResponseStatusCodeException(f"{status_code}: Unhandled status code")
+    def to_dict(self) -> Dict[str, List[ChannelType]]:
+        return {"channels": self.channels}
 
-    def to_dict(self) -> List[ChannelType]:
-        self.validate_status_code(self.response.status_code)
-        data = self.response.json()
-        return [ChannelType(item) for item in data]
+    @classmethod
+    def from_dict(cls, d: Dict[str, Any]) -> 'ChannelsResponse':
+        return cls(channels=d["channels"])

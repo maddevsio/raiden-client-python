@@ -18,9 +18,12 @@ def create_parser(parser: argparse.ArgumentParser):
     register_token = subparsers.add_parser("register-token", help="Registering a token by token address")
     register_token.add_argument("--token-address", required=True, help="Token address")
 
-    channels = subparsers.add_parser("channels", help="Query list of registered tokens")
-    channels.add_argument("--token-address", required=False, help="Token address")
-    channels.add_argument("--partner-address", required=False, help="Partner address")
+    channels = subparsers.add_parser("channels", help="Request a list of all unsettled channels")
+    channels.add_argument("--token-address", required=False, help="For the given token address")
+
+    channel = subparsers.add_parser("channel", help="Request a channel detail")
+    channel.add_argument("--token-address", required=True, help="For the given token address")
+    channel.add_argument("--partner-address", required=True, help="For the given partner address")
 
 
 def raiden_cli(args):
@@ -34,13 +37,13 @@ def raiden_cli(args):
         result = client.register_token(args.token_address)
         print(f"Token network address: {result}")
     elif args.command == "channels":
-        if args.token_address and args.partner_address:
-            result = client.channel(args.token_address, args.partner_address)
-        elif args.token_address:
-            result = client.channels_by_token(args.token_address)
+        if args.token_address:
+            result = client.channels(args.token_address)
         else:
             result = client.channels()
         print(result)
+    elif args.command == "channel":
+        result = client.channel(args.token_address, args.partner_address)
 
 
 def main():
