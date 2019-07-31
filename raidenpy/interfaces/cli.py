@@ -1,6 +1,6 @@
 import argparse
 
-from raidenpy.api import Client
+from raidenpy import Client
 
 RAIDEN_COMMANDS = ("address", "tokens")
 

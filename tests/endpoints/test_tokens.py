@@ -1,6 +1,6 @@
-from raidenpy.api import Client
+from raidenpy import Client
 
-client = Client(endpoint="http://localhost:5001")
+client = Client(endpoint="http://127.0.0.1:5001")
 
 
 def test_address():

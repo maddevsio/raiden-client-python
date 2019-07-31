@@ -2,4 +2,4 @@
 *.pyc
 __pycache__/*
 .mypy_cache/*
-raiden-debug*.log
+raiden-debug*.log*

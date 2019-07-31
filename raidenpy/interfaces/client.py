@@ -1,13 +1,13 @@
 from typing import Any, Dict, List
 
-from raidenpy.api.request.address import AddressRequest, AddressResponse
-from raidenpy.api.request.channel import ChannelRequest, ChannelResponse
-from raidenpy.api.request.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.api.request.channels_by_token import ChannelByTokenRequest, ChannelByTokenResponse
-from raidenpy.api.request.deploy_tokens import DeployTokenRequst, DeployTokenResponse
-from raidenpy.api.request.token_network import TokenNetworkRequest, TokenNetworkResponse
-from raidenpy.api.request.tokens import TokensRequest, TokensResponse
-from raidenpy.api.request_handler import Request
+from raidenpy.endpoints.address import AddressRequest, AddressResponse
+from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
+from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
+from raidenpy.endpoints.channels_by_token import ChannelByTokenRequest, ChannelByTokenResponse
+from raidenpy.endpoints.deploy_tokens import DeployTokenRequst, DeployTokenResponse
+from raidenpy.endpoints.token_network import TokenNetworkRequest, TokenNetworkResponse
+from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
+from raidenpy.request_handler import Request
 from raidenpy.types import Address
 
 

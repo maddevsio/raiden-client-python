@@ -1,8 +1,8 @@
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 from requests import Response
 
-from raidenpy.api.request import BaseRequest, BaseResponse
+from raidenpy.endpoints import BaseRequest, BaseResponse
 from raidenpy.exceptions import InternalServerException, NotFoundException, ResponseStatusCodeException
 from raidenpy.types import Address, ChannelType
 

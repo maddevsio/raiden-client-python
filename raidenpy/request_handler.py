@@ -1,6 +1,6 @@
 import requests
 
-from raidenpy.api.request import BaseRequest, BaseResponse
+from raidenpy.endpoints import BaseRequest, BaseResponse
 
 
 class Request:

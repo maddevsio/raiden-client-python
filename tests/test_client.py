@@ -1,4 +1,4 @@
-from raidenpy.api.client import Client
+from raidenpy import Client
 
 
 def test_client_version():

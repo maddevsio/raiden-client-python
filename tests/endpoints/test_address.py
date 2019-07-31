@@ -1,4 +1,4 @@
-from raidenpy.api import Client
+from raidenpy import Client
 from raidenpy.types import Address
 
 client = Client(endpoint="http://localhost:5001")

@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 from requests import Request
 
-from raidenpy.api.request import BaseRequest, BaseResponse
+from raidenpy.endpoints import BaseRequest, BaseResponse
 
 
 class AddressRequest(BaseRequest):
