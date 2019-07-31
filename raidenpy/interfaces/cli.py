@@ -55,6 +55,13 @@ def raiden_cli(args: argparse.Namespace):
         client.non_settled_partners(args.token_address)
     elif args.command == "pending-transfers":
         client.pending_transfers(args.token_address, args.partner_address)
+    elif args.command == "channel-open":
+        client.open_channel(
+            args.token_address,
+            args.partner_address,
+            args.total_deposit,
+            args.settle_timeout,
+        )
 
 
 def main() -> None:
