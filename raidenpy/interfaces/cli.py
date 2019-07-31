@@ -76,6 +76,11 @@ def create_subparsers(subparsers):
     payment_events.add_argument("--token-address", required=True, help="Target address")
     payment_events.add_argument("--target-address", required=True, help="Token address")
 
+    payment_events = subparsers.add_parser("mint-token", help="API endpoints for testing")
+    payment_events.add_argument("--token-address", required=True, help="Target address")
+    payment_events.add_argument("--to", required=True, help="The address to assign the minted tokens to")
+    payment_events.add_argument("--value", required=True, help="he amount of tokens to be minted")
+    payment_events.add_argument("--contract-method", required=False, help="The name of the contract’s minting method")
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -121,6 +126,14 @@ def raiden_cli(args: argparse.Namespace):
             token_address=args.token_address,
             target_address=args.target_address,
         )
+    elif args.command == "mint-token":
+        client.mint_tokens(
+            token_address=args.token_address,
+            to=args.to,
+            value=args.value,
+            contract_method=args.contract_method,
+        )
+
 
 
 

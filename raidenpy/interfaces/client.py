@@ -47,6 +47,7 @@ from raidenpy.endpoints.token_register import (
 )
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
 from raidenpy.endpoints.payment_events import PaymentEventsRequest, PaymentEventsResponse
+from raidenpy.endpoints.mint_tokens import MintTokensRequest, MintTokensResponse
 from raidenpy.types import (
     Address,
     ChannelType,
@@ -185,8 +186,18 @@ class Client:
         })
         return response.to_dict()
 
-    def mint_tokens(self):
-        """Mint tokens.
-        POST /api/v1/_testing/tokens/(token_address)/mint
-        """
-        pass
+    def mint_tokens(self,
+                    token_address: Address,
+                    to: str, value: str,
+                    contract_method: str = "mintFor") -> Dict[str, str]:
+        request = MintTokensRequest(
+            token_address=token_address,
+            to=to,
+            value=value,
+            contract_method=contract_method,
+        )
+        api_response = self.handler.do(request)
+        response = MintTokensResponse.from_dict({
+            "transaction_hash": api_response["transaction_hash"]
+        })
+        return response.to_dict()
