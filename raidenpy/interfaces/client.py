@@ -30,7 +30,7 @@ class Client:
 
     def register_token(self, token_address: Address) -> Dict[str, Address]:
         request = DeployTokenRequst(token_address=token_address)
-        response = DeployTokenResponse(response=self.handler.do(request))
+        response = DeployTokenResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
     def token_network(self, token_address: Address) -> Address:
