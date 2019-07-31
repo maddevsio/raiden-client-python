@@ -32,13 +32,12 @@ class TokenNetworkResponse(BaseResponse):
     Response:
     "0x61bB630D3B2e8eda0FC1d50F9f958eC02e3969F6"
     """
+
     def __init__(self, token_network_address: Address):
         self.token_network_address = token_network_address
 
     def to_dict(self) -> Dict[str, Address]:
-        return {
-            "token_network_address": Address(self.token_network_address)
-        }
+        return {"token_network_address": Address(self.token_network_address)}
 
     def shema_validation(self) -> bool:
         return True

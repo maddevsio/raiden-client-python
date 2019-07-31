@@ -1,5 +1,5 @@
-from raidenpy.types import Address
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
+from raidenpy.types import Address
 
 
 def test_tokens():

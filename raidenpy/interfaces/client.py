@@ -1,14 +1,18 @@
 from typing import Any, Dict, List
 
+from raidenpy.api_handler import APIHandler
 from raidenpy.endpoints.address import AddressRequest, AddressResponse
 from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
 from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.endpoints.deploy_tokens import DeployTokenRequst, DeployTokenResponse
-from raidenpy.endpoints.token_network import TokenNetworkRequest, TokenNetworkResponse
+from raidenpy.endpoints.deploy_tokens import (DeployTokenRequst,
+                                              DeployTokenResponse)
+from raidenpy.endpoints.non_settled_partners import (
+    NonSettledPartnersRequest, NonSettledPartnersResponse)
+from raidenpy.endpoints.pending_transfers import (PendingTransfersRequest,
+                                                  PendingTransfersResponse)
+from raidenpy.endpoints.token_network import (TokenNetworkRequest,
+                                              TokenNetworkResponse)
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
-from raidenpy.endpoints.pending_transfers import PendingTransfersRequest, PendingTransfersResponse
-from raidenpy.endpoints.non_settled_partners import NonSettledPartnersRequest, NonSettledPartnersResponse
-from raidenpy.api_handler import APIHandler
 from raidenpy.types import Address, ChannelType, NonSettledPartners
 
 
@@ -31,23 +35,17 @@ class Client:
     def non_settled_partners(self, token_address: Address) -> Dict[str, List[NonSettledPartners]]:
         request = NonSettledPartnersRequest(token_address=token_address)
         api_response = self.handler.do(request)
-        response = NonSettledPartnersResponse.from_dict({
-            "non_settled_partners": api_response
-        })
+        response = NonSettledPartnersResponse.from_dict({"non_settled_partners": api_response})
         return response.to_dict()
 
     def channels(self, token_address: Address = None) -> List[ChannelType]:
         request = ChannelsRequest()
-        response = ChannelsResponse.from_dict({
-            "channels": self.handler.do(request)
-        })
+        response = ChannelsResponse.from_dict({"channels": self.handler.do(request)})
         return response.to_dict()
 
     def channel(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:
         request = ChannelRequest(token_address=token_address, partner_address=partner_address)
-        response = ChannelResponse.from_dict({
-            "channel": self.handler.do(request)
-        })
+        response = ChannelResponse.from_dict({"channel": self.handler.do(request)})
         return response.to_dict()
 
     def register_token(self, token_address: Address) -> Dict[str, Address]:
@@ -60,20 +58,15 @@ class Client:
         response = TokenNetworkResponse(response=self.handler.do(request))
         return response.to_dict()
 
-
-    def pending_transfers(self,
-                          token_address: Address = None,
-                          partner_address: Address = None):
+    def pending_transfers(self, token_address: Address = None, partner_address: Address = None):
         request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
         api_response = self.handler.do(request)
         response = PendingTransfersResponse.from_dict({"channels": api_response})
         return response.to_dict()
 
-    def open_channel(self,
-                     partner_address: Address,
-                     settle_timeout: int,
-                     token_address: Address,
-                     total_deposit: int) -> Dict[str, Any]:
+    def open_channel(
+        self, partner_address: Address, settle_timeout: int, token_address: Address, total_deposit: int
+    ) -> Dict[str, Any]:
         return data
 
     def close_channel(self, token_address: Address, partner_address: Address):
@@ -90,10 +83,7 @@ class Client:
         """
         pass
 
-    def chanel_withdraw_tokens(self,
-                               token_address: Address,
-                               partner_address: Address,
-                               total_withdraw: int):
+    def chanel_withdraw_tokens(self, token_address: Address, partner_address: Address, total_withdraw: int):
         """Withdraw tokens.
         PATCH /api/(version)/channels/(token_address)/(partner_address)
         {"total_withdraw": 100}

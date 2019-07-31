@@ -1,7 +1,7 @@
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
-from raidenpy.types import Address, ChannelType
 from raidenpy.endpoints import BaseRequest, BaseResponse
+from raidenpy.types import Address, ChannelType
 
 
 class PendingTransfersRequest(BaseRequest):

@@ -3,7 +3,8 @@ from typing import Any, Dict, List
 from requests import Response
 
 from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.exceptions import InternalServerException, NotFoundException, ResponseStatusCodeException
+from raidenpy.exceptions import (InternalServerException, NotFoundException,
+                                 ResponseStatusCodeException)
 from raidenpy.types import Address, ChannelType
 
 

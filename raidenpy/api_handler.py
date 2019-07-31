@@ -1,9 +1,9 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 import requests
 
-from raidenpy.exceptions import ResponseStatusCodeException
 from raidenpy.endpoints import BaseRequest
+from raidenpy.exceptions import ResponseStatusCodeException
 
 
 class APIHandler:
@@ -21,10 +21,6 @@ class APIHandler:
 
     def do(self, req: BaseRequest) -> Dict[str, Any]:
         """Send HTTP request to URI within defined method."""
-        resp = requests.request(
-            method=req.method,
-            url=self.url(req.endpoint),
-            headers={},
-        )
+        resp = requests.request(method=req.method, url=self.url(req.endpoint), headers={})
         self.validate_status_code(resp.status_code, resp.text)
         return resp.json()

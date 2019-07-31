@@ -39,5 +39,5 @@ class ChannelResponse(BaseResponse):
         return {"channel": self.channel}
 
     @classmethod
-    def from_dict(cls, d: Dict[str, ChannelType]) -> 'ChannelResponse':
+    def from_dict(cls, d: Dict[str, ChannelType]) -> "ChannelResponse":
         return cls(channel=d["channel"])

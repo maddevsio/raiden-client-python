@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
-from raidenpy.types import Address
 from raidenpy.endpoints import BaseRequest, BaseResponse
+from raidenpy.types import Address
 
 
 class AddressRequest(BaseRequest):
@@ -32,6 +32,7 @@ class AddressResponse(BaseResponse):
         "our_address": "0x2a65Aca4D5fC5B5C859090a6c34d164135398226"
     }
     """
+
     def __init__(self, our_address: Address):
         self.our_address = our_address
 
@@ -40,6 +41,4 @@ class AddressResponse(BaseResponse):
         return cls(**d)
 
     def to_dict(self) -> Dict[str, str]:
-        return {
-            "our_address": self.our_address
-        }
+        return {"our_address": self.our_address}

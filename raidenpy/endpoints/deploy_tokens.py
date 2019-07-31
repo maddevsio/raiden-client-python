@@ -1,12 +1,9 @@
 from typing import Any, Dict
 
 from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.exceptions import (
-    ConflictException,
-    NotFoundException,
-    NotImplementedException,
-    PaymentRequiredException,
-)
+from raidenpy.exceptions import (ConflictException, NotFoundException,
+                                 NotImplementedException,
+                                 PaymentRequiredException)
 from raidenpy.types import Address
 
 
@@ -25,10 +22,12 @@ class DeployTokenRequst(BaseRequest):
     status_codes = {
         402: PaymentRequiredException("Insufficient ETH to pay for the gas of the register on-chain transaction"),
         404: NotFoundException("HTTP 404: The given token address is invalid."),
-        409: ConflictException("HTTP 409: The token was already registered before or the registering "
-                               "transaction failed"),
-        501: NotImplementedException("HTTP 501: Registering a token only works on testnet temporarily. "
-                                     "On mainnet this error is returned."),
+        409: ConflictException(
+            "HTTP 409: The token was already registered before or the registering " "transaction failed"
+        ),
+        501: NotImplementedException(
+            "HTTP 501: Registering a token only works on testnet temporarily. " "On mainnet this error is returned."
+        ),
     }
 
     @property
@@ -50,13 +49,12 @@ class DeployTokenResponse(BaseResponse):
         "token_network_address": "0xC4F8393fb7971E8B299bC1b302F85BfFB3a1275a"
     }
     """
+
     def __init__(self, token_network_address: Address):
         self.token_network_address = token_network_address
 
     def to_dict(self) -> Dict[str, Address]:
-        return {
-            "token_network_address": self.token_network_address
-        }
+        return {"token_network_address": self.token_network_address}
 
     def shema_validation(self) -> bool:
         return True

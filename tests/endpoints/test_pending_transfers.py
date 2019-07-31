@@ -17,8 +17,5 @@ def test_pending_transfers_specified_token():
 def test_pending_transfers_specified_token_channel():
     token_address = "0x123"
     partner_address = "0x321"
-    request = PendingTransfersRequest(
-        token_address=token_address,
-        partner_address=partner_address,
-    )
+    request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
     assert request.endpoint == f"/address/{token_address}/{partner_address}"

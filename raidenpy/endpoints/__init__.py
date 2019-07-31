@@ -16,10 +16,9 @@ class BaseRequest(abc.ABC):
 
 
 class BaseResponse(abc.ABC):
-
     @classmethod
     @abc.abstractmethod
-    def from_dict(cls, d: Dict[str, Any]) -> 'BaseResponse':
+    def from_dict(cls, d: Dict[str, Any]) -> "BaseResponse":
         raise NotImplementedError()
 
     @abc.abstractmethod

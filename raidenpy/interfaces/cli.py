@@ -27,7 +27,8 @@ def create_parser(parser: argparse.ArgumentParser):
     channel.add_argument("--partner-address", required=True, help="For the given partner address")
 
     non_settled_partners = subparsers.add_parser(
-        "non-settled-partners", help="List of partners with non-settled channels for a certain token.")
+        "non-settled-partners", help="List of partners with non-settled channels for a certain token."
+    )
     non_settled_partners.add_argument("--token-address", required=True, help="For the given token address")
 
 

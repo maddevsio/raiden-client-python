@@ -1,8 +1,7 @@
 from typing import Any, Dict, List
 
-
 from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.types import ChannelType, Address
+from raidenpy.types import Address, ChannelType
 
 
 class ChannelsRequest(BaseRequest):
@@ -40,5 +39,5 @@ class ChannelsResponse(BaseResponse):
         return {"channels": self.channels}
 
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]) -> 'ChannelsResponse':
+    def from_dict(cls, d: Dict[str, Any]) -> "ChannelsResponse":
         return cls(channels=d["channels"])

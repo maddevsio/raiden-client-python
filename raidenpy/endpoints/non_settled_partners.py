@@ -36,5 +36,5 @@ class NonSettledPartnersResponse(BaseResponse):
         return {"non_settled_partners": self.non_settled_partners}
 
     @classmethod
-    def from_dict(cls, d: Dict[str, List[NonSettledPartners]]) -> 'NonSettledPartnersResponse':
+    def from_dict(cls, d: Dict[str, List[NonSettledPartners]]) -> "NonSettledPartnersResponse":
         return cls(non_settled_partners=d["non_settled_partners"])
