@@ -1,4 +1,5 @@
-from raidenpy.endpoints.pending_transfers import PendingTransfersRequest, PendingTransfersResponse
+from raidenpy.endpoints.pending_transfers import (PendingTransfersRequest,
+                                                  PendingTransfersResponse)
 
 
 def test_pending_transfers():
@@ -22,7 +23,5 @@ def test_pending_transfers_specified_token_channel():
 
 
 def test_pending_transfers_response():
-    response = PendingTransfersResponse(
-        pending_transfers=[]
-    )
+    response = PendingTransfersResponse(pending_transfers=[])
     assert "pending_transfers" in response.to_dict()

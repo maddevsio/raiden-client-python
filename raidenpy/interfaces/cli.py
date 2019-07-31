@@ -32,8 +32,7 @@ def create_parser(parser: argparse.ArgumentParser):
     non_settled_partners.add_argument("--token-address", required=True, help="For the given token address")
 
     pending_transfers = subparsers.add_parser(
-        "pending-transfers",
-        help="Returns a list of all transfers that have not been completed yet."
+        "pending-transfers", help="Returns a list of all transfers that have not been completed yet."
     )
     pending_transfers.add_argument("--token-address", required=True, help="For the given token address")
     pending_transfers.add_argument("--partner-address", required=True, help="For the given partner address")

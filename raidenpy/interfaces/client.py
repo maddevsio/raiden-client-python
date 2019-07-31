@@ -64,11 +64,9 @@ class Client:
         response = TokenNetworkResponse(response=self.handler.do(request))
         return response.to_dict()
 
-    def open_channel(self,
-                     token_address: Address,
-                     partner_address: Address,
-                     settle_timeout: int,
-                     total_deposit: int) -> Dict[str, Any]:
+    def open_channel(
+        self, token_address: Address, partner_address: Address, settle_timeout: int, total_deposit: int
+    ) -> Dict[str, Any]:
         return ""
 
     def close_channel(self, token_address: Address, partner_address: Address):
