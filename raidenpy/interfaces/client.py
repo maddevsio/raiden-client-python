@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 from raidenpy.api_handler import APIHandler
 from raidenpy.endpoints.address import AddressRequest, AddressResponse
 from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
+from raidenpy.endpoints.channel_open import ChannelOpenRequest, ChannelOpenResponse
 from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
 from raidenpy.endpoints.deploy_tokens import (
     DeployTokenRequst,
@@ -21,7 +22,7 @@ from raidenpy.endpoints.token_network import (
     TokenNetworkResponse,
 )
 from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
-from raidenpy.types import Address, ChannelType, NonSettledPartners
+from raidenpy.types import Address, ChannelType, NonSettledPartners, PendingTransfer
 
 
 class Client:
@@ -56,7 +57,9 @@ class Client:
         response = ChannelResponse.from_dict({"channel": self.handler.do(request)})
         return response.to_dict()
 
-    def pending_transfers(self, token_address: Address = None, partner_address: Address = None):
+    def pending_transfers(self,
+                          token_address: Address = None,
+                          partner_address: Address = None) -> Dict[str, List[PendingTransfer]]:
         request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
         api_response = self.handler.do(request)
         response = PendingTransfersResponse.from_dict({"channels": api_response})
@@ -67,15 +70,17 @@ class Client:
         response = DeployTokenResponse.from_dict(self.handler.do(request))
         return response.to_dict()
 
-    def token_network(self, token_address: Address) -> Address:
-        request = TokenNetworkRequest(token_address=token_address)
-        response = TokenNetworkResponse(response=self.handler.do(request))
-        return response.to_dict()
-
     def open_channel(
         self, token_address: Address, partner_address: Address, settle_timeout: int, total_deposit: int
-    ) -> Dict[str, Any]:
-        return ""
+    ) -> Dict[str, ChannelType]:
+        request = ChannelOpenRequest(
+            token_address=token_address,
+            partner_address=partner_address,
+            settle_timeout=settle_timeout,
+            total_deposit=total_deposit,
+        )
+        response = ChannelOpenResponse.from_dict(self.handler.do(request))
+        return response.to_dict()
 
     def close_channel(self, token_address: Address, partner_address: Address):
         """Close a channel .
@@ -133,3 +138,8 @@ class Client:
         POST /api/v1/_testing/tokens/(token_address)/mint
         """
         pass
+
+    def token_network(self, token_address: Address) -> Address:
+        request = TokenNetworkRequest(token_address=token_address)
+        response = TokenNetworkResponse(response=self.handler.do(request))
+        return response.to_dict()

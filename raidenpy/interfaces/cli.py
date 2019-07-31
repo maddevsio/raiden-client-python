@@ -2,15 +2,8 @@ import argparse
 
 from raidenpy import Client
 
-RAIDEN_COMMANDS = ("address", "tokens")
 
-
-def create_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("--endpoint", default="http://127.0.0.1:5001/", help="REST API endpoint")
-    parser.add_argument("--version", default="v1", help="API version")
-
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
-
+def create_subparsers(subparsers):
     subparsers.add_parser("address", help="Query node address")
 
     tokens = subparsers.add_parser("tokens", help="Query list of registered tokens")
@@ -37,6 +30,14 @@ def create_parser(parser: argparse.ArgumentParser):
     pending_transfers.add_argument("--token-address", required=True, help="For the given token address")
     pending_transfers.add_argument("--partner-address", required=True, help="For the given partner address")
 
+    channel_open = subparsers.add_parser("channel-open", help="Opens / creates a channel")
+    channel_open.add_argument("--token-address", required=True, help="The token we want to be used in the channel")
+    channel_open.add_argument("--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_open.add_argument("--total-deposit", required=True,
+                              help="Total amount of tokens to be deposited to the channel")
+    channel_open.add_argument("--settle-timeout", required=True,
+                              help="The amount of blocks that the settle timeout should have")
+
 
 def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
@@ -58,6 +59,10 @@ def raiden_cli(args: argparse.Namespace):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Raiden python client CLI")
-    create_parser(parser)
+    parser.add_argument("--endpoint", default="http://127.0.0.1:5001/", help="REST API endpoint")
+    parser.add_argument("--version", default="v1", help="API version")
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    create_subparsers(subparsers)
+
     args = parser.parse_args()
     raiden_cli(args)
