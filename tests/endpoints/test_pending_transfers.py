@@ -1,5 +1,5 @@
-from raidenpy.endpoints.pending_transfers import (PendingTransfersRequest,
-                                                  PendingTransfersResponse)
+from raidenpy.endpoints.pending_transfers import PendingTransfersRequest
+from raidenpy.endpoints.pending_transfers import PendingTransfersResponse
 
 
 def test_pending_transfers():
