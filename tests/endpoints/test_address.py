@@ -1,5 +1,5 @@
-from raidenpy.endpoints.address import AddressRequest, AddressResponse
-from raidenpy.types import Address
+from raiden_client.endpoints.address import AddressRequest, AddressResponse
+from raiden_client.types import Address
 
 
 def test_address():

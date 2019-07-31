@@ -1,4 +1,4 @@
-from raidenpy.endpoints.payment import PaymentRequest
+from raiden_client.endpoints.payment import PaymentRequest
 
 # TODO: review PaymentResponse object and write tests
 

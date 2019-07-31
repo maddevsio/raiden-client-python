@@ -1,4 +1,4 @@
-from raidenpy.endpoints.pending_transfers import (
+from raiden_client.endpoints.pending_transfers import (
     PendingTransfersRequest,
     PendingTransfersResponse,
 )

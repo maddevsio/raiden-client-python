@@ -1,5 +1,5 @@
-from raidenpy.endpoints.channel_deposit import ChannelDepositRequest
-from raidenpy.types import Address
+from raiden_client.endpoints.channel_deposit import ChannelDepositRequest
+from raiden_client.types import Address
 
 
 def test_channel_deposit_request():

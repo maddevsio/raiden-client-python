@@ -1,7 +1,7 @@
-from raidenpy.endpoints.connection_disconnect import (
+from raiden_client.endpoints.connection_disconnect import (
     ConnectionDisconnectRequest,
 )
-from raidenpy.types import Address
+from raiden_client.types import Address
 
 
 def test_connection_connect_simple_request():

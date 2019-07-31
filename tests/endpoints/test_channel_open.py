@@ -1,8 +1,8 @@
-from raidenpy.endpoints.channel_open import (
+from raiden_client.endpoints.channel_open import (
     ChannelOpenRequest,
     ChannelOpenResponse,
 )
-from raidenpy.types import Address
+from raiden_client.types import Address
 
 
 def test_channel_open_request():

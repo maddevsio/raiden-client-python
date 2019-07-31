@@ -1,54 +1,54 @@
 from typing import Any, Dict, List
 
-from raidenpy.api_handler import APIHandler
-from raidenpy.endpoints.address import AddressRequest, AddressResponse
-from raidenpy.endpoints.channel import ChannelRequest, ChannelResponse
-from raidenpy.endpoints.channel_close import (
+from raiden_client.api_handler import APIHandler
+from raiden_client.endpoints.address import AddressRequest, AddressResponse
+from raiden_client.endpoints.channel import ChannelRequest, ChannelResponse
+from raiden_client.endpoints.channel_close import (
     ChannelCloseRequest,
     ChannelCloseResponse,
 )
-from raidenpy.endpoints.channel_deposit import (
+from raiden_client.endpoints.channel_deposit import (
     ChannelDepositRequest,
     ChannelDepositResponse,
 )
-from raidenpy.endpoints.channel_open import (
+from raiden_client.endpoints.channel_open import (
     ChannelOpenRequest,
     ChannelOpenResponse,
 )
-from raidenpy.endpoints.channel_withdraw import (
+from raiden_client.endpoints.channel_withdraw import (
     ChannelWithdrawRequest,
     ChannelWithdrawResponse,
 )
-from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.endpoints.connection_disconnect import (
+from raiden_client.endpoints.channels import ChannelsRequest, ChannelsResponse
+from raiden_client.endpoints.connection_disconnect import (
     ConnectionDisconnectRequest,
     ConnectionDisconnectResponse,
 )
-from raidenpy.endpoints.connections import (
+from raiden_client.endpoints.connections import (
     ConnectionsRequest,
     ConnectionsResponse,
 )
-from raidenpy.endpoints.connections_connect import (
+from raiden_client.endpoints.connections_connect import (
     ConnectionConnectRequest,
     ConnectionConnectResponse,
 )
-from raidenpy.endpoints.non_settled_partners import (
+from raiden_client.endpoints.non_settled_partners import (
     NonSettledPartnersRequest,
     NonSettledPartnersResponse,
 )
-from raidenpy.endpoints.payment import PaymentRequest, PaymentResponse
-from raidenpy.endpoints.pending_transfers import (
+from raiden_client.endpoints.payment import PaymentRequest, PaymentResponse
+from raiden_client.endpoints.pending_transfers import (
     PendingTransfersRequest,
     PendingTransfersResponse,
 )
-from raidenpy.endpoints.token_register import (
+from raiden_client.endpoints.token_register import (
     TokenRegistryRequest,
     TokenRegistryResponse,
 )
-from raidenpy.endpoints.tokens import TokensRequest, TokensResponse
-from raidenpy.endpoints.payment_events import PaymentEventsRequest, PaymentEventsResponse
-from raidenpy.endpoints.mint_tokens import MintTokensRequest, MintTokensResponse
-from raidenpy.types import (
+from raiden_client.endpoints.tokens import TokensRequest, TokensResponse
+from raiden_client.endpoints.payment_events import PaymentEventsRequest, PaymentEventsResponse
+from raiden_client.endpoints.mint_tokens import MintTokensRequest, MintTokensResponse
+from raiden_client.types import (
     Address,
     ChannelType,
     NonSettledPartners,

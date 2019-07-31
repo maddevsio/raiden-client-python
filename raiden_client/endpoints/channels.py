@@ -1,7 +1,7 @@
 from typing import Any, Dict, List
 
-from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.types import Address, ChannelType
+from raiden_client.endpoints import BaseRequest, BaseResponse
+from raiden_client.types import Address, ChannelType
 
 
 class ChannelsRequest(BaseRequest):

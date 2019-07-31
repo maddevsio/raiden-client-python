@@ -1,8 +1,8 @@
-from raidenpy.endpoints.connections_connect import (
+from raiden_client.endpoints.connections_connect import (
     ConnectionConnectRequest,
     ConnectionConnectResponse,
 )
-from raidenpy.types import Address
+from raiden_client.types import Address
 
 
 def test_connection_connect_simple_request():

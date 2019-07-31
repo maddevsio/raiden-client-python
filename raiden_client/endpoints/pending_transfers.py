@@ -1,7 +1,7 @@
 from typing import Any, Dict, List
 
-from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.types import Address, PendingTransfer
+from raiden_client.endpoints import BaseRequest, BaseResponse
+from raiden_client.types import Address, PendingTransfer
 
 
 class PendingTransfersRequest(BaseRequest):

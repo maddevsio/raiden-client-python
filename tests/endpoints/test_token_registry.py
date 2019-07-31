@@ -1,4 +1,4 @@
-from raidenpy.endpoints.token_register import (
+from raiden_client.endpoints.token_register import (
     TokenRegistryRequest,
     TokenRegistryResponse,
 )

@@ -7,14 +7,14 @@ A Python client for a Raiden node.
 ## Installation
 
 ```
-$ pip install raidenpy
+$ pip install raiden-client
 ```
 
 ## Usage
 
 ### API interface
 ```python
->>> from raidenpy import Client
+>>> from raiden_client import Client
 
 >>> c = Client(endpoint="http://127.0.0.1:5001")
 >>> c.address()

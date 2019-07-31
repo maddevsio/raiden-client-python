@@ -1,19 +1,20 @@
 from typing import Any, Dict
 
-from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.types import Address, ChannelType
+from raiden_client.endpoints import BaseRequest, BaseResponse
+from raiden_client.types import Address, ChannelType
 
 
-class ChannelCloseRequest(BaseRequest):
-    """Close a channel.
+class ChannelDepositRequest(BaseRequest):
+    """Increase the deposit in channel.
 
     PATCH /api/(version)/channels/(token_address)/(partner_address)
     """
 
-    def __init__(self, token_address: Address, partner_address: Address) -> None:
+    def __init__(self, token_address: Address, partner_address: Address, total_deposit: int) -> None:
         # TODO: EIP-55 token encode
         self.token_address = token_address
         self.partner_address = partner_address
+        self.total_deposit = total_deposit
 
     @property
     def endpoint(self) -> str:
@@ -24,11 +25,10 @@ class ChannelCloseRequest(BaseRequest):
         return "patch"
 
     def payload(self) -> Dict[str, Any]:
-        """The only valid choice is "closed."""
-        return {"state": "closed"}
+        return {"total_deposit": self.total_deposit}
 
 
-class ChannelCloseResponse(BaseResponse):
+class ChannelDepositResponse(BaseResponse):
     """Return Channel object."""
 
     def __init__(self, channel: ChannelType):

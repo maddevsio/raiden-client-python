@@ -1,4 +1,4 @@
-from raidenpy.endpoints.connections import (
+from raiden_client.endpoints.connections import (
     ConnectionsRequest,
     ConnectionsResponse,
 )

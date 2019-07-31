@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
-from raidenpy.endpoints import BaseRequest, BaseResponse
-from raidenpy.types import Address
+from raiden_client.endpoints import BaseRequest, BaseResponse
+from raiden_client.types import Address
 
 
 class MintTokensRequest(BaseRequest):

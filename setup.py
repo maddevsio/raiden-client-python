@@ -20,16 +20,17 @@ deps = {
 install_requires = deps["raiden"]
 
 setup(
+    name="raiden-client",
     author="Aleksandr Sobolev",
     author_email="thesobolev@gmail.com",
     description="Python client library Raiden API",
+    license="MIT",
     extras_require=deps,
     install_requires=install_requires,
     include_package_data=True,
     keywords="raiden",
-    name="raidenpy",
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/s0b0lev/raiden-python",
     version="0.0.1",
-    entry_points={"console_scripts": ["raiden-cli=raidenpy.interfaces.cli:main"]},
+    entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
 )

@@ -2,8 +2,8 @@ from typing import Any, Dict
 
 import requests
 
-from raidenpy.endpoints import BaseRequest
-from raidenpy.exceptions import ResponseStatusCodeException
+from raiden_client.endpoints import BaseRequest
+from raiden_client.exceptions import ResponseStatusCodeException
 
 
 class APIHandler:

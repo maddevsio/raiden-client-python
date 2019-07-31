@@ -1,5 +1,5 @@
-from raidenpy.endpoints.channel_withdraw import ChannelWithdrawRequest
-from raidenpy.types import Address
+from raiden_client.endpoints.channel_withdraw import ChannelWithdrawRequest
+from raiden_client.types import Address
 
 
 def test_channel_withdraw_request():

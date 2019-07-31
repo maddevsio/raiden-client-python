@@ -1,9 +1,9 @@
 import argparse
 
-from raidenpy import Client
+from raiden_client import Client
 
 
-def create_subparsers(subparsers):
+def create_subparsers(subparsers) -> None:
     subparsers.add_parser("address", help="Query node address")
 
     tokens = subparsers.add_parser("tokens", help="Query list of registered tokens")
@@ -82,7 +82,8 @@ def create_subparsers(subparsers):
     mint_tokens.add_argument("--value", required=True, help="he amount of tokens to be minted")
     mint_tokens.add_argument("--contract-method", required=False, help="The name of the contract’s minting method")
 
-def raiden_cli(args: argparse.Namespace):
+
+def raiden_cli(args: argparse.Namespace) -> None:
     client = Client(args.endpoint, args.version)
     if args.command == "address":
         client.address()

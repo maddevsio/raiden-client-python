@@ -1,5 +1,5 @@
-from raidenpy.endpoints.channels import ChannelsRequest, ChannelsResponse
-from raidenpy.types import Address
+from raiden_client.endpoints.channels import ChannelsRequest, ChannelsResponse
+from raiden_client.types import Address
 
 
 def test_channel_all():

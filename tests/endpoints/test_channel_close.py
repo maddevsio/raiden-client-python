@@ -1,5 +1,5 @@
-from raidenpy.endpoints.channel_close import ChannelCloseRequest
-from raidenpy.types import Address
+from raiden_client.endpoints.channel_close import ChannelCloseRequest
+from raiden_client.types import Address
 
 
 def test_channel_close_request():
