@@ -21,3 +21,15 @@ class ChannelType(TypedDict):
 class NonSettledPartners(TypedDict):
     partner_address: Address
     channel: str
+
+
+class PendingTransfer(TypedDict):
+    channel_identifier: str
+    initiator: Address
+    locked_amount: str
+    payment_identifier: str
+    role: str
+    target: Address
+    token_address: Address
+    token_network_address: Address
+    transferred_amount: str

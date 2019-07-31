@@ -48,6 +48,12 @@ class Client:
         response = ChannelResponse.from_dict({"channel": self.handler.do(request)})
         return response.to_dict()
 
+    def pending_transfers(self, token_address: Address = None, partner_address: Address = None):
+        request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
+        api_response = self.handler.do(request)
+        response = PendingTransfersResponse.from_dict({"channels": api_response})
+        return response.to_dict()
+
     def register_token(self, token_address: Address) -> Dict[str, Address]:
         request = DeployTokenRequst(token_address=token_address)
         response = DeployTokenResponse.from_dict(self.handler.do(request))
@@ -58,16 +64,10 @@ class Client:
         response = TokenNetworkResponse(response=self.handler.do(request))
         return response.to_dict()
 
-    def pending_transfers(self, token_address: Address = None, partner_address: Address = None):
-        request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
-        api_response = self.handler.do(request)
-        response = PendingTransfersResponse.from_dict({"channels": api_response})
-        return response.to_dict()
-
     def open_channel(
-        self, partner_address: Address, settle_timeout: int, token_address: Address, total_deposit: int
+        self, token_address: Address, partner_address: Address, settle_timeout: int, total_deposit: int
     ) -> Dict[str, Any]:
-        return data
+        return ""
 
     def close_channel(self, token_address: Address, partner_address: Address):
         """Close a channel .

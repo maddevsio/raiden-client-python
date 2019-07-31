@@ -31,8 +31,14 @@ def create_parser(parser: argparse.ArgumentParser):
     )
     non_settled_partners.add_argument("--token-address", required=True, help="For the given token address")
 
+    pending_transfers = subparsers.add_parser(
+        "pending-transfers", help="Returns a list of all transfers that have not been completed yet."
+    )
+    pending_transfers.add_argument("--token-address", required=True, help="For the given token address")
+    pending_transfers.add_argument("--partner-address", required=True, help="For the given partner address")
 
-def raiden_cli(args):
+
+def raiden_cli(args: argparse.Namespace):
     client = Client(args.endpoint, args.version)
     if args.command == "address":
         client.address()
@@ -41,17 +47,16 @@ def raiden_cli(args):
     elif args.command == "register-token":
         client.register_token(args.token_address)
     elif args.command == "channels":
-        if args.token_address:
-            client.channels(args.token_address)
-        else:
-            client.channels()
+        client.channels(args.token_address)
     elif args.command == "channel":
         client.channel(args.token_address, args.partner_address)
     elif args.command == "non-settled-partners":
         client.non_settled_partners(args.token_address)
+    elif args.command == "pending-transfers":
+        client.pending_transfers(args.token_address, args.partner_address)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Raiden python client CLI")
     create_parser(parser)
     args = parser.parse_args()
