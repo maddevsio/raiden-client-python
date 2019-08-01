@@ -25,5 +25,7 @@ def test_pending_transfers_specified_token_channel():
 
 
 def test_pending_transfers_response():
-    response = PendingTransfersResponse(pending_transfers=[])
+    response = PendingTransfersResponse.from_dict({
+        "pending_transfers": []
+    })
     assert "pending_transfers" in response.to_dict()

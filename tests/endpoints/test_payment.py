@@ -1,4 +1,4 @@
-from raiden_client.endpoints.payment import PaymentRequest
+from raiden_client.endpoints.payment import PaymentRequest, PaymentResponse
 
 # TODO: review PaymentResponse object and write tests
 
@@ -19,3 +19,10 @@ def test_payment_request_identifier():
     payload = req.payload()
     assert "amount" in payload
     assert "identifier" in payload
+
+
+def test_payment_response():
+    response = PaymentResponse.from_dict({
+        "payment": {}
+    })
+    assert "payment" in response.to_dict()

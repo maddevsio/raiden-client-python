@@ -30,3 +30,16 @@ def test_connection_joinable_funds_target():
     assert "funds" in connection.payload()
     assert "initial_channel_target" not in connection.payload()
     assert "joinable_funds_target" in connection.payload()
+
+
+def test_connection_connect_response():
+    response = ConnectionConnectResponse.from_dict({
+        "connection": {
+            Address("0x123123"): {
+                "funds": 123,
+                "sum_deposits": 100,
+                "channels": 1
+            }
+        }
+    })
+    assert "connection" in response.to_dict()

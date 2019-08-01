@@ -18,7 +18,7 @@ def test_connection_disconnect_response():
             Address("0x123123"): {
                 "funds": 123,
                 "sum_deposits": 100,
-                "channels": Address("0x123123123")
+                "channels": 1,
             }
         }
     })
