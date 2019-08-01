@@ -6,13 +6,23 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "setup.py" }}
+            - v1-dependencies-
       - run:
           name: Install dependencies
-          command: pip install -e .[dev]
-
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -e .[dev]
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "setup.py" }}
       - run:
           name: run tests
-          command: pytest tests/endpoints/
+          command: . venv/bin/activate && pytest tests/endpoints/
 
   integration-tests:
     docker:
@@ -20,26 +30,40 @@ jobs:
 
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "setup.py" }}
+            - v1-dependencies-
       - run:
           name: Install dependencies
-          command: pip install -e .[dev]
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -e .[dev]
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "setup.py" }}
 
       - run:
           background: true
           name: Spin-up of Raiden node
-          command: raiden --accept-disclaimer \
-                          --keystore-path  ~/project/tests/fixtures/rinkeby/keystore \
-                          --eth-rpc-endpoint "https://rinkeby.infura.io/v3/${INFURA_TOKEN}" \
-                          --network-id rinkeby \
-                          --environment-type development \
-                          --address 0xe59a5927cbB5007ffF0384244354b158464C47d3 \
-                          --password-file ~/project/tests/fixtures/rinkeby/password.txt
+          command: |
+              . venv/bin/activate 
+              raiden --accept-disclaimer \
+                     --keystore-path  ~/project/tests/fixtures/rinkeby/keystore \
+                     --eth-rpc-endpoint "https://rinkeby.infura.io/v3/${INFURA_TOKEN}" \
+                     --network-id rinkeby \
+                     --environment-type development \
+                     --address 0xe59a5927cbB5007ffF0384244354b158464C47d3 \
+                     --password-file ~/project/tests/fixtures/rinkeby/password.txt
       - run:
           name: Waiting Raiden node to spin-up
           command: sleep 30s
       - run:
           name: Run integration tests
-          command: pytest --cov=./raiden_client && codecov --token=$CODECOV_TOKEN
+          command: . venv/bin/activate && pytest --cov=./raiden_client && codecov --token=$CODECOV_TOKEN
 
   release-pypi:
     docker:
