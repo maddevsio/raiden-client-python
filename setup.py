@@ -4,14 +4,14 @@ from setuptools import find_packages, setup
 deps = {
     "raiden": [
         "requests>=2.22.0,<2.23.0",
-        "jsonschema>=3.0.1,<3.1.0",
-        "eth-utils>=1.6.1,<1.7.0",
         "mypy-extensions>=0.4.1,<0.5.0",
         "eth-hash[pycryptodome]>=0.2.0,<0.3.0",
     ],
     "dev": [
         # Strict raiden (stable) version
         "raiden==0.100.3",
+        # Install eth-utils 1.4.1 to avoid issues with versions for raiden
+        "eth-utils==1.4.1",
         "pytest-mypy>=0.3.3,<0.4.0",
         "pytest-cov>=2.7.1,<2.8.0",
         "pytest>=4.6.3,<4.7.0",
