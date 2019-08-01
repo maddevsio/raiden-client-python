@@ -1,4 +1,5 @@
 import argparse
+from web3 import Web3
 
 from raiden_client import Client
 
@@ -9,15 +10,21 @@ def address_func(client: Client, args: argparse.Namespace) -> None:
 
 
 def tokens_func(client: Client, args: argparse.Namespace) -> None:
-    client.tokens(args.token_address)
+    token_address = args.token_address
+    if token_address:
+        token_address = Web3.toChecksumAddress(token_address)
+    tokens = client.tokens(token_address)
+    print(tokens)
 
 
 def register_token_func(client: Client, args: argparse.Namespace) -> None:
-    client.token_register(args.token_address)
+    token_register = client.token_register(args.token_address)
+    print(token_register)
 
 
 def channels_func(client: Client, args: argparse.Namespace) -> None:
-    client.channels(args.token_address)
+    channels = client.channels(args.token_address)
+    print(channels)
 
 
 def channel_func(client: Client, args: argparse.Namespace) -> None:
@@ -25,7 +32,8 @@ def channel_func(client: Client, args: argparse.Namespace) -> None:
 
 
 def non_settled_partners_func(client: Client, args: argparse.Namespace) -> None:
-    client.non_settled_partners(args.token_address)
+    non_settled_partners = client.non_settled_partners(args.token_address)
+    print(non_settled_partners)
 
 
 def pending_transfers_func(client: Client, args: argparse.Namespace) -> None:
@@ -33,7 +41,12 @@ def pending_transfers_func(client: Client, args: argparse.Namespace) -> None:
 
 
 def channel_open_func(client: Client, args: argparse.Namespace) -> None:
-    client.channel_open(args.token_address, args.partner_address, args.total_deposit, args.settle_timeout)
+    client.channel_open(
+        token_address=args.token_address,
+        partner_address=args.partner_address,
+        total_deposit=args.total_deposit,
+        settle_timeout=args.settle_timeout
+    )
 
 
 def channel_close_func(client: Client, args: argparse.Namespace) -> None:
@@ -49,7 +62,8 @@ def channel_withdraw_func(client: Client, args: argparse.Namespace) -> None:
 
 
 def connections_func(client: Client, args: argparse.Namespace) -> None:
-    client.connections()
+    connections = client.connections()
+    print(connections)
 
 
 def connect_func(client: Client, args: argparse.Namespace) -> None:

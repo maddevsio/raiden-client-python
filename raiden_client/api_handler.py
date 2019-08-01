@@ -21,6 +21,6 @@ class APIHandler:
 
     def do(self, req: BaseRequest) -> Dict[str, Any]:
         """Send HTTP request to URI within defined method."""
-        resp = requests.request(method=req.method, url=self.url(req.endpoint), headers={})
+        resp = requests.request(method=req.method, url=self.url(req.endpoint), json=req.payload(), headers={})
         self.validate_status_code(resp.status_code, resp.text)
         return resp.json()
