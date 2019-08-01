@@ -10,5 +10,7 @@ def test_address():
 
 
 def test_address_response_status_code():
-    resp = AddressResponse(our_address=Address("0x123"))
+    resp = AddressResponse.from_dict({
+        "our_address": Address("0x123")
+    })
     assert resp.to_dict() == {"our_address": "0x123"}

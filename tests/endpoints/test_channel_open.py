@@ -30,11 +30,11 @@ def test_channel_open_response():
         "settle_timeout": 500,
         "reveal_timeout": 30,
     }
-    response = ChannelOpenResponse(channel=channel)
+    response = ChannelOpenResponse.from_dict({"channel": channel})
     assert "channel" in response.to_dict()
     opened_channel_response = response.to_dict()
-
     opened_channel = opened_channel_response["channel"]
+
     assert "token_network_address" in opened_channel
     assert "channel_identifier" in opened_channel
     assert "partner_address" in opened_channel
