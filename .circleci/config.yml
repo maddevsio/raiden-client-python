@@ -8,8 +8,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "setup.py" }}
-            - v1-dependencies-
+            - v1-cache-env-{{ checksum "setup.py" }}
+            - v1-cache-env-
       - run:
           name: Install dependencies
           command: |
@@ -19,7 +19,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "setup.py" }}
+          key: v1-cache-env-{{ checksum "setup.py" }}
       - run:
           name: run tests
           command: . venv/bin/activate && pytest tests/endpoints/
@@ -33,8 +33,8 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "setup.py" }}
-            - v1-dependencies-
+            - v1-cache-env-{{ checksum "setup.py" }}
+            - v1-cache-env-
       - run:
           name: Install dependencies
           command: |
@@ -44,7 +44,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "setup.py" }}
+          key: v1-cache-env-{{ checksum "setup.py" }}
 
       - run:
           background: true
