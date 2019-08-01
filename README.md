@@ -4,7 +4,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/07b3c04b8ad89893b943/maintainability)](https://codeclimate.com/github/maddevsio/raiden-client-python/maintainability)
 [![Codecov](https://img.shields.io/codecov/c/github/maddevsio/raiden-client-python)](https://codecov.io/gh/maddevsio/raiden-client-python)
 [![PyPI version](https://badge.fury.io/py/raiden-client.svg)](https://badge.fury.io/py/raiden-client)
-![Read the Docs](https://img.shields.io/readthedocs/raiden-client-python)
+[![Documentation Status](https://readthedocs.org/projects/raiden-client-python/badge/?version=latest)](https://raiden-client-python.readthedocs.io/en/latest/?badge=latest)
 
 Client library for Raiden node REST API.
 
