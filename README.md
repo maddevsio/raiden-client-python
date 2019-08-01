@@ -6,23 +6,34 @@
 [![PyPI version](https://badge.fury.io/py/raiden-client.svg)](https://badge.fury.io/py/raiden-client)
 ![Read the Docs](https://img.shields.io/readthedocs/raiden-client-python)
 
-A Python client for a Raiden node.
+Client library for Raiden node REST API.
+
 
 ## Installation
+
+raiden-client run on Python 3.5+
+
+Install from pypi:
 
 ```
 $ pip install -U raiden-client
 ```
 
-## Usage
+Or, clone repo and run:
+```
+$ pip install .
+```
+
+## Usage examples
 
 ### API interface
 ```python
 >>> from raiden_client import Client
 
->>> c = Client(endpoint="http://127.0.0.1:5001")
+>>> c = Client()
 >>> c.address()
->>> c.tokens()
+>>> c.tokens(token_address="0x2008730f6c4ebde1f4ae0c8b8bf968f53c341c45")
+
 ```
 
 ### CLI usage
