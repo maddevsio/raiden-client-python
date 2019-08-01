@@ -8,15 +8,11 @@ deps = {
         "eth-hash[pycryptodome]>=0.2.0,<0.3.0",
     ],
     "dev": [
-        # Strict raiden (stable) version
-        "raiden==0.100.3",
-        # Install eth-utils 1.4.1 to avoid issues with versions for raiden
-        "eth-utils==1.4.1",
-        "pytest-mypy>=0.3.3,<0.4.0",
-        "pytest-cov>=2.7.1,<2.8.0",
-        "pytest>=4.6.3,<4.7.0",
         "black>=19.3b0,<19.4",
         "codecov>=2.0.15,<2.1.0",
+        "pytest>=4.6.3,<4.7.0",
+        "pytest-cov>=2.7.1,<2.8.0",
+        "pytest-mypy>=0.3.3,<0.4.0",
     ],
 }
 
