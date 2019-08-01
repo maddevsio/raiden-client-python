@@ -84,7 +84,7 @@ def create_subparsers(subparsers: argparse._SubParsersAction) -> None:
     address.set_defaults(func=address_func)
 
     tokens = subparsers.add_parser("tokens", help="Query list of registered tokens")
-    tokens.add_argument("--token-address", required=False, help="For the given token address")
+    tokens.add_argument("-t", "--token-address", required=False, help="For the given token address")
     tokens.set_defaults(func=tokens_func)
 
     channels = subparsers.add_parser("channels", help="Request a list of all unsettled channels")
