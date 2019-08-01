@@ -13,6 +13,7 @@ deps = {
         "pytest>=4.6.3,<4.7.0",
         "pytest-cov>=2.7.1,<2.8.0",
         "pytest-mypy>=0.3.3,<0.4.0",
+        "sphinx-argparse>=0.2.5,<0.3.0",
     ],
 }
 
