@@ -1,7 +1,7 @@
 # Raiden Network client API
 [![Mad Devs](https://mdbadge.glitch.me/mdrw.svg)](https://maddevs.io)
-![Codecov](https://img.shields.io/codecov/c/github/maddevsio/raiden-client-python)
 [![CircleCI](https://circleci.com/gh/maddevsio/raiden-client-python.svg?style=svg)](https://circleci.com/gh/maddevsio/raiden-client-python)
+[![Codecov](https://img.shields.io/codecov/c/github/maddevsio/raiden-client-python)](https://codecov.io/gh/maddevsio/raiden-client-python)
 [![PyPI version](https://badge.fury.io/py/raiden-client.svg)](https://badge.fury.io/py/raiden-client)
 ![Read the Docs](https://img.shields.io/readthedocs/raiden-client-python)
 
