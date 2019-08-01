@@ -176,7 +176,6 @@ def create_subparsers(subparsers: argparse._SubParsersAction) -> None:
     mint_tokens.set_defaults(func=mint_tokens_func)
 
 
-
 def create_parser():
     parser = argparse.ArgumentParser(description="Raiden python client CLI")
     parser.add_argument("--endpoint", default="http://127.0.0.1:5001/", help="REST API endpoint")
