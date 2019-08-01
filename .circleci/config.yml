@@ -1,42 +1,45 @@
 version: 2
 jobs:
-  test:
+  unittests:
     docker:
       - image: circleci/python:3.7.3
 
     steps:
       - checkout
       - run:
-          name: Update PIP
-          command: pip install -U --user pip 
+          name: Install dependencies
+          command: pip install -e .[dev]
 
       - run:
+          name: run tests
+          command: pytest tests/endpoints/
+
+  integration-tests:
+    docker:
+      - image: circleci/python:3.7.3
+
+    steps:
+      - checkout
+      - run:
           name: Install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -e .[dev]
-            pip install raiden==0.100.3
+          command: pip install -e .[dev]
 
       - run:
           background: true
           name: Spin-up of Raiden node
-          command: |
-            . venv/bin/activate
-            raiden --accept-disclaimer \
-                   --keystore-path  ~/project/tests/fixtures/rinkeby/keystore \
-                   --eth-rpc-endpoint "https://rinkeby.infura.io/v3/${INFURA_TOKEN}" \
-                   --network-id rinkeby \
-                   --environment-type development \
-                   --address 0xe59a5927cbB5007ffF0384244354b158464C47d3 \
-                   --password-file ~/project/tests/fixtures/rinkeby/password.txt
+          command: raiden --accept-disclaimer \
+                          --keystore-path  ~/project/tests/fixtures/rinkeby/keystore \
+                          --eth-rpc-endpoint "https://rinkeby.infura.io/v3/${INFURA_TOKEN}" \
+                          --network-id rinkeby \
+                          --environment-type development \
+                          --address 0xe59a5927cbB5007ffF0384244354b158464C47d3 \
+                          --password-file ~/project/tests/fixtures/rinkeby/password.txt
       - run:
           name: Waiting Raiden node to spin-up
           command: sleep 30s
-
       - run:
-          name: run tests
-          command: . venv/bin/activate && pytest --cov=./raiden_client && codecov --token=$CODECOV_TOKEN
+          name: Run integration tests
+          command: pytest --cov=./raiden_client && codecov --token=$CODECOV_TOKEN
 
   release-pypi:
     docker:
@@ -57,10 +60,11 @@ workflows:
   version: 2
   build:
     jobs:
-      - test:
+      - unittests
+      - integration-tests:
           filters:
-            tags:
-              only: /.*/
+            branches:
+              only: master
       - pypi_release:
           filters:
             branches:
@@ -68,4 +72,5 @@ workflows:
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
           requires:
-            - test
+            - integration-tests
+            - unittests
