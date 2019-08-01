@@ -6,3 +6,5 @@ raiden-debug*.log*
 dist/*
 .coverage
 coverage.xml
+docs/build
+.vscode/
