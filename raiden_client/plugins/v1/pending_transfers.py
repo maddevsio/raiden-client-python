@@ -14,8 +14,14 @@ class PendingTransfersPlugin(BasePlugin):
     pending_transfers = None
 
     def __init__(self, token_address: str = None, partner_address: str = None):
-        self.token_address = self._normalize_address(token_address)
-        self.partner_address = self._normalize_address(partner_address)
+        if token_address:
+            token_address = self._normalize_address(token_address)
+
+        if partner_address:
+            partner_address = self._normalize_address(partner_address)
+
+        self.token_address = token_address
+        self.partner_address = partner_address
 
     @property
     def name(self) -> str:

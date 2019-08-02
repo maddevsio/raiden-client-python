@@ -93,8 +93,8 @@ class Client:
         return plugin.raiden_node_api_interact(self.endpoint)
 
     def channel_open(self,
-                     token_address: Address,
-                     partner_address: Address,
+                     token_address: str,
+                     partner_address: str,
                      settle_timeout: int,
                      total_deposit: int) -> Dict[str, ChannelType]:
         """Opens (i. e. creates) a channel.

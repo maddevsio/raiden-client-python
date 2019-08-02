@@ -15,7 +15,9 @@ class ChannelsPlugin(BasePlugin):
     channels = None
 
     def __init__(self, token_address: str = None) -> None:
-        self.token_address = self._normalize_address(token_address)
+        if token_address:
+            self.token_address = self._normalize_address(token_address)
+        self.token_address = token_address
 
     @property
     def name(self) -> str:

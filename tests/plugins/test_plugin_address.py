@@ -1,4 +1,4 @@
-from raiden_client.plugins.v1 import AddressPlugin
+from raiden_client.plugins.v1.address import AddressPlugin
 
 
 def test_plugin() -> None:
