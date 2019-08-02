@@ -28,6 +28,7 @@ $ pip install .
 ## Usage examples
 
 ### API interface
+Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_client.client.html)
 ```python
 >>> from raiden_client import Client
 
@@ -41,7 +42,7 @@ $ pip install .
 Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_client.cli.html)
 
 ```shell
-$ $ raiden-cli -h
+$ raiden-cli -h
 usage: raiden-cli [-h] [--endpoint ENDPOINT] [--version VERSION]
                   {address,tokens,channels,channel,non-settled,pending-transfers,channel-open,channel-close,deposit-increase,withdraw-increase,token-register,connections,connect,disconnect,payment,payment-events,mint-token}
                   ...
