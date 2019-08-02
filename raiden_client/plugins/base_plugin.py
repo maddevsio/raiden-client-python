@@ -1,10 +1,11 @@
-from abc import abstractmethod, abstractclassmethod, ABC
+from abc import ABC, abstractclassmethod, abstractmethod
 from argparse import ArgumentParser, _SubParsersAction
 from typing import Any, Dict
-from raiden_client.exceptions import ResponseStatusCodeException
-import requests
 
+import requests
 from web3 import Web3
+
+from raiden_client.exceptions import ResponseStatusCodeException
 
 
 class BasePlugin(ABC):
@@ -49,11 +50,7 @@ class BasePlugin(ABC):
         return f"{host}api/{self.version}{self.endpoint}"
 
     def raiden_node_api_interact(self, host) -> Dict[str, Any]:
-        resp = requests.request(
-            method=self.method,
-            url=self.url(host),
-            json=self.payload()
-        )
+        resp = requests.request(method=self.method, url=self.url(host), json=self.payload())
         self.validate_status_code(resp.status_code, resp.text)
         return {"response": resp.json()}
 

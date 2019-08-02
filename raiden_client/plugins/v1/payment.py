@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -13,6 +14,7 @@ class PaymentPlugin(BasePlugin):
     POST /api/(version)/payments/(token_address)/(target_address)
     https://raiden-network.readthedocs.io/en/latest/rest_api.html#payments
     """
+
     payment = None
 
     def __init__(self, token_address: str, target_address: str, amount: int, identifier: int = None) -> None:

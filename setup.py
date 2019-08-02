@@ -16,16 +16,10 @@ deps = {
         "pytest-cov>=2.7.1,<2.8.0",
         "pytest-mypy>=0.3.3,<0.4.0",
     ],
-    "docs": [
-        "sphinx-argparse>=0.2.5,<0.3.0",
-        "sphinx-autodoc-typehints>=1.7.0,<1.8.0",
-    ],
+    "docs": ["sphinx-argparse>=0.2.5,<0.3.0", "sphinx-autodoc-typehints>=1.7.0,<1.8.0"],
 }
 
-deps["docs"] = (
-    deps["raiden"],
-    deps["docs"]
-)
+deps["docs"] = (deps["raiden"], deps["docs"])
 
 install_requires = deps["raiden"]
 
@@ -42,7 +36,5 @@ setup(
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/maddevsio/raiden-python-client",
     version="0.0.2",
-    entry_points={
-        "console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"],
-    },
+    entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
 )

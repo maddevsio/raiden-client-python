@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -12,6 +13,7 @@ class ChannelsPlugin(BasePlugin):
     All channels for the given token address
     GET /api/(version)/channels/(token_address)
     """
+
     channels = None
 
     def __init__(self, token_address: str = None) -> None:
@@ -40,9 +42,7 @@ class ChannelsPlugin(BasePlugin):
         self.channels = response
 
     def to_dict(self):
-        return {
-            "channels": self.channels
-        }
+        return {"channels": self.channels}
 
     @classmethod
     def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:

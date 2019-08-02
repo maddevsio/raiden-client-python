@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -9,13 +10,12 @@ class ConnectPlugin(BasePlugin):
 
     PUT /api/(version)/connections/(token_address)
     """
+
     connection = None
 
-    def __init__(self,
-                 token_address: str,
-                 funds: int,
-                 initial_channel_target: int = None,
-                 joinable_funds_target: float = None) -> None:
+    def __init__(
+        self, token_address: str, funds: int, initial_channel_target: int = None, joinable_funds_target: float = None
+    ) -> None:
         self.token_address = self._normalize_address(token_address)
         self.funds = funds
         self.initial_channel_target = initial_channel_target

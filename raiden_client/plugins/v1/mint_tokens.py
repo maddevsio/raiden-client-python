@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -14,6 +15,7 @@ class MintTokensPlugin(BasePlugin):
 
     POST /api/(version)/_testing/tokens/(token_address)/mint
     """
+
     transaction_hash = None
 
     def __init__(self, token_address: str, to: str, value: int, contract_method: str = "mintFor"):
@@ -35,11 +37,7 @@ class MintTokensPlugin(BasePlugin):
         return "post"
 
     def payload(self) -> Dict[str, Any]:
-        return {
-            "to": self.to,
-            "value": self.value,
-            "contract_method": self.contract_method
-        }
+        return {"to": self.to, "value": self.value, "contract_method": self.contract_method}
 
     def parse_response(self, response) -> Dict[str, Any]:
         self.transaction_hash = response
@@ -59,10 +57,7 @@ class MintTokensPlugin(BasePlugin):
     @classmethod
     def plugin_execute(cls, args: Namespace) -> None:
         plugin = cls(
-            token_address=args.token_address,
-            to=args.to,
-            value=args.value,
-            contract_method=args.contract_method,
+            token_address=args.token_address, to=args.to, value=args.value, contract_method=args.contract_method
         )
         output = plugin.raiden_node_api_interact(args.endpoint)
         print(json.dumps(output, indent=2))

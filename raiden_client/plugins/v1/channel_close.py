@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -9,6 +10,7 @@ class ChannelClose(BasePlugin):
 
     PATCH /api/(version)/channels/(token_address)/(partner_address)
     """
+
     channel = None
 
     def __init__(self, token_address: str, partner_address: str) -> None:
@@ -34,9 +36,7 @@ class ChannelClose(BasePlugin):
         self.channel = response
 
     def to_dict(self):
-        return {
-            "channel": self.channel
-        }
+        return {"channel": self.channel}
 
     @classmethod
     def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:

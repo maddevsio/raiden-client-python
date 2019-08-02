@@ -1,4 +1,6 @@
-from raiden_client.plugins.v1.non_settled_partners import NonSettledPartnersPlugin
+from raiden_client.plugins.v1.non_settled_partners import (
+    NonSettledPartnersPlugin,
+)
 
 
 def test_non_settled_partners_request() -> None:

@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -14,6 +15,7 @@ class ChannelOpenPlugin(BasePlugin):
 
     PUT /api/(version)/channels
     """
+
     channel = None
 
     def __init__(self, token_address: str, partner_address: str, total_deposit: int, settle_timeout: int) -> None:
@@ -53,9 +55,7 @@ class ChannelOpenPlugin(BasePlugin):
         channel_open = subparser.add_parser("channel-open", help="Opens / creates a channel")
         channel_open.add_argument("-t", "--token-address", required=True, help="For the given token address")
         channel_open.add_argument("-p", "--partner-address", required=True, help="Channel partner address")
-        channel_open.add_argument(
-            "--total-deposit", required=True, help="Amount of tokens to be deposited"
-        )
+        channel_open.add_argument("--total-deposit", required=True, help="Amount of tokens to be deposited")
         channel_open.add_argument(
             "--settle-timeout", required=True, help="Amount of blocks that the settle timeout should have"
         )

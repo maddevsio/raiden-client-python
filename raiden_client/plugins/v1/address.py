@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -13,6 +14,7 @@ class AddressPlugin(BasePlugin):
     GET /api/(version)/address
     https://raiden-network.readthedocs.io/en/latest/rest_api.html#querying-information-about-your-raiden-node
     """
+
     our_address = None
 
     @property
@@ -34,9 +36,7 @@ class AddressPlugin(BasePlugin):
         self.our_address = response
 
     def to_dict(self):
-        return {
-            "our_address": self.our_address
-        }
+        return {"our_address": self.our_address}
 
     @classmethod
     def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:

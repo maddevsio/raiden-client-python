@@ -1,7 +1,7 @@
 import importlib
 from typing import Tuple
-from raiden_client.plugins import BasePlugin
 
+from raiden_client.plugins import BasePlugin
 
 CLIENT_PLUGINS_V1 = [
     "raiden_client.plugins.v1.address.AddressPlugin",

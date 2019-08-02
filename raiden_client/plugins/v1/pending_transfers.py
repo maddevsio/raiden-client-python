@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -11,6 +12,7 @@ class PendingTransfersPlugin(BasePlugin):
     GET /api/(version)/pending_transfers/(token_address)
     GET /api/(version)/pending_transfers/(token_address)/(partner_address)
     """
+
     pending_transfers = None
 
     def __init__(self, token_address: str = None, partner_address: str = None):

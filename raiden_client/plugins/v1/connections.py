@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Any
-from argparse import ArgumentParser, _SubParsersAction, Namespace
+from argparse import ArgumentParser, Namespace, _SubParsersAction
+from typing import Any, Dict
+
 from raiden_client.plugins import BasePlugin
 
 
@@ -10,6 +11,7 @@ class ConnectionsPlugin(BasePlugin):
     GET /api/(version)/connections
     https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-connections
     """
+
     connections = None
 
     @property
