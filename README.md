@@ -1,4 +1,4 @@
-# Raiden Network client API
+# Raiden Node Python Client
 [![Mad Devs](https://mdbadge.glitch.me/mdrw.svg)](https://maddevs.io)
 [![CircleCI](https://circleci.com/gh/maddevsio/raiden-client-python.svg?style=svg)](https://circleci.com/gh/maddevsio/raiden-client-python)
 [![Maintainability](https://api.codeclimate.com/v1/badges/07b3c04b8ad89893b943/maintainability)](https://codeclimate.com/github/maddevsio/raiden-client-python/maintainability)
@@ -28,7 +28,7 @@ $ pip install .
 ## Usage examples
 
 ### API interface
-Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_client.client.html)
+Full docs [here](file:///home/s0b0lev/raiden-python/docs/build/html/client.html)
 ```python
 >>> from raiden_client import Client
 
@@ -39,7 +39,7 @@ Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_cl
 ```
 
 ### CLI usage
-Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_client.cli.html)
+Full docs [here](file:///home/s0b0lev/raiden-python/docs/build/html/cli.html)
 
 ```shell
 $ raiden-cli -h
