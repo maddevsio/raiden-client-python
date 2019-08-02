@@ -16,7 +16,15 @@ deps = {
         "pytest-cov>=2.7.1,<2.8.0",
         "pytest-mypy>=0.3.3,<0.4.0",
     ],
+    "docs": [
+        "sphinx-argparse>=0.2.5,<0.3.0",
+    ],
 }
+
+deps["docs"] = (
+    deps["raiden"],
+    deps["docs"]
+)
 
 install_requires = deps["raiden"]
 

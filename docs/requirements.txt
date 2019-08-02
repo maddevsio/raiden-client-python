@@ -1,2 +1,0 @@
-sphinx-argparse>=0.2.5,<0.3.0
-mypy_extensions
