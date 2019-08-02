@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Dict, List
 
 from raiden_client.api_handler import APIHandler
 from raiden_client.endpoints.address import AddressRequest, AddressResponse
@@ -112,7 +112,7 @@ class Client:
 
     def channel(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:
         """Query information about one of your channels.
-    
+
         The channel is specified by the address of the token and the partner’s address.
         :params: token_address (address)
         :params: partner_address (address)
@@ -153,7 +153,7 @@ class Client:
                      settle_timeout: int,
                      total_deposit: int) -> Dict[str, ChannelType]:
         """Opens (i. e. creates) a channel.
-        
+
         :params: partner_address (address) – The partner we want to open a channel with.
         :params: token_address (address) – The token we want to be used in the channel.
         :params: total_deposit (int) – Total amount of tokens to be deposited to the channel
@@ -290,10 +290,10 @@ class Client:
 
     def payment_events(self, token_address: Address, target_address: str):
         """Query the payment history.
-        
+
         This includes successful (EventPaymentSentSuccess) and failed (EventPaymentSentFailed) sent 
         payments as well as received payments (EventPaymentReceivedSuccess). 
-        
+
         :params: token_address (address) (optional) - filter the list of events
         :params: target_address (address) (optional) - filter the list of events
         :returns: list of payment events
