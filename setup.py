@@ -6,6 +6,8 @@ deps = {
         "requests>=2.22.0,<2.23.0",
         "mypy-extensions>=0.4.1,<0.5.0",
         "eth-hash[pycryptodome]>=0.2.0,<0.3.0",
+        # Replace web3 later
+        "web3==4.9.1",
     ],
     "dev": [
         "black>=19.3b0,<19.4",
