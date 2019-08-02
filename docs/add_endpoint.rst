@@ -6,24 +6,32 @@ In case if Raiden API add new endpoint client should implement following stuff:
 Create new endpoint interface
 --------------------------------
 
-1. Create new endpoint at **raiden_client/endpoints/**
+1. Create new plugin at **raiden_client/plugin/**
 
-2. Implement Request Object
+2. Implement Plugin interface
 
 .. code-block:: python
 
-    class NewAPIRequest(BaseRequest):
-        """Title.
+    class TokensPlugin(BasePlugin):
+        """Registers a token.
+        If a token is not registered yet (i.e.: A token network for that token does not exist in the registry),
+        we need to register it by deploying a token network contract for that token.
 
-        Description
-
-        GET /api/(version)/address
-        https://raiden-network.readthedocs.io/en/latest/rest_api.html#address
+        PUT /api/(version)/tokens/(token_address)
+        Doc: https://raiden-network.readthedocs.io/en/latest/rest_api.html#deploying
         """
+        tokens = None
+
+        def __init__(self, token_address: str = None) -> None:
+            self.token_address = self._normalize_address(token_address)
+
+        @property
+        def name(self) -> str:
+            return "tokens"
 
         @property
         def endpoint(self) -> str:
-            return "/address"
+            return "/tokens"
 
         @property
         def method(self) -> str:
@@ -32,59 +40,39 @@ Create new endpoint interface
         def payload(self) -> Dict[str, Any]:
             return {}
 
+        def parse_response(self, response) -> Dict[str, Any]:
+            self.tokens = response
 
-3. Implement Response Object
-
-.. code-block:: python
-
-    class NewAPIResponse(BaseResponse):
-
-        def __init__(self, our_address: Address):
-            self.our_address = our_address
+        def to_dict(self):
+            return {"tokens": self.tokens}
 
         @classmethod
-        def from_dict(cls, d: Dict[str, Any]) -> BaseResponse:
-            return cls(**d)
+        def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
+            tokens = subparser.add_parser("tokens", help="Query list of registered tokens")
+            tokens.add_argument("-t", "--token-address", required=False, help="For the given token address")
+            tokens.set_defaults(func=cls.plugin_execute)
 
-        def to_dict(self) -> Dict[str, str]:
-            return {"our_address": self.our_address}
+        @classmethod
+        def plugin_execute(cls, args: Namespace) -> None:
+            plugin = cls(args.token_address)
+            output = plugin.raiden_node_api_interact(args.endpoint)
+            print(json.dumps(output, indent=2))
 
 
-Add new method to Client interface
-----------------------------------
+3. Register new plugin **raiden_client/plugins/register.py** at **CLIENT_PLUGINS_V1**
+
+
+4. Add new method at Client interface: **raiden_client/interfaces/client.py**
 
 .. code-block:: python
 
-    def channels(self, token_address: Address = None) -> List[ChannelType]:
-        """Get a list of all unsettled channels.
+    def tokens(self, token_address: str = None) -> List[str]:
+        """Returns a list of addresses of all registered tokens.
 
-        :params: token_address (optional) (str)
-        :returns: List of channels
+        :params: token_address (address) (optional) Returns the address of token network for the given token
+        :returns: list of addresses (or address if toke_address param passed)
         """
-        request = ChannelsRequest()
-        api_response = self.handler.do(request)
-        response = ChannelsResponse.from_dict(api_response)
-        return response.to_dict()
+        plugin = TokensPlugin(token_address=token_address)
+        return plugin.raiden_node_api_interact(self.endpoint)
 
-Add new CLI subparser
----------------------
-
-Add to create_subparser() function:
-
-
-Add doc string and meaningful cli parameters description
-
-.. code-block:: python
-
-    tokens = subparsers.add_parser("tokens", help="")
-    tokens.add_argument("-t", "--token-address", required=False, help="")
-    tokens.set_defaults(func=tokens_func)
-
-
-Implement parser function function:
-
-.. code-block:: python
-
-    def tokens_func(client: Client, args: argparse.Namespace) -> None:
-        tokens = client.tokens(token_address)
-        print(json.dumps(tokens, indent=2))
+5. Write corresponding test to be sure that interface interact in expected way (regarding raiden api docs)
