@@ -22,7 +22,7 @@ jobs:
           key: v1-cache-{{ checksum "setup.py" }}
       - run:
           name: run tests
-          command: . venv/bin/activate && pytest tests/endpoints/
+          command: . venv/bin/activate && pytest tests/plugins/
 
   integration-tests:
     docker:
