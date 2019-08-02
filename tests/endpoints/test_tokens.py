@@ -17,5 +17,5 @@ def test_tokens_in_tokens_network():
 
 
 def test_token_response():
-    response = TokensResponse.from_dict({"tokens": []})
-    assert "tokens" in response.to_dict()
+    response = TokensResponse.from_dict({"response": []})
+    assert isinstance(response.to_dict(), list)

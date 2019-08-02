@@ -16,11 +16,19 @@ class APIHandler:
             raise ResponseStatusCodeException(f"HTTP {status_code}: {text}")
         return status_code
 
-    def url(self, uri):
+    def url(self, uri: str) -> str:
         return f"{self.endpoint}/api/{self.version}{uri}"
 
     def do(self, req: BaseRequest) -> Dict[str, Any]:
         """Send HTTP request to URI within defined method."""
-        resp = requests.request(method=req.method, url=self.url(req.endpoint), json=req.payload(), headers={})
+        try:
+            resp = requests.request(
+                method=req.method,
+                url=self.url(req.endpoint),
+                json=req.payload()
+            )
+        except requests.exceptions.ConnectionError:
+            print(f"Raiden node is not running rest API interface on addres: {self.endpoint}")
+            return {}
         self.validate_status_code(resp.status_code, resp.text)
-        return resp.json()
+        return {"response": resp.json()}

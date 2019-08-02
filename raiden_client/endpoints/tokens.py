@@ -34,12 +34,12 @@ class TokensRequest(BaseRequest):
 class TokensResponse(BaseResponse):
     """Returns a list of addresses of all registered tokens."""
 
-    def __init__(self, tokens: List[Address]):
-        self.tokens = tokens
+    def __init__(self, response: List[Address]):
+        self.tokens = response
 
     def to_dict(self) -> List[Address]:
-        return {"tokens": self.tokens}
+        return self.tokens
 
     @classmethod
-    def from_dict(cls, d):
-        return cls(tokens=d["tokens"])
+    def from_dict(cls, data: Dict[str, List[str]]) -> BaseResponse:
+        return cls(**data)

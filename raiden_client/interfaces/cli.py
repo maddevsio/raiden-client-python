@@ -142,14 +142,12 @@ def create_subparsers(subparsers: argparse._SubParsersAction) -> None:
     channel.add_argument("-p", "--partner-address", required=True, help="For the given partner address")
     channel.set_defaults(func=channel_func)
 
-    non_settled_partners = subparsers.add_parser(
-        "non-settled-partners", help="List of partners with non-settled channels for a certain token."
-    )
+    non_settled_partners = subparsers.add_parser("non-settled", help="Partners with non-settled channels")
     non_settled_partners.add_argument("-t", "--token-address", required=True, help="For the given token address")
     non_settled_partners.set_defaults(func=non_settled_partners_func)
 
     pending_transfers = subparsers.add_parser(
-        "pending-transfers", help="Returns a list of all transfers that have not been completed yet."
+        "pending-transfers", help="List of uncompleted transfers"
     )
     pending_transfers.add_argument("-t", "--token-address", required=True, help="For the given token address")
     pending_transfers.add_argument("-p", "--partner-address", required=True, help="For the given partner address")
@@ -171,13 +169,13 @@ def create_subparsers(subparsers: argparse._SubParsersAction) -> None:
     channel_close.add_argument("-p", "--partner-address", required=True, help="The partner we want to open a channel with")
     channel_close.set_defaults(func=channel_close_func)
 
-    channel_deposit = subparsers.add_parser("channel-deposit-increase", help="Increase channel deposit")
+    channel_deposit = subparsers.add_parser("deposit-increase", help="Increase channel deposit")
     channel_deposit.add_argument("-t", "--token-address", required=True, help="The token we want to be used in the channel")
     channel_deposit.add_argument("-p", "--partner-address", required=True, help="The partner we want to open a channel with")
     channel_deposit.add_argument("--total-deposit", required=True, help="The increased total deposit")
     channel_deposit.set_defaults(func=channel_deposit_increase_func)
 
-    channel_withdraw = subparsers.add_parser("channel-withdraw-increase", help="Increase channel deposit")
+    channel_withdraw = subparsers.add_parser("withdraw-increase", help="Increase channel deposit")
     channel_withdraw.add_argument("-t", "--token-address", required=True, help="The token we want to be used in the channel")
     channel_withdraw.add_argument("-p", "--partner-address", required=True, help="The partner we want to open a channel with")
     channel_withdraw.add_argument("--total-withdraw", required=True, help="The increased total withdraw")
