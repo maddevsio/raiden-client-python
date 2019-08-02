@@ -28,7 +28,7 @@ $ pip install .
 ## Usage examples
 
 ### API interface
-Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_client.client.html)
+Full docs [here](file:///home/s0b0lev/raiden-python/docs/build/html/client.html)
 ```python
 >>> from raiden_client import Client
 
@@ -39,7 +39,7 @@ Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_cl
 ```
 
 ### CLI usage
-Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_client.cli.html)
+Full docs [here](file:///home/s0b0lev/raiden-python/docs/build/html/cli.html)
 
 ```shell
 $ raiden-cli -h
