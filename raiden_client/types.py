@@ -2,14 +2,12 @@ from typing import NewType
 
 from mypy_extensions import TypedDict
 
-Address = NewType("Address", str)
-
 
 class ChannelType(TypedDict):
-    token_network_address: Address
+    token_network_address: str
     channel_identifier: int
-    partner_address: Address
-    token_address: Address
+    partner_address: str
+    token_address: str
     balance: int
     total_deposit: int
     total_withdraw: int
@@ -19,19 +17,19 @@ class ChannelType(TypedDict):
 
 
 class NonSettledPartners(TypedDict):
-    partner_address: Address
+    partner_address: str
     channel: str
 
 
 class PendingTransfer(TypedDict):
     channel_identifier: str
-    initiator: Address
+    initiator: str
     locked_amount: str
     payment_identifier: str
     role: str
-    target: Address
-    token_address: Address
-    token_network_address: Address
+    target: str
+    token_address: str
+    token_network_address: str
     transferred_amount: str
 
 
@@ -42,9 +40,9 @@ class ConnectionType(TypedDict):
 
 
 class PaymentType(TypedDict):
-    initiator_address: Address
-    target_address: Address
-    token_address: Address
+    initiator_address: str
+    target_address: str
+    token_address: str
     amount: int
     identifier: int
 
@@ -52,6 +50,6 @@ class PaymentType(TypedDict):
 class PaymentEvent(TypedDict):
     event: str
     amount: int
-    initiator: Address
+    initiator: str
     identifier: int
     log_time: str
