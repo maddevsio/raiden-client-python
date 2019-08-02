@@ -42,5 +42,7 @@ setup(
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/maddevsio/raiden-python-client",
     version="0.0.2",
-    entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
+    entry_points={
+        "console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"],
+    },
 )

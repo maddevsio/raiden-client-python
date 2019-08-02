@@ -9,7 +9,7 @@ class MintTokensPlugin(BasePlugin):
     Args:
         - to (address) – The address to assign the minted tokens to.
         - value (int) – The amount of tokens to be minted.
-        - contract_method (string) – The name of the contract’s minting method. 
+        - contract_method (string) – The name of the contract’s minting method.
             Must be one of (mintFor/mint/increaseSupply). Defaults to mintFor.
 
     POST /api/(version)/_testing/tokens/(token_address)/mint

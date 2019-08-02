@@ -1,6 +1,6 @@
 import argparse
 
-from raiden_client.plugins.register import plugins_registry
+from raiden_client.plugins.register import plugins_registry_v1
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -12,7 +12,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--version", default="v1", help="API version")
 
     subparsers = parser.add_subparsers()
-    for plugin in plugins_registry():
+    for plugin in plugins_registry_v1():
         plugin.configure_parser(parser, subparsers)
 
     return parser
