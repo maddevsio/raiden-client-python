@@ -6,7 +6,8 @@
 [![PyPI version](https://badge.fury.io/py/raiden-client.svg)](https://badge.fury.io/py/raiden-client)
 [![Documentation Status](https://readthedocs.org/projects/raiden-client-python/badge/?version=latest)](https://raiden-client-python.readthedocs.io/en/latest/?badge=latest)
 
-Client library for Raiden node REST API.
+Client library for Raiden node REST API. 
+Documentation located at [raiden-client-python.readthedocs.io](https://raiden-client-python.readthedocs.io)
 
 
 ## Installation
@@ -37,43 +38,40 @@ $ pip install .
 ```
 
 ### CLI usage
+Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/raiden_client.cli.html)
 
 ```shell
-$ raiden-cli -h
-  usage: raiden-cli [-h] [--endpoint ENDPOINT] [--version VERSION]
+$ $ raiden-cli -h
+usage: raiden-cli [-h] [--endpoint ENDPOINT] [--version VERSION]
+                  {address,tokens,channels,channel,non-settled,pending-transfers,channel-open,channel-close,deposit-increase,withdraw-increase,token-register,connections,connect,disconnect,payment,payment-events,mint-token}
+                  ...
 
-  Raiden python client CLI
+Raiden python client CLI
 
-  positional arguments:
-                          Commands
-      address             Query node address
-      tokens              Query list of registered tokens
-      channels            Request a list of all unsettled channels
-      channel             Request a channel detail
-      non-settled-partners
-                          List of partners with non-settled channels for a
-                          certain token.
-      pending-transfers   Returns a list of all transfers that have not been
-                          completed yet.
-      channel-open        Opens / creates a channel
-      channel-close       Close a channell
-      channel-deposit-increase
-                          Increase channel deposit
-      channel-withdraw-increase
-                          Increase channel deposit
-      token-register      Registering a token by token address
-      connections         Query details of all joined token networks
-      connect             Automatically join a token network
-      disconnect          Leave a token network
-      payment             Initiate a payment
-      payment-events      Querying payment events
-      mint-token          API endpoints for testing
+positional arguments:
+  {address,tokens,channels,channel,non-settled,pending-transfers,channel-open,channel-close,deposit-increase,withdraw-increase,token-register,connections,connect,disconnect,payment,payment-events,mint-token}
+    address             Query node address
+    tokens              Query list of registered tokens
+    channels            Request a list of all unsettled channels
+    channel             Request a channel detail
+    non-settled         Partners with non-settled channels
+    pending-transfers   List of uncompleted transfers
+    channel-open        Opens / creates a channel
+    channel-close       Close a channell
+    deposit-increase    Increase channel deposit
+    withdraw-increase   Increase channel deposit
+    token-register      Registering a token by token address
+    connections         Query details of all joined token networks
+    connect             Automatically join a token network
+    disconnect          Leave a token network
+    payment             Initiate a payment
+    payment-events      Querying payment events
+    mint-token          API endpoints for testing
 
-  optional arguments:
-    -h, --help            show this help message and exit
-    --endpoint ENDPOINT   REST API endpoint
-    --version VERSION     API version
-
+optional arguments:
+  -h, --help            show this help message and exit
+  --endpoint ENDPOINT   REST API endpoint (default: http://127.0.0.1:5001/)
+  --version VERSION     API version (default: v1)
 ```
 
 <div align="center">
