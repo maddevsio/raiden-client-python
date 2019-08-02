@@ -4,24 +4,21 @@ from argparse import ArgumentParser, _SubParsersAction, Namespace
 from raiden_client.plugins import BasePlugin
 
 
-class AddressPlugin(BasePlugin):
-    """Querying Information About Your Raiden Node
+class ConnectionsPlugin(BasePlugin):
+    """Query details of all joined token networks
 
-    Raiden address is the same address as the Ethereum
-    address chosen, when starting the Raiden node
-
-    GET /api/(version)/address
-    https://raiden-network.readthedocs.io/en/latest/rest_api.html#querying-information-about-your-raiden-node
+    GET /api/(version)/connections
+    https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-connections
     """
-    our_address = None
+    connections = None
 
     @property
     def name(self) -> str:
-        return "address"
+        return "connections"
 
     @property
     def endpoint(self) -> str:
-        return "/address"
+        return "/connections"
 
     @property
     def method(self) -> str:
@@ -31,20 +28,18 @@ class AddressPlugin(BasePlugin):
         return {}
 
     def parse_response(self, response) -> Dict[str, Any]:
-        self.our_address = response
+        self.connections = response
 
     def to_dict(self):
-        return {
-            "our_address": self.our_address
-        }
+        return {"connections": self.connections}
 
     @classmethod
     def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
-        address = subparser.add_parser("address", help="Query node address")
-        address.set_defaults(func=cls.address_func)
+        connections = subparser.add_parser("connections", help="Query details of all joined token networks")
+        connections.set_defaults(func=cls.plugin_execute)
 
     @classmethod
-    def address_func(cls, args: Namespace) -> None:
+    def plugin_execute(cls, args: Namespace) -> None:
         plugin = cls()
         output = plugin.raiden_node_api_interact(args.endpoint)
         print(json.dumps(output, indent=2))

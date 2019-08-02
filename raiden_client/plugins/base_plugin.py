@@ -26,9 +26,8 @@ class BasePlugin(ABC):
     def method(self) -> str:
         pass
 
-    @classmethod
     @abstractmethod
-    def payload(cls) -> None:
+    def payload(self) -> None:
         pass
 
     @abstractmethod
@@ -59,4 +58,5 @@ class BasePlugin(ABC):
         return {"response": resp.json()}
 
     def _normalize_address(self, address: str) -> str:
+        """Normalize address to EIP55 standard."""
         return Web3.toChecksumAddress(address)
