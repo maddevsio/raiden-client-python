@@ -146,38 +146,36 @@ def create_subparsers(subparsers: argparse._SubParsersAction) -> None:
     non_settled_partners.add_argument("-t", "--token-address", required=True, help="For the given token address")
     non_settled_partners.set_defaults(func=non_settled_partners_func)
 
-    pending_transfers = subparsers.add_parser(
-        "pending-transfers", help="List of uncompleted transfers"
-    )
+    pending_transfers = subparsers.add_parser("pending-transfers", help="List of uncompleted transfers")
     pending_transfers.add_argument("-t", "--token-address", required=True, help="For the given token address")
     pending_transfers.add_argument("-p", "--partner-address", required=True, help="For the given partner address")
     pending_transfers.set_defaults(func=pending_transfers_func)
 
     channel_open = subparsers.add_parser("channel-open", help="Opens / creates a channel")
-    channel_open.add_argument("-t", "--token-address", required=True, help="The token we want to be used in the channel")
-    channel_open.add_argument("-p", "--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_open.add_argument("-t", "--token-address", required=True, help="For the given token address")
+    channel_open.add_argument("-p", "--partner-address", required=True, help="Channel partner address")
     channel_open.add_argument(
-        "--total-deposit", required=True, help="Total amount of tokens to be deposited to the channel"
+        "--total-deposit", required=True, help="Amount of tokens to be deposited"
     )
     channel_open.add_argument(
-        "--settle-timeout", required=True, help="The amount of blocks that the settle timeout should have"
+        "--settle-timeout", required=True, help="Amount of blocks that the settle timeout should have"
     )
     channel_open.set_defaults(func=channel_open_func)
 
     channel_close = subparsers.add_parser("channel-close", help="Close a channell")
-    channel_close.add_argument("-t", "--token-address", required=True, help="The token we want to be used in the channel")
-    channel_close.add_argument("-p", "--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_close.add_argument("-t", "--token-address", required=True, help="The token we want to be used")
+    channel_close.add_argument("-p", "--partner-address", required=True, help="Channel partner address")
     channel_close.set_defaults(func=channel_close_func)
 
     channel_deposit = subparsers.add_parser("deposit-increase", help="Increase channel deposit")
-    channel_deposit.add_argument("-t", "--token-address", required=True, help="The token we want to be used in the channel")
-    channel_deposit.add_argument("-p", "--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_deposit.add_argument("-t", "--token-address", required=True, help="For the given token address")
+    channel_deposit.add_argument("-p", "--partner-address", required=True, help="Channel partner address")
     channel_deposit.add_argument("--total-deposit", required=True, help="The increased total deposit")
     channel_deposit.set_defaults(func=channel_deposit_increase_func)
 
     channel_withdraw = subparsers.add_parser("withdraw-increase", help="Increase channel deposit")
-    channel_withdraw.add_argument("-t", "--token-address", required=True, help="The token we want to be used in the channel")
-    channel_withdraw.add_argument("-p", "--partner-address", required=True, help="The partner we want to open a channel with")
+    channel_withdraw.add_argument("-t", "--token-address", required=True, help="For the given token address")
+    channel_withdraw.add_argument("-p", "--partner-address", required=True, help="Channel partner address")
     channel_withdraw.add_argument("--total-withdraw", required=True, help="The increased total withdraw")
     channel_withdraw.set_defaults(func=channel_withdraw_func)
 
@@ -220,7 +218,8 @@ def create_subparsers(subparsers: argparse._SubParsersAction) -> None:
 
 
 def create_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Raiden python client CLI", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(description="Raiden python client CLI",
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--endpoint", default="http://127.0.0.1:5001/", help="REST API endpoint")
     parser.add_argument("--version", default="v1", help="API version")
     subparsers = parser.add_subparsers()
