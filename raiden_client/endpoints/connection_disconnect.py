@@ -7,7 +7,7 @@ from raiden_client.types import Address, ConnectionType
 class ConnectionDisconnectRequest(BaseRequest):
     """Leave a token network.
 
-    PUT /api/(version)/connections/(token_address)
+    DELETE /api/(version)/connections/(token_address)
     """
 
     def __init__(self, token_address: Address) -> None:

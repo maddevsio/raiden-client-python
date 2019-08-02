@@ -18,6 +18,7 @@ deps = {
     ],
     "docs": [
         "sphinx-argparse>=0.2.5,<0.3.0",
+        "sphinx-autodoc-typehints>=1.7.0,<1.8.0",
     ],
 }
 
