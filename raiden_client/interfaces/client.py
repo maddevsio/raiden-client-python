@@ -100,7 +100,7 @@ class Client:
     ) -> Dict[str, List[PendingTransfer]]:
         request = PendingTransfersRequest(token_address=token_address, partner_address=partner_address)
         api_response = self.handler.do(request)
-        response = PendingTransfersResponse.from_dict({"channels": api_response})
+        response = PendingTransfersResponse.from_dict({"pending_transfers": api_response})
         return response.to_dict()
 
     def token_register(self, token_address: Address) -> Dict[str, Address]:
@@ -119,7 +119,9 @@ class Client:
             settle_timeout=settle_timeout,
             total_deposit=total_deposit,
         )
-        response = ChannelOpenResponse.from_dict(self.handler.do(request))
+        response = ChannelOpenResponse.from_dict({
+            "channel": self.handler.do(request)
+        })
         return response.to_dict()
 
     def channel_close(self, token_address: Address, partner_address: Address) -> Dict[str, ChannelType]:

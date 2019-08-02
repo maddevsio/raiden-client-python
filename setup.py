@@ -29,7 +29,7 @@ setup(
     include_package_data=True,
     keywords="raiden",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    url="https://github.com/s0b0lev/raiden-python",
+    url="https://github.com/maddevsio/raiden-python-client",
     version="0.0.2",
     entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
 )
