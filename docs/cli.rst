@@ -1,5 +1,5 @@
 Command Line Interface (CLI)
-=========================================
+============================
 
 .. argparse::
    :module: raiden_client.interfaces.cli
