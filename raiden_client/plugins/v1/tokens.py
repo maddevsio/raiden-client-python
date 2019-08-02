@@ -19,7 +19,6 @@ class TokensPlugin(BasePlugin):
             token_address = self._normalize_address(token_address)
         self.token_address = token_address
 
-
     @property
     def name(self) -> str:
         return "tokens"
