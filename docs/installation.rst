@@ -1,6 +1,15 @@
 Installation
 ============
 
+Install from pypi::
+
+    pip3 install -U raiden-client
+
+
+or, clone repo and install locally::
+
+    pip3 install .
+
 
 Enabling tab completion
 -----------------------
