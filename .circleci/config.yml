@@ -73,13 +73,15 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: pip install --upgrade pip wheel setuptools twine
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate && pip install --upgrade pip wheel setuptools twine
       - run:
           name: Build package
-          command: python setup.py sdist bdist_wheel
+          command: . venv/bin/activate && python setup.py sdist bdist_wheel
       - run:
           name: Deploy pypi
-          command: twine upload dist/* 
+          command: . venv/bin/activate && twine upload dist/* 
 
 workflows:
   version: 2
