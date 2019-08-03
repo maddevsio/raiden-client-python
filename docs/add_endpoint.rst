@@ -13,14 +13,8 @@ Create new endpoint interface
 
 .. code-block:: python
 
-    class AddressEndpoint(BaseEndpoint):
-        """Title
-
-        Description
-
-        Link to Raiden Rest API doc
-        """
-
+    class Address(BaseEndpoint):
+        """Querying Information About Your Raiden Node"""
         our_address = None
 
         @property
@@ -38,42 +32,34 @@ Create new endpoint interface
         def payload(self) -> Dict[str, Any]:
             return {}
 
-        def from_dict(self, response) -> Dict[str, Any]:
-            if "our_address" in response:
-                self.our_address = response["our_address"]
+        def from_dict(self, response: Dict[str, Any]) -> None:
+            self.our_address = response["our_address"]
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, str]:
             return {"our_address": self.our_address}
 
-        @classmethod
-        def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
-            address = subparser.add_parser("address", help="Query node address")
-            address.set_defaults(func=cls.parser_function)
 
-        @classmethod
-        def parser_function(cls, args: Namespace) -> None:
-            address = cls()
-            address.raiden_node_api_interact(args.endpoint)
-            output = address.to_dict()
-            print(json.dumps(output["our_address"], indent=2))
-
-
-3. Register new plugin **raiden_client/plugins/register.py**
-at **CLIENT_PLUGINS_V1**
-
-
-4. Add new method at Client interface: **raiden_client/interfaces/client.py**
+3. Add new method at Client interface: **raiden_client/interfaces/client.py**
 
 .. code-block:: python
 
-    def plugin_name(self, token_address: str = None) -> List[str]:
-        """Returns a list of addresses of all registered tokens.
+    def address(self) -> Dict[str, str]:
+        """Query your address."""
+        endpoint = Address()
+        return self.raiden_api.request(endpoint)
 
-        :params: token_address (address) (optional) Returns the address of token network for the given token
-        :returns: list of addresses (or address if toke_address param passed)
-        """
-        plugin = TokensEndpoint(token_address=token_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+4. Create new command at raiden_client/interfaces/cli_commands/
+
+.. code-block:: python
+
+    def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
+        address = subparser.add_parser("address", help="Query node address")
+        address.set_defaults(func=parser_function)
+
+
+    def parser_function(args: Namespace) -> Dict[str, str]:
+        c = Client()
+        return c.address()
 
 5. Write corresponding test to be sure that interface interact in
 expected way (regarding raiden api docs)
