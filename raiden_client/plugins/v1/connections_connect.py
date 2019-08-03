@@ -23,8 +23,8 @@ class ConnectPlugin(BasePlugin):
         self.initial_channel_target = initial_channel_target
         self.joinable_funds_target = joinable_funds_target
 
-    @property
-    def name(self) -> str:
+    @classmethod
+    def name(cls) -> str:
         return "connect"
 
     @property
@@ -53,7 +53,7 @@ class ConnectPlugin(BasePlugin):
 
     @classmethod
     def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
-        connect = subparser.add_parser("connect", help="Automatically join a token network")
+        connect = subparser.add_parser(cls.name(), help="Automatically join a token network")
         connect.add_argument("-t", "--token-address", required=True, help="Token address")
         connect.add_argument("--funds", required=True, help="Token address")
         connect.add_argument("--initial-channel-target", required=False, help="Token address")
