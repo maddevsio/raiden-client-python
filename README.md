@@ -78,5 +78,5 @@ optional arguments:
 
 <div align="center">
     <h3>Built with Mad Devs support for the community</h3>
-    <a href="https://maddevs.io"><img height="100px" src ="https://raw.githubusercontent.com/maddevsio/raiden-client-python/master/docs/_static/md-logo.png" /></a>
+    <a href="https://maddevs.io"><img height="100px" src ="https://maddevs.io/maddevs-black.svg" /></a>
 </div>

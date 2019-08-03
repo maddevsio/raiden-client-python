@@ -13,9 +13,11 @@ class ConnectPlugin(BasePlugin):
 
     connection = None
 
-    def __init__(
-        self, token_address: str, funds: int, initial_channel_target: int = None, joinable_funds_target: float = None
-    ) -> None:
+    def __init__(self,
+                 token_address: str,
+                 funds: int,
+                 initial_channel_target: int = None,
+                 joinable_funds_target: float = None) -> None:
         self.token_address = self._normalize_address(token_address)
         self.funds = funds
         self.initial_channel_target = initial_channel_target
@@ -34,19 +36,19 @@ class ConnectPlugin(BasePlugin):
         return "put"
 
     def payload(self) -> Dict[str, Any]:
-        payload = {"funds": self.funds}
+        data: Dict[str, Any] = {"funds": self.funds}
 
         if self.initial_channel_target:
-            payload["initial_channel_target"] = self.initial_channel_target
+            data["initial_channel_target"] = self.initial_channel_target
 
         if self.joinable_funds_target:
-            payload["joinable_funds_target"] = self.joinable_funds_target
-        return payload
+            data["joinable_funds_target"] = self.joinable_funds_target
+        return data
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.connection = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"connection": self.connection}
 
     @classmethod

@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import List, Dict, Any
 
 from raiden_client.plugins.v1.address import AddressPlugin
 from raiden_client.plugins.v1.channel import ChannelPlugin
@@ -21,16 +21,34 @@ from raiden_client.plugins.v1.token_registry import TokenRegisterPlugin
 from raiden_client.plugins.v1.tokens import TokensPlugin
 from raiden_client.types import (
     ChannelType,
+    ConnectionType,
     NonSettledPartners,
     PaymentType,
+    PaymentEvent,
     PendingTransfer,
 )
 
 
+default_endpoint = "http://127.0.0.1:5001/"
+
+
 class Client:
-    def __init__(self, endpoint: str, version: str = "v1") -> None:
+    def __init__(self, endpoint: str = default_endpoint, version: str = "v1") -> None:
         self.endpoint = endpoint
         self.version = version
+
+    @property
+    def is_connected(self) -> bool:
+        """Check if raiden node is connected.
+
+        Try to get address, if excpetion occured - node is not connected
+        """
+        try:
+            self.address()
+            return True
+        except Exception:
+            pass
+        return False
 
     def address(self) -> Dict[str, str]:
         """Query your address.
@@ -40,7 +58,7 @@ class Client:
         plugin = AddressPlugin()
         return plugin.raiden_node_api_interact(self.endpoint)
 
-    def tokens(self, token_address: str = None) -> List[str]:
+    def tokens(self, token_address: str = None) -> Dict[str, List[str]]:
         """Returns a list of addresses of all registered tokens.
 
         :params: token_address (address) (optional) Returns the address of token network for the given token
@@ -58,7 +76,7 @@ class Client:
         plugin = NonSettledPartnersPlugin(token_address=token_address)
         return plugin.raiden_node_api_interact(self.endpoint)
 
-    def channels(self, token_address: str = None) -> List[ChannelType]:
+    def channels(self, token_address: str = None) -> Dict[str, List[ChannelType]]:
         """Get a list of all unsettled channels.
 
         :params: token_address (optional) (str) list of all unsettled channels for the given token address.
@@ -142,7 +160,7 @@ class Client:
         )
         return plugin.raiden_node_api_interact(self.endpoint)
 
-    def channel_increase_withdraw(self, token_address: str, partner_address: str, total_withdraw: int):
+    def channel_increase_withdraw(self, token_address: str, partner_address: str, total_withdraw: int) -> Dict[str, ChannelType]:
         """Channel increase withdraw.
 
         :params: token_address (address)
@@ -151,11 +169,13 @@ class Client:
         :returns: channel
         """
         plugin = ChannelWithdrawPlugin(
-            token_address=token_address, partner_address=partner_address, total_withdraw=total_withdraw
+            token_address=token_address,
+            partner_address=partner_address,
+            total_withdraw=total_withdraw,
         )
         return plugin.raiden_node_api_interact(self.endpoint)
 
-    def connections(self):
+    def connections(self) -> Dict[str, List[ConnectionType]]:
         """Query details of all joined token networks.
 
         :returns: dict where each key is a token address for which you have open channels
@@ -163,9 +183,11 @@ class Client:
         plugin = ConnectionsPlugin()
         return plugin.raiden_node_api_interact(self.endpoint)
 
-    def connections_connect(
-        self, token_address: str, funds: int, initial_channel_target: int = None, joinable_funds_target: float = None
-    ):
+    def connections_connect(self,
+                            token_address: str,
+                            funds: int,
+                            initial_channel_target: int = None,
+                            joinable_funds_target: float = None) -> Dict[str, ConnectionType]:
         """Automatically join a token network.
 
         The request will only return once all blockchain calls for opening and/or depositing
@@ -184,7 +206,7 @@ class Client:
         )
         return plugin.raiden_node_api_interact(self.endpoint)
 
-    def connection_disconnect(self, token_address: str):
+    def connection_disconnect(self, token_address: str) -> Dict[str, Any]:
         """Leave a token network.
 
         The request will only return once all blockchain calls for closing/settling a channel have completed.
@@ -209,7 +231,7 @@ class Client:
         )
         return plugin.raiden_node_api_interact(self.endpoint)
 
-    def payment_events(self, token_address: str, target_address: str):
+    def payment_events(self, token_address: str, target_address: str) -> Dict[str, List[PaymentEvent]]:
         """Query the payment history.
 
         This includes successful (EventPaymentSentSuccess) and failed (EventPaymentSentFailed) sent

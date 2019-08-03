@@ -31,10 +31,10 @@ class NonSettledPartnersPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.non_settled_partners = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"non_settled_partners": self.non_settled_partners}
 
     @classmethod

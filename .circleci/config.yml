@@ -82,7 +82,7 @@ jobs:
       - run:
           name: Deploy pypi
           command: . venv/bin/activate && twine upload dist/* 
-
+# mypy -p raiden_client --config-file mypy.ini
 workflows:
   version: 2
   build:

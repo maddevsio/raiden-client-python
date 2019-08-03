@@ -2,6 +2,7 @@ import json
 from argparse import ArgumentParser, Namespace, _SubParsersAction
 from typing import Any, Dict
 
+from raiden_client.types import ChannelType
 from raiden_client.plugins import BasePlugin
 
 
@@ -33,10 +34,10 @@ class ChannelWithdrawPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {"total_withdraw": self.total_withdraw}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.channel = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"channel": self.channel}
 
     @classmethod
@@ -50,7 +51,9 @@ class ChannelWithdrawPlugin(BasePlugin):
     @classmethod
     def plugin_execute(cls, args: Namespace) -> None:
         plugin = cls(
-            token_address=args.token_address, partner_address=args.partner_address, total_withdraw=args.total_withdraw
+            token_address=args.token_address,
+            partner_address=args.partner_address,
+            total_withdraw=args.total_withdraw,
         )
         output = plugin.raiden_node_api_interact(args.endpoint)
         print(json.dumps(output, indent=2))

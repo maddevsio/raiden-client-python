@@ -41,10 +41,10 @@ class PaymentPlugin(BasePlugin):
             data["identifier"] = self.identifier
         return data
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.payment = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"payment": self.payment}
 
     @classmethod

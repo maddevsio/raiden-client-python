@@ -32,11 +32,11 @@ class AddressPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         if "our_address" in response:
             self.our_address = response["our_address"]
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, str]:
         return {"our_address": self.our_address}
 
     @classmethod

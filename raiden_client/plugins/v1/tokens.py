@@ -15,7 +15,7 @@ class TokensPlugin(BasePlugin):
     https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens-(token_address)
     """
 
-    tokens = None
+    tokens: List[str]
 
     def __init__(self, token_address: str = None) -> None:
         if token_address:
@@ -39,8 +39,8 @@ class TokensPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response: Dict[str, Any]) -> Dict[str, Any]:
-        self.tokens = response
+    def parse_response(self, response: Dict[str, List[str]]) -> None:
+        self.tokens = response["tokens"]
 
     def to_dict(self) -> Dict[str, List[str]]:
         return {"tokens": self.tokens}
@@ -56,4 +56,4 @@ class TokensPlugin(BasePlugin):
         plugin = cls(args.token_address)
         plugin.raiden_node_api_interact(args.endpoint)
         output = plugin.to_dict()
-        print(json.dumps(output["tokens"], indent=2))
+        print(json.dumps(output, indent=2))

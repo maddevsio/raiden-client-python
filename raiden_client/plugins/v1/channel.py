@@ -2,6 +2,7 @@ import json
 from argparse import ArgumentParser, Namespace, _SubParsersAction
 from typing import Any, Dict
 
+from raiden_client.types import ChannelType
 from raiden_client.plugins import BasePlugin
 
 
@@ -35,10 +36,10 @@ class ChannelPlugin(BasePlugin):
     def payload(cls) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.channel = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"channel": self.channel}
 
     @classmethod

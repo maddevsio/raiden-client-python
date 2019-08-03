@@ -31,10 +31,10 @@ class DisconnectPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.connection = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"connection": self.connection}
 
     @classmethod

@@ -33,5 +33,5 @@ def import_package(path: str) -> BasePlugin:
     return getattr(module, class_name)
 
 
-def plugins_registry_v1() -> Tuple[BasePlugin]:
+def plugins_registry_v1() -> Tuple[BasePlugin, ...]:
     return tuple(import_package(plugin) for plugin in CLIENT_PLUGINS_V1)

@@ -34,10 +34,10 @@ class TokenRegisterPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.token_network_address = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"token_network_address": self.token_network_address}
 
     @classmethod

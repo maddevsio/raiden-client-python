@@ -39,10 +39,10 @@ class MintTokensPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {"to": self.to, "value": self.value, "contract_method": self.contract_method}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.transaction_hash = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"transaction_hash": self.transaction_hash}
 
     @classmethod

@@ -29,10 +29,10 @@ class ConnectionsPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> None:
         self.connections = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {"connections": self.connections}
 
     @classmethod

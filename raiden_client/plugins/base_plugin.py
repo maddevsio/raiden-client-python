@@ -46,13 +46,18 @@ class BasePlugin(ABC):
             raise ResponseStatusCodeException(f"HTTP {status_code}: {text}")
         return status_code
 
+    @abstractmethod
+    def to_dict(self) -> Dict[str, Any]:
+        return {}
+
     def url(self, host: str) -> str:
         return f"{host}api/{self.version}{self.endpoint}"
 
     def raiden_node_api_interact(self, host: str) -> Dict[str, Any]:
         resp = requests.request(method=self.method, url=self.url(host), json=self.payload())
         self.validate_status_code(resp.status_code, resp.text)
-        return self.parse_response(resp.json())
+        self.parse_response(resp.json())
+        return self.to_dict()
 
     def _normalize_address(self, address: str) -> str:
         """Normalize address to EIP55 standard."""
