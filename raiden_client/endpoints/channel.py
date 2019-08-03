@@ -1,20 +1,22 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class ChannelDeposit(BaseV1Endpoint):
-    """Increase the deposit in channel.
+class Channel(BaseEndpoint):
+    """Query information about one of your channels.
 
-    PATCH /api/(version)/channels/(token_address)/(partner_address)
+    The channel is specified by the address of the token and the partner’s address.
+
+    GET /api/(version)/channels/(token_address)/(partner_address)
     """
+
     channel = None
 
-    def __init__(self, token_address: str, partner_address: str, total_deposit: int) -> None:
+    def __init__(self, token_address: str, partner_address: str) -> None:
         self.token_address = utils.normalize_address_eip55(token_address)
         self.partner_address = utils.normalize_address_eip55(partner_address)
-        self.total_deposit = total_deposit
 
     @property
     def name(self) -> str:
@@ -26,10 +28,11 @@ class ChannelDeposit(BaseV1Endpoint):
 
     @property
     def method(self) -> str:
-        return "patch"
+        return "get"
 
-    def payload(self) -> Dict[str, Any]:
-        return {"total_deposit": self.total_deposit}
+    @classmethod
+    def payload(cls) -> Dict[str, Any]:
+        return {}
 
     def from_dict(self, response: Dict[str, Any]) -> None:
         self.channel = response

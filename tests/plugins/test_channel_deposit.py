@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.channel_deposit import ChannelDeposit
+from raiden_client.endpoints.channel_deposit import ChannelDeposit
 
 
 def test_channel_deposit_request() -> None:

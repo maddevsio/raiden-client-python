@@ -14,7 +14,7 @@ class ChannelType(TypedDict):
     reveal_timeout: int
 
 
-class NonSettledPartners(TypedDict):
+class NonSettledPartnersType(TypedDict):
     partner_address: str
     channel: str
 

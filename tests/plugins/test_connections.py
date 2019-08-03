@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.connections import Connections
+from raiden_client.endpoints.connections import Connections
 
 
 def test_connection_request():

@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.channel_open import ChannelOpen
+from raiden_client.endpoints.channel_open import ChannelOpen
 
 
 def test_channel_open_request() -> None:

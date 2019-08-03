@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.non_settled_partners import NonSettledPartners
+from raiden_client.endpoints.non_settled_partners import NonSettledPartners
 
 
 def test_non_settled_partners_request() -> None:

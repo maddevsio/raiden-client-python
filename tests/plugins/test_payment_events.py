@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.payment_events import PaymentEvents
+from raiden_client.endpoints.payment_events import PaymentEvents
 
 
 def test_payment_events_request() -> None:

@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class MintTokens(BaseV1Endpoint):
+class MintTokens(BaseEndpoint):
     """Mint tokens
 
     POST /api/(version)/_testing/tokens/(token_address)/mint

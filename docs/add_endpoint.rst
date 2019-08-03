@@ -9,11 +9,11 @@ Create new endpoint interface
 
 1. Create new plugin file at **raiden_client/plugins/**
 
-2. Implement BaseV1Endpoint interface
+2. Implement BaseEndpoint interface
 
 .. code-block:: python
 
-    class AddressEndpoint(BaseV1Endpoint):
+    class AddressEndpoint(BaseEndpoint):
         """Title
 
         Description

@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class TokenRegister(BaseV1Endpoint):
+class TokenRegister(BaseEndpoint):
     """Registers a token.
     If a token is not registered yet (i.e.: A token network for that token does not exist in the registry),
     we need to register it by deploying a token network contract for that token.

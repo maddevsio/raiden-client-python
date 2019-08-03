@@ -1,30 +1,31 @@
 from typing import List, Dict, Any
 
-from raiden_client.endpoints.v1.address import Address
-from raiden_client.endpoints.v1.channel import Channel
-from raiden_client.endpoints.v1.channel_close import ChannelClose
-from raiden_client.endpoints.v1.channel_deposit import ChannelDeposit
-from raiden_client.endpoints.v1.channel_open import ChannelOpen
-from raiden_client.endpoints.v1.channel_withdraw import ChannelWithdraw
-from raiden_client.endpoints.v1.channels import Channels
-from raiden_client.endpoints.v1.connection_disconnect import Disconnect
-from raiden_client.endpoints.v1.connections import Connections
-from raiden_client.endpoints.v1.connections_connect import Connect
-from raiden_client.endpoints.v1.mint_tokens import MintTokens
-from raiden_client.endpoints.v1.non_settled_partners import NonSettledPartners
-from raiden_client.endpoints.v1.payment import Payment
-from raiden_client.endpoints.v1.payment_events import PaymentEvents
-from raiden_client.endpoints.v1.pending_transfers import PendingTransfers
-from raiden_client.endpoints.v1.token_registry import TokenRegister
-from raiden_client.endpoints.v1.tokens import Tokens
+from raiden_client.endpoints.address import Address
+from raiden_client.endpoints.channel import Channel
+from raiden_client.endpoints.channel_close import ChannelClose
+from raiden_client.endpoints.channel_deposit import ChannelDeposit
+from raiden_client.endpoints.channel_open import ChannelOpen
+from raiden_client.endpoints.channel_withdraw import ChannelWithdraw
+from raiden_client.endpoints.channels import Channels
+from raiden_client.endpoints.connection_disconnect import Disconnect
+from raiden_client.endpoints.connections import Connections
+from raiden_client.endpoints.connections_connect import Connect
+from raiden_client.endpoints.mint_tokens import MintTokens
+from raiden_client.endpoints.non_settled_partners import NonSettledPartners
+from raiden_client.endpoints.payment import Payment
+from raiden_client.endpoints.payment_events import PaymentEvents
+from raiden_client.endpoints.pending_transfers import PendingTransfers
+from raiden_client.endpoints.token_registry import TokenRegister
+from raiden_client.endpoints.tokens import Tokens
 from raiden_client.types import (
     ChannelType,
     ConnectionType,
-    NonSettledPartners,
     PaymentType,
     PaymentEvent,
     PendingTransfer,
 )
+
+from raiden_client.raiden_api import RaidenAPI
 
 
 default_endpoint = "http://127.0.0.1:5001/"
@@ -32,8 +33,7 @@ default_endpoint = "http://127.0.0.1:5001/"
 
 class Client:
     def __init__(self, endpoint: str = default_endpoint, version: str = "v1") -> None:
-        self.endpoint = endpoint
-        self.version = version
+        self.raiden_api = RaidenAPI(endpoint=endpoint, version=version)
 
     @property
     def is_connected(self) -> bool:
@@ -53,7 +53,7 @@ class Client:
         When raiden starts, you choose an ethereum address which will also be your raiden address. 
         """
         endpoint = Address()
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def tokens(self, token_address: str = None) -> Dict[str, List[str]]:
         """Returns a list of addresses of all registered tokens.
@@ -62,7 +62,7 @@ class Client:
         :returns: list of addresses (or address if toke_address param passed)
         """
         endpoint = Tokens(token_address=token_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def non_settled_partners(self, token_address: str) -> Dict[str, List[NonSettledPartners]]:
         """Returns a list of all partners with whom you have non-settled channels for a certain token.
@@ -71,7 +71,7 @@ class Client:
         :returns: list of NonSettledPartners
         """
         endpoint = NonSettledPartners(token_address=token_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def channels(self, token_address: str = None) -> Dict[str, List[ChannelType]]:
         """Get a list of all unsettled channels.
@@ -80,7 +80,7 @@ class Client:
         :returns: List of channels
         """
         endpoint = Channels(token_address=token_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def channel(self, token_address: str, partner_address: str) -> Dict[str, ChannelType]:
         """Query information about one of your channels.
@@ -91,7 +91,7 @@ class Client:
         :returns: channel dict
         """
         endpoint = Channel(token_address=token_address, partner_address=partner_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def pending_transfers(
         self, token_address: str = None, partner_address: str = None
@@ -103,7 +103,7 @@ class Client:
         :returns: list of channels
         """
         endpoint = PendingTransfers(token_address=token_address, partner_address=partner_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def token_register(self, token_address: str) -> Dict[str, str]:
         """Registers a token.
@@ -111,7 +111,7 @@ class Client:
         :returns token_network_address (address) – The deployed token networks address.    
         """
         endpoint = TokenRegister(token_address=token_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def channel_open(
         self, token_address: str, partner_address: str, settle_timeout: int, total_deposit: int
@@ -130,7 +130,7 @@ class Client:
             settle_timeout=settle_timeout,
             total_deposit=total_deposit,
         )
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def channel_close(self, token_address: str, partner_address: str) -> Dict[str, ChannelType]:
         """Close channel.
@@ -140,7 +140,7 @@ class Client:
         :returns: channel
         """
         endpoint = ChannelClose(token_address=token_address, partner_address=partner_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def channel_increase_deposit(
         self, token_address: str, partner_address: str, total_deposit: int
@@ -155,7 +155,7 @@ class Client:
         endpoint = ChannelDeposit(
             token_address=token_address, partner_address=partner_address, total_deposit=total_deposit
         )
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def channel_increase_withdraw(self, token_address: str, partner_address: str, total_withdraw: int) -> Dict[str, ChannelType]:
         """Channel increase withdraw.
@@ -170,7 +170,7 @@ class Client:
             partner_address=partner_address,
             total_withdraw=total_withdraw,
         )
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def connections(self) -> Dict[str, List[ConnectionType]]:
         """Query details of all joined token networks.
@@ -178,7 +178,7 @@ class Client:
         :returns: dict where each key is a token address for which you have open channels
         """
         endpoint = Connections()
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def connections_connect(self,
                             token_address: str,
@@ -201,7 +201,7 @@ class Client:
             initial_channel_target=initial_channel_target,
             joinable_funds_target=joinable_funds_target,
         )
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def connection_disconnect(self, token_address: str) -> Dict[str, Any]:
         """Leave a token network.
@@ -210,7 +210,7 @@ class Client:
         :params: token_address (address)
         """
         endpoint = Disconnect(token_address=token_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def payment(
         self, token_address: str, target_address: str, amount: int, identifier: int = None
@@ -226,7 +226,7 @@ class Client:
         endpoint = Payment(
             token_address=token_address, target_address=target_address, amount=amount, identifier=identifier
         )
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def payment_events(self, token_address: str, target_address: str) -> Dict[str, List[PaymentEvent]]:
         """Query the payment history.
@@ -239,7 +239,7 @@ class Client:
         :returns: list of payment events
         """
         endpoint = PaymentEvents(token_address=token_address, target_address=target_address)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)
 
     def mint_tokens(self, token_address: str, to: str, value: int, contract_method: str = "mintFor") -> Dict[str, str]:
         """Mint tokens.
@@ -256,4 +256,4 @@ class Client:
         :returns: transaction_hash
         """
         endpoint = MintTokens(token_address=token_address, to=to, value=value, contract_method=contract_method)
-        return endpoint.raiden_node_api_interact(self.endpoint)
+        return self.raiden_api.request(endpoint)

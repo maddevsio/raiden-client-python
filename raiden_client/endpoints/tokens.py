@@ -1,10 +1,10 @@
 from typing import Any, Dict, List
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Tokens(BaseV1Endpoint):
+class Tokens(BaseEndpoint):
     """Returns a list of addresses of all registered tokens.
 
     GET /api/(version)/tokens

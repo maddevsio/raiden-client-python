@@ -1,9 +1,9 @@
 from typing import Any, Dict
 
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Address(BaseV1Endpoint):
+class Address(BaseEndpoint):
     """Querying Information About Your Raiden Node
 
     Raiden address is the same address as the Ethereum

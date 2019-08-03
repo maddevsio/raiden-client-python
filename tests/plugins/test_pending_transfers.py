@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.pending_transfers import PendingTransfers
+from raiden_client.endpoints.pending_transfers import PendingTransfers
 
 
 def test_pending_transfers() -> None:

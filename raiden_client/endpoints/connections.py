@@ -1,9 +1,9 @@
 from typing import Any, Dict
 
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Connections(BaseV1Endpoint):
+class Connections(BaseEndpoint):
     """Query details of all joined token networks
 
     GET /api/(version)/connections

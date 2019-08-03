@@ -1,17 +1,14 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Channel(BaseV1Endpoint):
-    """Query information about one of your channels.
+class ChannelClose(BaseEndpoint):
+    """Close a channel.
 
-    The channel is specified by the address of the token and the partner’s address.
-
-    GET /api/(version)/channels/(token_address)/(partner_address)
+    PATCH /api/(version)/channels/(token_address)/(partner_address)
     """
-
     channel = None
 
     def __init__(self, token_address: str, partner_address: str) -> None:
@@ -20,7 +17,7 @@ class Channel(BaseV1Endpoint):
 
     @property
     def name(self) -> str:
-        return "channel"
+        return "channel-close"
 
     @property
     def endpoint(self) -> str:
@@ -28,11 +25,10 @@ class Channel(BaseV1Endpoint):
 
     @property
     def method(self) -> str:
-        return "get"
+        return "patch"
 
-    @classmethod
-    def payload(cls) -> Dict[str, Any]:
-        return {}
+    def payload(self) -> Dict[str, Any]:
+        return {"state": "closed"}
 
     def from_dict(self, response: Dict[str, Any]) -> None:
         self.channel = response

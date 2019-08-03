@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class PendingTransfers(BaseV1Endpoint):
+class PendingTransfers(BaseEndpoint):
     """Returns a list of all transfers that have not been completed yet.
 
     GET /api/(version)/pending_transfers

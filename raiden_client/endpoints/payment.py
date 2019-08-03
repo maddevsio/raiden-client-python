@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Payment(BaseV1Endpoint):
+class Payment(BaseEndpoint):
     """Initiate a payment.
 
     POST /api/(version)/payments/(token_address)/(target_address)

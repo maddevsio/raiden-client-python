@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.payment import Payment
+from raiden_client.endpoints.payment import Payment
 
 
 def test_payment_request() -> None:

@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.channel_close import ChannelClose
+from raiden_client.endpoints.channel_close import ChannelClose
 
 
 def test_channel_close_request() -> None:

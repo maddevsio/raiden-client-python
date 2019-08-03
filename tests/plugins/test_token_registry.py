@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.token_registry import TokenRegister
+from raiden_client.endpoints.token_registry import TokenRegister
 
 
 def test_registry_token_request() -> None:

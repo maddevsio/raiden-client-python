@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Connect(BaseV1Endpoint):
+class Connect(BaseEndpoint):
     """Automatically join a token network.
 
     PUT /api/(version)/connections/(token_address)

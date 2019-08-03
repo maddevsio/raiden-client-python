@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.channel_withdraw import ChannelWithdraw
+from raiden_client.endpoints.channel_withdraw import ChannelWithdraw
 
 
 def test_channel_withdraw_request() -> None:

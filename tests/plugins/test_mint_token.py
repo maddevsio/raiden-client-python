@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.mint_tokens import MintTokens
+from raiden_client.endpoints.mint_tokens import MintTokens
 
 
 def test_mint_tokens_request() -> None:

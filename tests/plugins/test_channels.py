@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.channels import Channels
+from raiden_client.endpoints.channels import Channels
 
 
 def test_channel_all() -> None:

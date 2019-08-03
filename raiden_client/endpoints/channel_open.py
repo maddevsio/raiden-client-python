@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class ChannelOpen(BaseV1Endpoint):
+class ChannelOpen(BaseEndpoint):
     """Opens / creates a channel
 
     PUT /api/(version)/channels

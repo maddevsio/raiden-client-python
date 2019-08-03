@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.tokens import Tokens
+from raiden_client.endpoints.tokens import Tokens
 
 
 def test_tokens() -> None:

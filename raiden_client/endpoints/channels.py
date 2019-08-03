@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Channels(BaseV1Endpoint):
+class Channels(BaseEndpoint):
     """Request a list of all unsettled channels.
 
     GET /api/(version)/channels

@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class Disconnect(BaseV1Endpoint):
+class Disconnect(BaseEndpoint):
     """Leave a token network.
 
     DELETE /api/(version)/connections/(token_address)

@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.address import Address
+from raiden_client.endpoints.address import Address
 
 
 def test_address() -> None:

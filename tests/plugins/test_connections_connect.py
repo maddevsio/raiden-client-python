@@ -1,4 +1,4 @@
-from raiden_client.endpoints.v1.connections_connect import Connect
+from raiden_client.endpoints.connections_connect import Connect
 
 
 def test_connection_connect_simple_request() -> None:

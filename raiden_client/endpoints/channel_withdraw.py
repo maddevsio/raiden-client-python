@@ -1,23 +1,24 @@
 from typing import Any, Dict
 
 from raiden_client import utils
-from raiden_client.endpoints.v1 import BaseV1Endpoint
+from raiden_client.endpoints import BaseEndpoint
 
 
-class ChannelClose(BaseV1Endpoint):
-    """Close a channel.
+class ChannelWithdraw(BaseEndpoint):
+    """Increase the deposit in channel.
 
     PATCH /api/(version)/channels/(token_address)/(partner_address)
     """
     channel = None
 
-    def __init__(self, token_address: str, partner_address: str) -> None:
+    def __init__(self, token_address: str, partner_address: str, total_withdraw: int) -> None:
         self.token_address = utils.normalize_address_eip55(token_address)
         self.partner_address = utils.normalize_address_eip55(partner_address)
+        self.total_withdraw = total_withdraw
 
     @property
     def name(self) -> str:
-        return "channel-close"
+        return "channel-withdraw"
 
     @property
     def endpoint(self) -> str:
@@ -28,7 +29,7 @@ class ChannelClose(BaseV1Endpoint):
         return "patch"
 
     def payload(self) -> Dict[str, Any]:
-        return {"state": "closed"}
+        return {"total_withdraw": self.total_withdraw}
 
     def from_dict(self, response: Dict[str, Any]) -> None:
         self.channel = response
