@@ -3,6 +3,7 @@ from typing import Tuple
 
 from raiden_client.plugins import BasePlugin
 
+
 CLIENT_PLUGINS_V1 = [
     "raiden_client.plugins.v1.address.AddressPlugin",
     "raiden_client.plugins.v1.channel_close.ChannelClose",

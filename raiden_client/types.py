@@ -1,5 +1,3 @@
-from typing import NewType
-
 from mypy_extensions import TypedDict
 
 
