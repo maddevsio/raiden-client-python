@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/maddevsio/raiden-client-python.svg?style=svg)](https://circleci.com/gh/maddevsio/raiden-client-python)
 [![Maintainability](https://api.codeclimate.com/v1/badges/07b3c04b8ad89893b943/maintainability)](https://codeclimate.com/github/maddevsio/raiden-client-python/maintainability)
 [![Codecov](https://img.shields.io/codecov/c/github/maddevsio/raiden-client-python)](https://codecov.io/gh/maddevsio/raiden-client-python)
-[![PyPI version](https://badge.fury.io/py/raiden-client.svg)](https://badge.fury.io/py/raiden-client)
+[![PyPI version](https://img.shields.io/pypi/v/raiden-client.svg)](https://pypi.org/project/raiden-client/)
 [![Documentation Status](https://readthedocs.org/projects/raiden-client-python/badge/?version=latest)](https://raiden-client-python.readthedocs.io/en/latest/?badge=latest)
 
 Client library for Raiden node REST API. 
