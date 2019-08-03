@@ -49,5 +49,7 @@ def main() -> None:
     parser = create_parser()
     args = parser.parse_args()
     if hasattr(args, "func"):
-        return args.func(args)
+        # TODO: make stdout looks better
+        print(args.func(args))
+        return
     return parser.print_help()

@@ -30,8 +30,7 @@ class Address(BaseEndpoint):
         return {}
 
     def from_dict(self, response: Dict[str, Any]) -> None:
-        if "our_address" in response:
-            self.our_address = response["our_address"]
+        self.our_address = response["our_address"]
 
     def to_dict(self) -> Dict[str, str]:
         return {"our_address": self.our_address}
