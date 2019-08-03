@@ -41,7 +41,7 @@ setup(
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3 :: Only"
+        "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
@@ -55,6 +55,6 @@ setup(
     keywords="raiden",
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/maddevsio/raiden-python-client",
-    version="0.0.6",
+    version="0.0.7",
     entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
 )
