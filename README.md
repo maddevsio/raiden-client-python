@@ -28,7 +28,8 @@ $ pip install .
 ## Usage examples
 
 ### API interface
-Full docs [here](file:///home/s0b0lev/raiden-python/docs/build/html/client.html)
+Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/usage.html#client)
+
 ```python
 >>> from raiden_client import Client
 
@@ -39,7 +40,7 @@ Full docs [here](file:///home/s0b0lev/raiden-python/docs/build/html/client.html)
 ```
 
 ### CLI usage
-Full docs [here](file:///home/s0b0lev/raiden-python/docs/build/html/cli.html)
+Full docs [here](https://raiden-client-python.readthedocs.io/en/latest/usage.html#cli)
 
 ```shell
 $ raiden-cli -h
@@ -77,5 +78,5 @@ optional arguments:
 
 <div align="center">
     <h3>Built with Mad Devs support for the community</h3>
-    <a href="https://maddevs.io"><img height="100px" src ="docs/_static/md-logo.png" /></a>
+    <a href="https://maddevs.io"><img height="100px" src ="https://raw.githubusercontent.com/maddevsio/raiden-client-python/master/docs/_static/md-logo.png" /></a>
 </div>

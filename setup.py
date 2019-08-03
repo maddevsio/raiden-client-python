@@ -56,6 +56,6 @@ setup(
     keywords="raiden",
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/maddevsio/raiden-python-client",
-    version="0.0.8",
+    version="0.0.9",
     entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
 )
