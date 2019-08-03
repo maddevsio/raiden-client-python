@@ -1,24 +1,22 @@
 from typing import List, Dict, Any
 
-from raiden_client.plugins.v1.address import AddressPlugin
-from raiden_client.plugins.v1.channel import ChannelPlugin
-from raiden_client.plugins.v1.channel_close import ChannelClose
-from raiden_client.plugins.v1.channel_deposit import ChannelDepositPlugin
-from raiden_client.plugins.v1.channel_open import ChannelOpenPlugin
-from raiden_client.plugins.v1.channel_withdraw import ChannelWithdrawPlugin
-from raiden_client.plugins.v1.channels import ChannelsPlugin
-from raiden_client.plugins.v1.connection_disconnect import DisconnectPlugin
-from raiden_client.plugins.v1.connections import ConnectionsPlugin
-from raiden_client.plugins.v1.connections_connect import ConnectPlugin
-from raiden_client.plugins.v1.mint_tokens import MintTokensPlugin
-from raiden_client.plugins.v1.non_settled_partners import (
-    NonSettledPartnersPlugin,
-)
-from raiden_client.plugins.v1.payment import PaymentPlugin
-from raiden_client.plugins.v1.payment_events import PaymentEventsPlugin
-from raiden_client.plugins.v1.pending_transfers import PendingTransfersPlugin
-from raiden_client.plugins.v1.token_registry import TokenRegisterPlugin
-from raiden_client.plugins.v1.tokens import TokensPlugin
+from raiden_client.endpoints.v1.address import Address
+from raiden_client.endpoints.v1.channel import Channel
+from raiden_client.endpoints.v1.channel_close import ChannelClose
+from raiden_client.endpoints.v1.channel_deposit import ChannelDeposit
+from raiden_client.endpoints.v1.channel_open import ChannelOpen
+from raiden_client.endpoints.v1.channel_withdraw import ChannelWithdraw
+from raiden_client.endpoints.v1.channels import Channels
+from raiden_client.endpoints.v1.connection_disconnect import Disconnect
+from raiden_client.endpoints.v1.connections import Connections
+from raiden_client.endpoints.v1.connections_connect import Connect
+from raiden_client.endpoints.v1.mint_tokens import MintTokens
+from raiden_client.endpoints.v1.non_settled_partners import NonSettledPartners
+from raiden_client.endpoints.v1.payment import Payment
+from raiden_client.endpoints.v1.payment_events import PaymentEvents
+from raiden_client.endpoints.v1.pending_transfers import PendingTransfers
+from raiden_client.endpoints.v1.token_registry import TokenRegister
+from raiden_client.endpoints.v1.tokens import Tokens
 from raiden_client.types import (
     ChannelType,
     ConnectionType,
@@ -45,18 +43,17 @@ class Client:
         """
         try:
             self.address()
-            return True
         except Exception:
-            pass
-        return False
+            return False
+        return True
 
     def address(self) -> Dict[str, str]:
         """Query your address.
 
         When raiden starts, you choose an ethereum address which will also be your raiden address. 
         """
-        plugin = AddressPlugin()
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = Address()
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def tokens(self, token_address: str = None) -> Dict[str, List[str]]:
         """Returns a list of addresses of all registered tokens.
@@ -64,8 +61,8 @@ class Client:
         :params: token_address (address) (optional) Returns the address of token network for the given token
         :returns: list of addresses (or address if toke_address param passed)
         """
-        plugin = TokensPlugin(token_address=token_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = Tokens(token_address=token_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def non_settled_partners(self, token_address: str) -> Dict[str, List[NonSettledPartners]]:
         """Returns a list of all partners with whom you have non-settled channels for a certain token.
@@ -73,8 +70,8 @@ class Client:
         :params: token_address (address)
         :returns: list of NonSettledPartners
         """
-        plugin = NonSettledPartnersPlugin(token_address=token_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = NonSettledPartners(token_address=token_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def channels(self, token_address: str = None) -> Dict[str, List[ChannelType]]:
         """Get a list of all unsettled channels.
@@ -82,8 +79,8 @@ class Client:
         :params: token_address (optional) (str) list of all unsettled channels for the given token address.
         :returns: List of channels
         """
-        plugin = ChannelsPlugin(token_address=token_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = Channels(token_address=token_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def channel(self, token_address: str, partner_address: str) -> Dict[str, ChannelType]:
         """Query information about one of your channels.
@@ -93,8 +90,8 @@ class Client:
         :params: partner_address (address)
         :returns: channel dict
         """
-        plugin = ChannelPlugin(token_address=token_address, partner_address=partner_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = Channel(token_address=token_address, partner_address=partner_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def pending_transfers(
         self, token_address: str = None, partner_address: str = None
@@ -105,16 +102,16 @@ class Client:
         :params: partner_address (address) (optional) lime results of pending transfers
         :returns: list of channels
         """
-        plugin = PendingTransfersPlugin(token_address=token_address, partner_address=partner_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = PendingTransfers(token_address=token_address, partner_address=partner_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def token_register(self, token_address: str) -> Dict[str, str]:
         """Registers a token.
         :params: token_address (str)
         :returns token_network_address (address) – The deployed token networks address.    
         """
-        plugin = TokenRegisterPlugin(token_address=token_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = TokenRegister(token_address=token_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def channel_open(
         self, token_address: str, partner_address: str, settle_timeout: int, total_deposit: int
@@ -127,13 +124,13 @@ class Client:
         :params: settle_timeout (int) – The amount of blocks that the settle timeout should have.
         :returns: channel
         """
-        plugin = ChannelOpenPlugin(
+        endpoint = ChannelOpen(
             token_address=token_address,
             partner_address=partner_address,
             settle_timeout=settle_timeout,
             total_deposit=total_deposit,
         )
-        return plugin.raiden_node_api_interact(self.endpoint)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def channel_close(self, token_address: str, partner_address: str) -> Dict[str, ChannelType]:
         """Close channel.
@@ -142,8 +139,8 @@ class Client:
         :params: partner_address (address)
         :returns: channel
         """
-        plugin = ChannelClose(token_address=token_address, partner_address=partner_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = ChannelClose(token_address=token_address, partner_address=partner_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def channel_increase_deposit(
         self, token_address: str, partner_address: str, total_deposit: int
@@ -155,10 +152,10 @@ class Client:
         :params: total_deposit (int)
         :returns: channel
         """
-        plugin = ChannelDepositPlugin(
+        endpoint = ChannelDeposit(
             token_address=token_address, partner_address=partner_address, total_deposit=total_deposit
         )
-        return plugin.raiden_node_api_interact(self.endpoint)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def channel_increase_withdraw(self, token_address: str, partner_address: str, total_withdraw: int) -> Dict[str, ChannelType]:
         """Channel increase withdraw.
@@ -168,20 +165,20 @@ class Client:
         :params: total_withdraw (int)
         :returns: channel
         """
-        plugin = ChannelWithdrawPlugin(
+        endpoint = ChannelWithdraw(
             token_address=token_address,
             partner_address=partner_address,
             total_withdraw=total_withdraw,
         )
-        return plugin.raiden_node_api_interact(self.endpoint)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def connections(self) -> Dict[str, List[ConnectionType]]:
         """Query details of all joined token networks.
 
         :returns: dict where each key is a token address for which you have open channels
         """
-        plugin = ConnectionsPlugin()
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = Connections()
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def connections_connect(self,
                             token_address: str,
@@ -198,13 +195,13 @@ class Client:
         :params: joinable_funds_target (float) (optional) Fraction of funds to join opened channels
         :returns: Connection object
         """
-        plugin = ConnectPlugin(
+        endpoint = Connect(
             token_address=token_address,
             funds=funds,
             initial_channel_target=initial_channel_target,
             joinable_funds_target=joinable_funds_target,
         )
-        return plugin.raiden_node_api_interact(self.endpoint)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def connection_disconnect(self, token_address: str) -> Dict[str, Any]:
         """Leave a token network.
@@ -212,8 +209,8 @@ class Client:
         The request will only return once all blockchain calls for closing/settling a channel have completed.
         :params: token_address (address)
         """
-        plugin = DisconnectPlugin(token_address=token_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = Disconnect(token_address=token_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def payment(
         self, token_address: str, target_address: str, amount: int, identifier: int = None
@@ -226,10 +223,10 @@ class Client:
         :params: identifier (int) – Identifier of the payment (optional)
         :returns: payment dict object
         """
-        plugin = PaymentPlugin(
+        endpoint = Payment(
             token_address=token_address, target_address=target_address, amount=amount, identifier=identifier
         )
-        return plugin.raiden_node_api_interact(self.endpoint)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def payment_events(self, token_address: str, target_address: str) -> Dict[str, List[PaymentEvent]]:
         """Query the payment history.
@@ -241,8 +238,8 @@ class Client:
         :params: target_address (address) (optional) - filter the list of events
         :returns: list of payment events
         """
-        plugin = PaymentEventsPlugin(token_address=token_address, target_address=target_address)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = PaymentEvents(token_address=token_address, target_address=target_address)
+        return endpoint.raiden_node_api_interact(self.endpoint)
 
     def mint_tokens(self, token_address: str, to: str, value: int, contract_method: str = "mintFor") -> Dict[str, str]:
         """Mint tokens.
@@ -258,5 +255,5 @@ class Client:
         :params: contract_method (str) (optional) default=mintFor choices: mint, mintFor, increaseSupply
         :returns: transaction_hash
         """
-        plugin = MintTokensPlugin(token_address=token_address, to=to, value=value, contract_method=contract_method)
-        return plugin.raiden_node_api_interact(self.endpoint)
+        endpoint = MintTokens(token_address=token_address, to=to, value=value, contract_method=contract_method)
+        return endpoint.raiden_node_api_interact(self.endpoint)

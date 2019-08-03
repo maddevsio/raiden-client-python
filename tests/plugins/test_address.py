@@ -1,8 +1,8 @@
-from raiden_client.plugins.v1.address import AddressPlugin
+from raiden_client.endpoints.v1.address import Address
 
 
 def test_address() -> None:
-    address = AddressPlugin()
+    address = Address()
     assert address.endpoint == "/address"
     assert address.method == "get"
     assert not address.payload()

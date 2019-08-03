@@ -1,8 +1,8 @@
-from raiden_client.plugins.v1.payment import PaymentPlugin
+from raiden_client.endpoints.v1.payment import Payment
 
 
-def test_payment_request():
-    request = PaymentPlugin(
+def test_payment_request() -> None:
+    request = Payment(
         token_address="0x145737846791E749f96344135Ce211BE8C510a17",
         target_address="0xCcAbA1b954F29b3daD93A9f846f6356692154500",
         amount=10,
@@ -14,8 +14,8 @@ def test_payment_request():
     assert "identifier" not in payload
 
 
-def test_payment_request_identifier():
-    req = PaymentPlugin(
+def test_payment_request_identifier() -> None:
+    req = Payment(
         token_address="0x145737846791E749f96344135Ce211BE8C510a17",
         target_address="0xCcAbA1b954F29b3daD93A9f846f6356692154500",
         amount=10,

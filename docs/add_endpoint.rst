@@ -9,11 +9,11 @@ Create new endpoint interface
 
 1. Create new plugin file at **raiden_client/plugins/**
 
-2. Implement BasePlugin interface
+2. Implement BaseV1Endpoint interface
 
 .. code-block:: python
 
-    class AddressPlugin(BasePlugin):
+    class AddressEndpoint(BaseV1Endpoint):
         """Title
 
         Description
@@ -38,7 +38,7 @@ Create new endpoint interface
         def payload(self) -> Dict[str, Any]:
             return {}
 
-        def parse_response(self, response) -> Dict[str, Any]:
+        def from_dict(self, response) -> Dict[str, Any]:
             if "our_address" in response:
                 self.our_address = response["our_address"]
 
@@ -72,7 +72,7 @@ at **CLIENT_PLUGINS_V1**
         :params: token_address (address) (optional) Returns the address of token network for the given token
         :returns: list of addresses (or address if toke_address param passed)
         """
-        plugin = TokensPlugin(token_address=token_address)
+        plugin = TokensEndpoint(token_address=token_address)
         return plugin.raiden_node_api_interact(self.endpoint)
 
 5. Write corresponding test to be sure that interface interact in

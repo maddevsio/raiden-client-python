@@ -2,7 +2,7 @@ import argparse
 
 import argcomplete
 
-from raiden_client.plugins.register import plugins_registry_v1
+from raiden_client.cli import create_subparsers
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -13,9 +13,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--version", default="v1", help="API version")
 
     subparsers = parser.add_subparsers()
-    for plugin in plugins_registry_v1():
-        plugin.configure_parser(parser, subparsers)
-
+    create_subparsers(parser, subparsers)
     argcomplete.autocomplete(parser)
     return parser
 

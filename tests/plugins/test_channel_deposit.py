@@ -1,8 +1,8 @@
-from raiden_client.plugins.v1.channel_deposit import ChannelDepositPlugin
+from raiden_client.endpoints.v1.channel_deposit import ChannelDeposit
 
 
 def test_channel_deposit_request() -> None:
-    request = ChannelDepositPlugin(
+    request = ChannelDeposit(
         token_address="0x145737846791E749f96344135Ce211BE8C510a17",
         partner_address="0xCcAbA1b954F29b3daD93A9f846f6356692154500",
         total_deposit=2000,
