@@ -1,4 +1,4 @@
-# Raiden Node Python Client
+# Raiden Python Client
 [![Mad Devs](https://mdbadge.glitch.me/mdrw.svg)](https://maddevs.io)
 [![CircleCI](https://circleci.com/gh/maddevsio/raiden-client-python.svg?style=svg)](https://circleci.com/gh/maddevsio/raiden-client-python)
 [![Maintainability](https://api.codeclimate.com/v1/badges/07b3c04b8ad89893b943/maintainability)](https://codeclimate.com/github/maddevsio/raiden-client-python/maintainability)
