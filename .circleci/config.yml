@@ -85,11 +85,16 @@ workflows:
   version: 2
   build:
     jobs:
-      - unittests
+      - unittests:
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
       - integration-tests:
           filters:
             branches:
               only: master
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
       - pypi_release:
           filters:
             branches:
