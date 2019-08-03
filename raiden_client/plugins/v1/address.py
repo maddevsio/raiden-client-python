@@ -33,7 +33,8 @@ class AddressPlugin(BasePlugin):
         return {}
 
     def parse_response(self, response) -> Dict[str, Any]:
-        self.our_address = response
+        if "our_address" in response:
+            self.our_address = response["our_address"]
 
     def to_dict(self):
         return {"our_address": self.our_address}
@@ -41,10 +42,11 @@ class AddressPlugin(BasePlugin):
     @classmethod
     def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
         address = subparser.add_parser("address", help="Query node address")
-        address.set_defaults(func=cls.address_func)
+        address.set_defaults(func=cls.parser_function)
 
     @classmethod
-    def address_func(cls, args: Namespace) -> None:
-        plugin = cls()
-        output = plugin.raiden_node_api_interact(args.endpoint)
+    def parser_function(cls, args: Namespace) -> None:
+        address = cls()
+        address.raiden_node_api_interact(args.endpoint)
+        output = address.to_dict()
         print(json.dumps(output, indent=2))

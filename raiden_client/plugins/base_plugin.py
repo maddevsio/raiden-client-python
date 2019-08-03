@@ -28,17 +28,17 @@ class BasePlugin(ABC):
         pass
 
     @abstractmethod
-    def payload(self) -> None:
+    def payload(self) -> Dict[str, Any]:
         pass
 
     @abstractmethod
-    def parse_response(self, response: Any) -> None:
-        pass
+    def parse_response(self, response: Dict[str, Any]) -> None:
+        raise NotImplementedError()
 
     @classmethod
     @abstractclassmethod
     def configure_parser(cls, arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
-        pass
+        raise NotImplementedError()
 
     @classmethod
     def validate_status_code(cls, status_code: int, text: str) -> int:
@@ -46,13 +46,13 @@ class BasePlugin(ABC):
             raise ResponseStatusCodeException(f"HTTP {status_code}: {text}")
         return status_code
 
-    def url(self, host) -> str:
+    def url(self, host: str) -> str:
         return f"{host}api/{self.version}{self.endpoint}"
 
-    def raiden_node_api_interact(self, host) -> Dict[str, Any]:
+    def raiden_node_api_interact(self, host: str) -> Dict[str, Any]:
         resp = requests.request(method=self.method, url=self.url(host), json=self.payload())
         self.validate_status_code(resp.status_code, resp.text)
-        return {"response": resp.json()}
+        return self.parse_response(resp.json())
 
     def _normalize_address(self, address: str) -> str:
         """Normalize address to EIP55 standard."""

@@ -1,17 +1,18 @@
 import json
 from argparse import ArgumentParser, Namespace, _SubParsersAction
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from raiden_client.plugins import BasePlugin
 
 
 class TokensPlugin(BasePlugin):
-    """Registers a token.
-    If a token is not registered yet (i.e.: A token network for that token does not exist in the registry),
-    we need to register it by deploying a token network contract for that token.
+    """Returns a list of addresses of all registered tokens.
 
-    PUT /api/(version)/tokens/(token_address)
-    Doc: https://raiden-network.readthedocs.io/en/latest/rest_api.html#deploying
+    GET /api/(version)/tokens
+    https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens
+
+    GET /api/(version)/tokens/(token_address)
+    https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens-(token_address)
     """
 
     tokens = None
@@ -38,10 +39,10 @@ class TokensPlugin(BasePlugin):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def parse_response(self, response) -> Dict[str, Any]:
+    def parse_response(self, response: Dict[str, Any]) -> Dict[str, Any]:
         self.tokens = response
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, List[str]]:
         return {"tokens": self.tokens}
 
     @classmethod
