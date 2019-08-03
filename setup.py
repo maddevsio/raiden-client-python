@@ -27,18 +27,34 @@ deps["docs"] = (deps["raiden"], deps["docs"])
 
 install_requires = deps["raiden"]
 
+
+with open('README.md', 'r')as f:
+    readme_content = f.read()
+
+
 setup(
     name="raiden-client",
     author="Aleksandr Sobolev",
     author_email="thesobolev@gmail.com",
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3 :: Only"
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+    ],
     description="Python client library Raiden API",
-    license="MIT",
+    license="MIT license",
     extras_require=deps,
+    long_description=readme_content,
     install_requires=install_requires,
     include_package_data=True,
     keywords="raiden",
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/maddevsio/raiden-python-client",
-    version="0.0.3",
+    version="0.0.4",
     entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
 )
