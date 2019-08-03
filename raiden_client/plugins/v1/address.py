@@ -49,4 +49,4 @@ class AddressPlugin(BasePlugin):
         address = cls()
         address.raiden_node_api_interact(args.endpoint)
         output = address.to_dict()
-        print(json.dumps(output, indent=2))
+        print(json.dumps(output["our_address"], indent=2))

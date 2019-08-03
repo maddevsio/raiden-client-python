@@ -54,5 +54,6 @@ class TokensPlugin(BasePlugin):
     @classmethod
     def plugin_execute(cls, args: Namespace) -> None:
         plugin = cls(args.token_address)
-        output = plugin.raiden_node_api_interact(args.endpoint)
-        print(json.dumps(output, indent=2))
+        plugin.raiden_node_api_interact(args.endpoint)
+        output = plugin.to_dict()
+        print(json.dumps(output["tokens"], indent=2))

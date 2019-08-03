@@ -1,5 +1,7 @@
 import argparse
 
+import argcomplete
+
 from raiden_client.plugins.register import plugins_registry_v1
 
 
@@ -14,6 +16,7 @@ def create_parser() -> argparse.ArgumentParser:
     for plugin in plugins_registry_v1():
         plugin.configure_parser(parser, subparsers)
 
+    argcomplete.autocomplete(parser)
     return parser
 
 

@@ -6,6 +6,7 @@ deps = {
         "requests>=2.22.0,<2.23.0",
         "mypy-extensions>=0.4.1,<0.5.0",
         "eth-hash[pycryptodome]>=0.2.0,<0.3.0",
+        "argcomplete>=1.10.0,<2",
         # Replace web3 later
         "web3==4.9.1",
     ],
@@ -16,7 +17,10 @@ deps = {
         "pytest-cov>=2.7.1,<2.8.0",
         "pytest-mypy>=0.3.3,<0.4.0",
     ],
-    "docs": ["sphinx-argparse>=0.2.5,<0.3.0", "sphinx-autodoc-typehints>=1.7.0,<1.8.0"],
+    "docs": [
+        "sphinx-argparse>=0.2.5,<0.3.0",
+        "sphinx-autodoc-typehints>=1.7.0,<1.8.0"
+    ],
 }
 
 deps["docs"] = (deps["raiden"], deps["docs"])
