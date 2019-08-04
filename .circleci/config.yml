@@ -33,48 +33,6 @@ jobs:
           name: Run isort
           command: . venv/bin/activate &&  isort . --recursive -c -l 120 --skip venv/
 
-  # integration-tests:
-  #   docker:
-  #     - image: circleci/python:3.7.3
-
-  #   steps:
-  #     - checkout
-
-  #     - restore_cache:
-  #         keys:
-  #           - v1-cache-{{ checksum "setup.py" }}
-  #           - v1-cache-
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           python3 -m venv venv
-  #           . venv/bin/activate
-  #           pip install -e .[dev]
-  #     - save_cache:
-  #         paths:
-  #           - ./venv
-  #         key: v1-cache-{{ checksum "setup.py" }}
-
-  #     - run:
-  #         background: true
-  #         name: Spin-up of Raiden node
-  #         command: |
-  #             . venv/bin/activate 
-  #             pip install raiden==0.100.3
-  #             raiden --accept-disclaimer \
-  #                    --keystore-path  ~/project/tests/fixtures/rinkeby/keystore \
-  #                    --eth-rpc-endpoint "https://rinkeby.infura.io/v3/${INFURA_TOKEN}" \
-  #                    --network-id rinkeby \
-  #                    --environment-type development \
-  #                    --address 0xe59a5927cbB5007ffF0384244354b158464C47d3 \
-  #                    --password-file ~/project/tests/fixtures/rinkeby/password.txt
-  #     - run:
-  #         name: Waiting Raiden node to spin-up
-  #         command: sleep 30s
-  #     - run:
-  #         name: Run integration tests
-  #         command: . venv/bin/activate && pytest --cov=./raiden_client && codecov --token=$CODECOV_TOKEN
-
   pypi_release:
     docker:
       - image: circleci/python:3.7.3
@@ -100,12 +58,6 @@ workflows:
           filters:
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
-      # - integration-tests:
-      #     filters:
-      #       branches:
-      #         only: master
-      #       tags:
-      #         only: /v[0-9]+(\.[0-9]+)*/
       - pypi_release:
           filters:
             branches:
@@ -114,4 +66,3 @@ workflows:
               only: /v[0-9]+(\.[0-9]+)*/
           requires:
             - unittests
-            # - integration-tests
