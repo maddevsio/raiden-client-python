@@ -55,5 +55,5 @@ def main() -> None:
 
     args = main_parser.parse_args()
     if hasattr(args, "func"):
-        return args.func(args)
+        return args.func(args)  # pragma: no cover (Covered via endpoint specific tests)
     return main_parser.print_help()
