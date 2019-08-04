@@ -26,7 +26,7 @@ class Address(BaseEndpoint):
     def method(self) -> str:
         return "get"
 
-    def payload(self) -> Dict[str, Any]:
+    def payload(self) -> Dict[str, str]:
         return {}
 
     def from_dict(self, response: Dict[str, Any]) -> None:

@@ -15,6 +15,7 @@ Create new endpoint interface
 
     class Address(BaseEndpoint):
         """Querying Information About Your Raiden Node"""
+        # TODO: Describe each method/parameter
         our_address = None
 
         @property
@@ -37,6 +38,7 @@ Create new endpoint interface
 
         def to_dict(self) -> Dict[str, str]:
             return {"our_address": self.our_address}
+
 
 
 3. Add new method at Client interface: **raiden_client/interfaces/client.py**
