@@ -5,7 +5,7 @@ from raiden_client.endpoints import BaseEndpoint
 
 
 class ChannelWithdraw(BaseEndpoint):
-    """Increase the deposit in channel.
+    """Withdraw tokens.
 
     PATCH /api/(version)/channels/(token_address)/(partner_address)
     """

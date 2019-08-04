@@ -6,7 +6,8 @@ Welcome to Raiden Client's documentation!
     :caption: Client usage
 
     installation
-    usage
+    usage_client
+    usage_cli
     client
     cli
 
