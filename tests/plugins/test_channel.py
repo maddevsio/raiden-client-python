@@ -8,4 +8,5 @@ def test_channel() -> None:
     )
     assert channel.endpoint == f"/channels/{channel.token_address}/{channel.partner_address}"
     assert channel.method == "get"
+    assert channel.name == "channel"
     assert not channel.payload()

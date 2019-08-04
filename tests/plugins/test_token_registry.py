@@ -6,4 +6,5 @@ def test_registry_token_request() -> None:
     request = TokenRegister(token_address=token_address)
     assert request.endpoint == f"/tokens/{token_address}"
     assert request.method == "put"
+    assert request.name == "token-register"
     assert not request.payload()

@@ -9,6 +9,7 @@ def test_mint_tokens_request() -> None:
     )
     assert request.endpoint == f"/_testing/tokens/{request.token_address}/mint"
     assert request.method == "post"
+    assert request.name == "mint-tokens"
     payload = request.payload()
     assert "to" in payload
     assert "value" in payload

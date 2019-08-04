@@ -9,6 +9,7 @@ def test_channel_withdraw_request() -> None:
     )
     assert request.endpoint == f"/channels/{request.token_address}/{request.partner_address}"
     assert request.method == "patch"
+    assert request.name == "channel-withdraw"
 
     payload = request.payload()
     assert "total_withdraw" in payload

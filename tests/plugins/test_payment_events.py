@@ -8,4 +8,5 @@ def test_payment_events_request() -> None:
     )
     assert request.endpoint == f"/payments/{request.token_address}/{request.target_address}"
     assert request.method == "get"
+    assert request.name == "payment-events"
     assert not request.payload()

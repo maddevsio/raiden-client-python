@@ -18,7 +18,7 @@ class ChannelDeposit(BaseEndpoint):
 
     @property
     def name(self) -> str:
-        return "channel"
+        return "deposit-increase"
 
     @property
     def endpoint(self) -> str:

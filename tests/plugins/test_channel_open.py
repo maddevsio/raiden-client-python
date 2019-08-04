@@ -10,6 +10,7 @@ def test_channel_open_request() -> None:
     )
     assert request.endpoint == "/channels"
     assert request.method == "put"
+    assert request.name == "channel-open"
     assert "token_address" in request.payload()
     assert "partner_address" in request.payload()
     assert "total_deposit" in request.payload()

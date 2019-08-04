@@ -21,8 +21,8 @@ class Connect(BaseEndpoint):
         self.initial_channel_target = initial_channel_target
         self.joinable_funds_target = joinable_funds_target
 
-    @classmethod
-    def name(cls) -> str:
+    @property
+    def name(self) -> str:
         return "connect"
 
     @property

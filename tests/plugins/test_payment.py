@@ -9,6 +9,7 @@ def test_payment_request() -> None:
     )
     assert request.endpoint == f"/payments/{request.token_address}/{request.target_address}"
     assert request.method == "post"
+    assert request.name == "payment"
     payload = request.payload()
     assert "amount" in payload
     assert "identifier" not in payload

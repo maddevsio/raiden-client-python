@@ -5,6 +5,7 @@ def test_pending_transfers() -> None:
     request = PendingTransfers()
     assert request.endpoint == "/pending_transfers"
     assert request.method == "get"
+    assert request.name == "pending-transfers"
     assert not request.payload()
 
 

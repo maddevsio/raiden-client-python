@@ -5,6 +5,7 @@ def test_tokens() -> None:
     request = Tokens()
     assert request.endpoint == "/tokens"
     assert request.method == "get"
+    assert request.name == "tokens"
     assert not request.payload()
 
 
