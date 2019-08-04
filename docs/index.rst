@@ -10,14 +10,14 @@ Welcome to Raiden Client's documentation!
     usage_cli
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     :caption: API
 
     client
     cli
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     :caption: Development
 
     add_endpoint
