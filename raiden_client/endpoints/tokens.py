@@ -35,8 +35,8 @@ class Tokens(BaseEndpoint):
     def payload(self) -> Dict[str, Any]:
         return {}
 
-    def from_dict(self, response: Dict[str, List[str]]) -> None:
-        self.tokens = response["tokens"]
+    def from_dict(self, response: List[str]) -> None:
+        self.tokens = response
 
     def to_dict(self) -> Dict[str, List[str]]:
         return {"tokens": self.tokens}
