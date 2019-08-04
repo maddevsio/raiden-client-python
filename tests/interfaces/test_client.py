@@ -8,10 +8,6 @@ from raiden_client import Client
 client = Client()
 
 
-def test_is_disconnected() -> None:
-    assert not client.is_connected
-
-
 @mock.patch.object(requests, 'request')
 def test_client_is_connected(mocked) -> None:
     mockresponse = mocked.Mock()
