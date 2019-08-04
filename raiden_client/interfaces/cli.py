@@ -28,28 +28,32 @@ CLI_ENDPOINTS = [
 def create_subparsers(parser: argparse.ArgumentParser, subparser: argparse._SubParsersAction) -> None:
     for plugin in CLI_ENDPOINTS:
         module = importlib.import_module(plugin)
-        module.configure_parser(parser, subparser) # type: None
+        module.configure_parser(parser, subparser)  # type: None
 
 
-def create_parser() -> argparse.ArgumentParser:
+def create_main_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Raiden python client CLI",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument("--endpoint", default="http://127.0.0.1:5001/", help="REST API endpoint")
     parser.add_argument("--version", default="v1", help="API version")
-
-    subparsers = parser.add_subparsers()
-    create_subparsers(parser, subparsers)
-    argcomplete.autocomplete(parser)
     return parser
 
 
+def create_parser() -> argparse.ArgumentParser:
+    main_parser = create_main_parser()
+
+    subparsers = main_parser.add_subparsers()
+    create_subparsers(main_parser, subparsers)
+    return main_parser
+
+
 def main() -> None:
-    parser = create_parser()
-    args = parser.parse_args()
+    main_parser = create_parser()
+    argcomplete.autocomplete(main_parser)
+
+    args = main_parser.parse_args()
     if hasattr(args, "func"):
-        # TODO: make stdout looks better
-        print(args.func(args))
-        return
-    return parser.print_help()
+        return args.func(args)
+    return main_parser.print_help()
