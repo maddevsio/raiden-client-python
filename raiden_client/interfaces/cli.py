@@ -3,7 +3,6 @@ import importlib
 
 import argcomplete
 
-
 CLI_ENDPOINTS = [
     "raiden_client.interfaces.cli_commands.address",
     "raiden_client.interfaces.cli_commands.channel_close",

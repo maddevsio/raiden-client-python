@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 from raiden_client.endpoints.address import Address
 from raiden_client.endpoints.channel import Channel
@@ -17,16 +17,8 @@ from raiden_client.endpoints.payment_events import PaymentEvents
 from raiden_client.endpoints.pending_transfers import PendingTransfers
 from raiden_client.endpoints.token_registry import TokenRegister
 from raiden_client.endpoints.tokens import Tokens
-from raiden_client.types import (
-    ChannelType,
-    ConnectionType,
-    PaymentType,
-    PaymentEvent,
-    PendingTransfer,
-)
-
 from raiden_client.raiden_api import RaidenAPI
-
+from raiden_client.types import ChannelType, ConnectionType, PaymentEvent, PaymentType, PendingTransfer
 
 default_endpoint = "http://127.0.0.1:5001/"
 

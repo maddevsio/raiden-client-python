@@ -1,8 +1,8 @@
-import sys
-import importlib
 import argparse
+import importlib
+import sys
 
-from raiden_client.interfaces.cli import main, CLI_ENDPOINTS
+from raiden_client.interfaces.cli import CLI_ENDPOINTS, main
 
 
 def test_cli() -> None:

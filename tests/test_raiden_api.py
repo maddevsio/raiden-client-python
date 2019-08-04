@@ -1,11 +1,11 @@
 from unittest import mock
-import requests
-import pytest
 
+import pytest
+import requests
+
+from raiden_client.endpoints.address import Address
 from raiden_client.exceptions import ResponseStatusCodeException
 from raiden_client.raiden_api import RaidenAPI
-from raiden_client.endpoints.address import Address
-
 
 raiden_api = RaidenAPI(endpoint="http://127.0.0.1:5001", version="v1")
 

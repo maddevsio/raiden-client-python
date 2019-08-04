@@ -1,6 +1,7 @@
-import requests
-from urllib.parse import urljoin
 from typing import Any, Dict
+from urllib.parse import urljoin
+
+import requests
 
 from raiden_client.endpoints import BaseEndpoint
 from raiden_client.exceptions import ResponseStatusCodeException

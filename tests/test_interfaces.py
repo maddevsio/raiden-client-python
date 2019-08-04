@@ -4,10 +4,8 @@ from unittest import mock
 import requests
 
 from raiden_client import Client
-
-from raiden_client.interfaces.cli import CLI_ENDPOINTS, create_main_parser
 from raiden_client.interfaces import cli_commands
-
+from raiden_client.interfaces.cli import CLI_ENDPOINTS, create_main_parser
 
 client = Client()
 
