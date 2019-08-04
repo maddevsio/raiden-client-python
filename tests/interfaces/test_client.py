@@ -9,6 +9,17 @@ client = Client()
 
 
 @mock.patch.object(requests, 'request')
+def test_client_disconnected(mocked) -> None:
+    mockresponse = mocked.Mock()
+    mocked.return_value = mockresponse
+    mockresponse.status_code = 500
+    mockresponse.text = "OK"
+    mockresponse.return_value = {"our_address": "0x123"}
+
+    assert not client.is_connected
+
+
+@mock.patch.object(requests, 'request')
 def test_client_is_connected(mocked) -> None:
     mockresponse = mocked.Mock()
     mocked.return_value = mockresponse
