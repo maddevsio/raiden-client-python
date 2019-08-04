@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Namespace, _SubParsersAction
 
-from raiden_client import Client
+from raiden_client import Client, utils
 
 
 def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
@@ -13,10 +13,11 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
 
 
 def parser_function(args: Namespace) -> None:
-    c = Client()
-    c.connections_connect(
+    client = Client(endpoint=args.endpoint, version=args.version)
+    connection = client.connections_connect(
         token_address=args.token_address,
         funds=args.funds,
         initial_channel_target=args.initial_channel_target,
         joinable_funds_target=args.joinable_funds_target,
     )
+    return utils.print_stdout(connection)

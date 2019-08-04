@@ -1,18 +1,18 @@
-import sys
 import importlib
-import argparse
 from unittest import mock
 
 import requests
 
 from raiden_client import Client
 
-from raiden_client.interfaces.cli import main, CLI_ENDPOINTS, create_main_parser
+from raiden_client.interfaces.cli import CLI_ENDPOINTS, create_main_parser
 from raiden_client.interfaces import cli_commands
 
 
 client = Client()
 
+main_parser = create_main_parser()
+subparsers = main_parser.add_subparsers()
 
 # def test_cli() -> None:
 #     """Simple test which just try to build CLI parser"""
@@ -26,6 +26,7 @@ def test_each_command_has_executor() -> None:
     for plugin in CLI_ENDPOINTS:
         module = importlib.import_module(plugin)
         assert hasattr(module, "configure_parser")
+        assert hasattr(module, "parser_function")
 
 
 @mock.patch.object(requests, 'request')
@@ -66,8 +67,6 @@ def test_client_address(mocked) -> None:
     assert "our_address" in output
     assert output["our_address"] == "0x123"
 
-    main_parser = create_main_parser()
-    subparsers = main_parser.add_subparsers()
     cli_commands.address.configure_parser(main_parser, subparsers)
 
     args = main_parser.parse_args(["address"])
@@ -91,8 +90,6 @@ def test_client_tokens(mocked) -> None:
     assert "tokens" in output
     assert len(output["tokens"]) > 0
 
-    main_parser = create_main_parser()
-    subparsers = main_parser.add_subparsers()
     cli_commands.tokens.configure_parser(main_parser, subparsers)
 
     args = main_parser.parse_args(["tokens"])
@@ -117,6 +114,17 @@ def test_client_tokens_filtered(mocked) -> None:
     assert "tokens" in output
     assert len(output["tokens"]) > 0
 
+    cli_commands.tokens.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "tokens",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+    ])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_non_settled_partners(mocked) -> None:
@@ -136,6 +144,17 @@ def test_client_non_settled_partners(mocked) -> None:
     assert "non_settled_partners" in output
     assert len(output["non_settled_partners"]) > 0
 
+    cli_commands.non_settled_partners.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "non-settled",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+    ])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_channels(mocked) -> None:
@@ -151,6 +170,13 @@ def test_client_channels(mocked) -> None:
     channels = client.channels()
     assert "channels" in channels
 
+    cli_commands.channels.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args(["channels"])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_channels_token(mocked) -> None:
@@ -165,6 +191,17 @@ def test_client_channels_token(mocked) -> None:
     mockresponse.json = json
     channels = client.channels(token_address="0x145737846791E749f96344135Ce211BE8C510a17")
     assert "channels" in channels
+
+    cli_commands.channels.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "channels",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+    ])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -184,6 +221,19 @@ def test_client_channel(mocked) -> None:
     )
     assert "channel" in channel
 
+    cli_commands.channel.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "channel",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--partner-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+    ])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_pending_transfers(mocked) -> None:
@@ -202,6 +252,19 @@ def test_client_pending_transfers(mocked) -> None:
     )
     assert "pending_transfers" in pending_transfers
 
+    cli_commands.pending_transfers.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "pending-transfers",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--partner-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+    ])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_token_register(mocked) -> None:
@@ -218,6 +281,17 @@ def test_client_token_register(mocked) -> None:
         token_address="0x145737846791E749f96344135Ce211BE8C510a17",
     )
     assert "token_network_address" in token_network_address
+
+    cli_commands.token_registry.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "token-register",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+    ])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -239,6 +313,23 @@ def test_client_channel_open(mocked) -> None:
     )
     assert "channel" in channel
 
+    cli_commands.channel_open.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "channel-open",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--partner-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+        "--settle-timeout",
+        "100",
+        "--total-deposit",
+        "3000",
+    ])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_channel_close(mocked) -> None:
@@ -257,8 +348,6 @@ def test_client_channel_close(mocked) -> None:
     )
     assert "channel" in channel
 
-    main_parser = create_main_parser()
-    subparsers = main_parser.add_subparsers()
     cli_commands.channel_close.configure_parser(main_parser, subparsers)
 
     args = main_parser.parse_args([
@@ -269,6 +358,7 @@ def test_client_channel_close(mocked) -> None:
         "0x145737846791E749f96344135Ce211BE8C510a18",
     ])
     assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -289,6 +379,20 @@ def test_client_increase_deposit(mocked) -> None:
     )
     assert "channel" in channel
 
+    cli_commands.channel_deposit.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "deposit-increase",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--partner-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+        "--total-deposit",
+        "3400",
+    ])
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_increase_withdraw(mocked) -> None:
@@ -308,6 +412,20 @@ def test_client_increase_withdraw(mocked) -> None:
     )
     assert "channel" in channel
 
+    cli_commands.channel_withdraw.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "withdraw-increase",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--partner-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+        "--total-withdraw",
+        "3400",
+    ])
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_connections(mocked) -> None:
@@ -322,6 +440,12 @@ def test_client_connections(mocked) -> None:
     mockresponse.json = json
     connections = client.connections()
     assert "connections" in connections
+
+    cli_commands.connections.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args(["connections"])
+    assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -343,6 +467,22 @@ def test_client_connections_connect(mocked) -> None:
     )
     assert "connection" in connection
 
+    cli_commands.connections_connect.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "connect",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--funds",
+        "3400",
+        "--initial-channel-target",
+        "10",
+        "--joinable-funds-target",
+        "20"
+    ])
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_connections_disconnect(mocked) -> None:
@@ -359,6 +499,16 @@ def test_client_connections_disconnect(mocked) -> None:
         token_address="0x145737846791E749f96344135Ce211BE8C510a17",
     )
     assert "connection" in connection
+
+    cli_commands.connection_disconnect.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "disconnect",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+    ])
+    assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -380,6 +530,22 @@ def test_client_payment(mocked) -> None:
     )
     assert "payment" in payment
 
+    cli_commands.payment.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "payment",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--target-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+        "--amount",
+        "20",
+        "--identifier",
+        "1",
+    ])
+    assert hasattr(args, "func")
+    assert args.func(args)
+
 
 @mock.patch.object(requests, 'request')
 def test_client_payment_events(mocked) -> None:
@@ -397,6 +563,18 @@ def test_client_payment_events(mocked) -> None:
         target_address="0x145737846791E749f96344135Ce211BE8C510a18",
     )
     assert "payment_events" in payment_events
+
+    cli_commands.payment_events.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "payment-events",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--target-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+    ])
+    assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -417,3 +595,19 @@ def test_client_mint_tokens(mocked) -> None:
         contract_method="mint",
     )
     assert "transaction_hash" in transaction_hash
+
+    cli_commands.mint_tokens.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "mint-token",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--to",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+        "--value",
+        "100",
+        "--contract-method",
+        "mint",
+    ])
+    assert hasattr(args, "func")
+    assert args.func(args)

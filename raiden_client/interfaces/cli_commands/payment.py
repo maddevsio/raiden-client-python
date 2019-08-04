@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Namespace, _SubParsersAction
 
-from raiden_client import Client
+from raiden_client import Client, utils
 
 
 def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
@@ -12,11 +12,12 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     payment.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
-    c = Client()
-    c.payment(
+def parser_function(args: Namespace) -> str:
+    client = Client(endpoint=args.endpoint, version=args.version)
+    payment = client.payment(
         token_address=args.token_address,
         target_address=args.target_address,
         amount=args.amount,
         identifier=args.identifier,
     )
+    return utils.print_stdout(payment)

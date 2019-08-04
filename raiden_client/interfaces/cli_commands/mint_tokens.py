@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Namespace, _SubParsersAction
 
-from raiden_client import Client
+from raiden_client import Client, utils
 
 
 def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
@@ -12,11 +12,12 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     mint_tokens.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
-    c = Client()
-    c.mint_tokens(
+def parser_function(args: Namespace) -> str:
+    client = Client(endpoint=args.endpoint, version=args.version)
+    mint_tokens = client.mint_tokens(
         token_address=args.token_address,
         to=args.to,
         value=args.value,
         contract_method=args.contract_method,
     )
+    return utils.print_stdout(mint_tokens)

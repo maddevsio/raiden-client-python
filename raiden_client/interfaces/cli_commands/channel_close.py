@@ -12,8 +12,8 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
 
 def parser_function(args: Namespace) -> str:
     client = Client(endpoint=args.endpoint, version=args.version)
-    client.channel_close(
+    channel = client.channel_close(
         token_address=args.token_address,
         partner_address=args.partner_address,
     )
-    return utils.print_stdout(client)
+    return utils.print_stdout(channel)

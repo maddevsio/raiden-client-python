@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Namespace, _SubParsersAction
 
-from raiden_client import Client
+from raiden_client import Client, utils
 
 
 def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
@@ -11,10 +11,11 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     channel_deposit.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
-    c = Client()
-    c.channel_increase_deposit(
+def parser_function(args: Namespace) -> str:
+    client = Client(endpoint=args.endpoint, version=args.version)
+    channel = client.channel_increase_deposit(
         token_address=args.token_address,
         partner_address=args.partner_address,
         total_deposit=args.total_deposit,
     )
+    return utils.print_stdout(channel)

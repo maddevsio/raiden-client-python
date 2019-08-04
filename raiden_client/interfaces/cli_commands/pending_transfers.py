@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Namespace, _SubParsersAction
 
-from raiden_client import Client
+from raiden_client import Client, utils
 
 
 def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -> None:
@@ -10,9 +10,10 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     pending_transfers.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
-    c = Client()
-    c.pending_transfers(
+def parser_function(args: Namespace) -> str:
+    client = Client(endpoint=args.endpoint, version=args.version)
+    pending_transfers = client.pending_transfers(
         token_address=args.token_address,
         partner_address=args.partner_address,
     )
+    return utils.print_stdout(pending_transfers)
