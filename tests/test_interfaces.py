@@ -1,23 +1,25 @@
 import importlib
+import sys
 from unittest import mock
 
 import requests
 
 from raiden_client import Client
 from raiden_client.interfaces import cli_commands
-from raiden_client.interfaces.cli import CLI_ENDPOINTS, create_main_parser
+from raiden_client.interfaces.cli import CLI_ENDPOINTS, create_main_parser, main
 
 client = Client()
 
 main_parser = create_main_parser()
 subparsers = main_parser.add_subparsers()
 
-# def test_cli() -> None:
-#     """Simple test which just try to build CLI parser"""
-#     # When we run pytest tests/ , tests/ arg passed to CLI,
-#     # So we should remove this argument:
-#     sys.argv.pop()
-#     assert main() is None
+
+def test_cli() -> None:
+    """Simple test which just try to build CLI parser"""
+    # When we run pytest tests/ , tests/ arg passed to CLI,
+    # So we should remove this argument:
+    sys.argv = [sys.argv[0]]
+    assert main() is None
 
 
 def test_each_command_has_executor() -> None:

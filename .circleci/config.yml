@@ -22,7 +22,7 @@ jobs:
           key: v1-cache-{{ checksum "setup.py" }}
       - run:
           name: Run unittests
-          command: . venv/bin/activate && pytest --cov=./raiden_client && codecov --token=$CODECOV_TOKEN
+          command: . venv/bin/activate && pytest --cov=./raiden_client --cov-fail-under=100 && codecov --token=$CODECOV_TOKEN 
       - run:
           name: Run mypy
           command: . venv/bin/activate && mypy -p raiden_client --config-file mypy.ini
