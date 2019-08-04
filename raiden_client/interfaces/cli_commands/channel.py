@@ -10,7 +10,7 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     channel.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
+def parser_function(args: Namespace) -> str:
     client = Client(endpoint=args.endpoint, version=args.version)
     channel = client.channel(
         token_address=args.token_address,

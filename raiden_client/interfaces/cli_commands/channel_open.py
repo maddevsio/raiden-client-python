@@ -14,7 +14,7 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     channel_open.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
+def parser_function(args: Namespace) -> str:
     client = Client(endpoint=args.endpoint, version=args.version)
     channel_open = client.channel_open(
         token_address=args.token_address,

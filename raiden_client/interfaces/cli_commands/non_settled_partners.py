@@ -9,7 +9,7 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     non_settled_partners.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
+def parser_function(args: Namespace) -> str:
     client = Client(endpoint=args.endpoint, version=args.version)
     non_settled_partners = client.non_settled_partners(
         token_address=args.token_address,

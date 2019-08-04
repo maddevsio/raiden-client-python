@@ -28,7 +28,7 @@ CLI_ENDPOINTS = [
 def create_subparsers(parser: argparse.ArgumentParser, subparser: argparse._SubParsersAction) -> None:
     for plugin in CLI_ENDPOINTS:
         module = importlib.import_module(plugin)
-        module.configure_parser(parser, subparser)  # type: None
+        module.configure_parser(parser, subparser)  # type: ignore
 
 
 def create_main_parser() -> argparse.ArgumentParser:

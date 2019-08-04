@@ -12,7 +12,7 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     connect.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
+def parser_function(args: Namespace) -> str:
     client = Client(endpoint=args.endpoint, version=args.version)
     connection = client.connections_connect(
         token_address=args.token_address,

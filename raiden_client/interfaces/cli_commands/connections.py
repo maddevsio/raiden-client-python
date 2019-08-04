@@ -8,7 +8,7 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
     connections.set_defaults(func=parser_function)
 
 
-def parser_function(args: Namespace) -> None:
+def parser_function(args: Namespace) -> str:
     client = Client(endpoint=args.endpoint, version=args.version)
     connection = client.connections()
     return utils.print_stdout(connection)
