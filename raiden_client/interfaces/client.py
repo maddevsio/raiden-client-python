@@ -93,9 +93,9 @@ class Client:
         endpoint = Channel(token_address=token_address, partner_address=partner_address)
         return self.raiden_api.request(endpoint)
 
-    def pending_transfers(
-        self, token_address: str = None, partner_address: str = None
-    ) -> Dict[str, List[PendingTransfer]]:
+    def pending_transfers(self,
+                          token_address: str = None,
+                          partner_address: str = None) -> Dict[str, List[PendingTransfer]]:
         """Returns a list of all transfers that have not been completed yet.
 
         :params: token_address (address) (optional) lime results of pending transfers
@@ -113,9 +113,11 @@ class Client:
         endpoint = TokenRegister(token_address=token_address)
         return self.raiden_api.request(endpoint)
 
-    def channel_open(
-        self, token_address: str, partner_address: str, settle_timeout: int, total_deposit: int
-    ) -> Dict[str, ChannelType]:
+    def channel_open(self,
+                     token_address: str,
+                     partner_address: str,
+                     settle_timeout: int,
+                     total_deposit: int) -> Dict[str, ChannelType]:
         """Opens (i. e. creates) a channel.
 
         :params: partner_address (address) – The partner we want to open a channel with.
@@ -142,9 +144,10 @@ class Client:
         endpoint = ChannelClose(token_address=token_address, partner_address=partner_address)
         return self.raiden_api.request(endpoint)
 
-    def channel_increase_deposit(
-        self, token_address: str, partner_address: str, total_deposit: int
-    ) -> Dict[str, ChannelType]:
+    def channel_increase_deposit(self,
+                                 token_address: str,
+                                 partner_address: str,
+                                 total_deposit: int) -> Dict[str, ChannelType]:
         """Channel increase deposit.
 
         :params: token_address (address)
@@ -229,7 +232,10 @@ class Client:
         :returns: payment dict object
         """
         endpoint = Payment(
-            token_address=token_address, target_address=target_address, amount=amount, identifier=identifier
+            token_address=token_address,
+            target_address=target_address,
+            amount=amount,
+            identifier=identifier,
         )
         return self.raiden_api.request(endpoint)
 
