@@ -47,6 +47,7 @@ class RaidenAPI:
             url=url,
             json=api_endpoint.payload()
         )
+        print(resp.json())
         self.validate_status_code(resp.status_code, resp.text)
         api_endpoint.from_dict(resp.json())
         return api_endpoint.to_dict()

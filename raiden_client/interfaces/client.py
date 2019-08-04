@@ -50,7 +50,7 @@ class Client:
     def address(self) -> Dict[str, str]:
         """Query your address.
 
-        When raiden starts, you choose an ethereum address which will also be your raiden address. 
+        When raiden starts, you choose an ethereum address which will also be your raiden address.
         """
         endpoint = Address()
         return self.raiden_api.request(endpoint)
@@ -108,7 +108,7 @@ class Client:
     def token_register(self, token_address: str) -> Dict[str, str]:
         """Registers a token.
         :params: token_address (str)
-        :returns token_network_address (address) – The deployed token networks address.    
+        :returns token_network_address (address) – The deployed token networks address.
         """
         endpoint = TokenRegister(token_address=token_address)
         return self.raiden_api.request(endpoint)
@@ -157,7 +157,10 @@ class Client:
         )
         return self.raiden_api.request(endpoint)
 
-    def channel_increase_withdraw(self, token_address: str, partner_address: str, total_withdraw: int) -> Dict[str, ChannelType]:
+    def channel_increase_withdraw(self,
+                                  token_address: str,
+                                  partner_address: str,
+                                  total_withdraw: int) -> Dict[str, ChannelType]:
         """Channel increase withdraw.
 
         :params: token_address (address)
@@ -212,9 +215,11 @@ class Client:
         endpoint = Disconnect(token_address=token_address)
         return self.raiden_api.request(endpoint)
 
-    def payment(
-        self, token_address: str, target_address: str, amount: int, identifier: int = None
-    ) -> Dict[str, PaymentType]:
+    def payment(self,
+                token_address: str,
+                target_address: str,
+                amount: int,
+                identifier: int = None) -> Dict[str, PaymentType]:
         """Initiate a payment.
 
         :params: token_address (address)
