@@ -37,7 +37,7 @@ setup(
     author="Aleksandr Sobolev",
     author_email="thesobolev@gmail.com",
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
@@ -56,6 +56,6 @@ setup(
     keywords="raiden",
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/maddevsio/raiden-python-client",
-    version="0.0.9",
+    version="1.0.0",
     entry_points={"console_scripts": ["raiden-cli=raiden_client.interfaces.cli:main"]},
 )
