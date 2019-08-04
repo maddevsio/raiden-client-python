@@ -8,6 +8,11 @@ Welcome to Raiden Client's documentation!
     installation
     usage_client
     usage_cli
+
+.. toctree::
+    :maxdepth: 2
+    :caption: API
+
     client
     cli
 
@@ -16,6 +21,7 @@ Welcome to Raiden Client's documentation!
     :caption: Development
 
     add_endpoint
+    contribution
 
 
 

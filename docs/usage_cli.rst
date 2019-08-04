@@ -1,5 +1,5 @@
-Command Line Interface Usage
-============================
+Command Line Interface
+======================
 
 Meta queries
 ------------

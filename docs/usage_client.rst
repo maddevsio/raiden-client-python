@@ -1,5 +1,5 @@
-Client API usage
-================
+Client API
+==========
 
 
 Meta queries
