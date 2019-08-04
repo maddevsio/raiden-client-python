@@ -9,6 +9,6 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
 
 
 def parser_function(args: Namespace) -> str:
-    client = Client()
+    client = Client(endpoint=args.endpoint, version=args.version)
     address = client.address()
-    return utils.print_stdout(address)
+    return utils.print_stdout(address["our_address"])

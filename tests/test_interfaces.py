@@ -1,11 +1,31 @@
+import sys
+import importlib
+import argparse
 from unittest import mock
 
 import requests
 
 from raiden_client import Client
 
+from raiden_client.interfaces.cli import main, CLI_ENDPOINTS, create_main_parser
+from raiden_client.interfaces import cli_commands
+
 
 client = Client()
+
+
+# def test_cli() -> None:
+#     """Simple test which just try to build CLI parser"""
+#     # When we run pytest tests/ , tests/ arg passed to CLI,
+#     # So we should remove this argument:
+#     sys.argv.pop()
+#     assert main() is None
+
+
+def test_each_command_has_executor() -> None:
+    for plugin in CLI_ENDPOINTS:
+        module = importlib.import_module(plugin)
+        assert hasattr(module, "configure_parser")
 
 
 @mock.patch.object(requests, 'request')
@@ -42,9 +62,17 @@ def test_client_address(mocked) -> None:
 
     mockresponse.json = json
 
-    address = client.address()
-    assert "our_address" in address
-    assert address["our_address"] == "0x123"
+    output = client.address()
+    assert "our_address" in output
+    assert output["our_address"] == "0x123"
+
+    main_parser = create_main_parser()
+    subparsers = main_parser.add_subparsers()
+    cli_commands.address.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args(["address"])
+    assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -59,9 +87,18 @@ def test_client_tokens(mocked) -> None:
 
     mockresponse.json = json
 
-    tokens = client.tokens()
-    assert "tokens" in tokens
-    assert len(tokens["tokens"]) > 0
+    output = client.tokens()
+    assert "tokens" in output
+    assert len(output["tokens"]) > 0
+
+    main_parser = create_main_parser()
+    subparsers = main_parser.add_subparsers()
+    cli_commands.tokens.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args(["tokens"])
+
+    assert hasattr(args, "func")
+    assert args.func(args)
 
 
 @mock.patch.object(requests, 'request')
@@ -76,9 +113,9 @@ def test_client_tokens_filtered(mocked) -> None:
 
     mockresponse.json = json
 
-    tokens = client.tokens(token_address="0x145737846791E749f96344135Ce211BE8C510a17")
-    assert "tokens" in tokens
-    assert len(tokens["tokens"]) > 0
+    output = client.tokens(token_address="0x145737846791E749f96344135Ce211BE8C510a17")
+    assert "tokens" in output
+    assert len(output["tokens"]) > 0
 
 
 @mock.patch.object(requests, 'request')
@@ -95,9 +132,9 @@ def test_client_non_settled_partners(mocked) -> None:
 
     mockresponse.json = json
 
-    tokens = client.non_settled_partners(token_address="0x145737846791E749f96344135Ce211BE8C510a17")
-    assert "non_settled_partners" in tokens
-    assert len(tokens["non_settled_partners"]) > 0
+    output = client.non_settled_partners(token_address="0x145737846791E749f96344135Ce211BE8C510a17")
+    assert "non_settled_partners" in output
+    assert len(output["non_settled_partners"]) > 0
 
 
 @mock.patch.object(requests, 'request')
@@ -219,6 +256,19 @@ def test_client_channel_close(mocked) -> None:
         partner_address="0x145737846791E749f96344135Ce211BE8C510a18",
     )
     assert "channel" in channel
+
+    main_parser = create_main_parser()
+    subparsers = main_parser.add_subparsers()
+    cli_commands.channel_close.configure_parser(main_parser, subparsers)
+
+    args = main_parser.parse_args([
+        "channel-close",
+        "--token-address",
+        "0x145737846791E749f96344135Ce211BE8C510a17",
+        "--partner-address",
+        "0x145737846791E749f96344135Ce211BE8C510a18",
+    ])
+    assert hasattr(args, "func")
 
 
 @mock.patch.object(requests, 'request')

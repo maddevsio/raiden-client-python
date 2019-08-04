@@ -10,6 +10,6 @@ def configure_parser(arg_parser: ArgumentParser, subparser: _SubParsersAction) -
 
 
 def parser_function(args: Namespace) -> str:
-    client = Client(endpoint=args.endpoint, version=args.verion)
+    client = Client(endpoint=args.endpoint, version=args.version)
     tokens = client.tokens(token_address=args.token_address)
     return utils.print_stdout(tokens)
