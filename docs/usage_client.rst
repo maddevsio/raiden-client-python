@@ -8,6 +8,9 @@ Meta queries
 Check if node is connected
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Try to query **/address** endpoint, if it is fails, assume that
+Raiden Node is not available.
+
 .. code-block:: python
 
     from raiden_client import Client
@@ -19,6 +22,12 @@ Check if node is connected
 
 Query node address
 ~~~~~~~~~~~~~~~~~~
+Query your address. When raiden starts, you choose an ethereum address
+which will also be your raiden address
+
+`Raiden Rest API documentation
+<https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-address>`_
+
 
 .. code-block:: python
 
@@ -34,6 +43,10 @@ Channel Management
 
 Get a list of all unsettled channels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`Raiden Rest API documentation
+<https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-channels>`_
+
 .. code-block:: python
 
     from raiden_client import Client
